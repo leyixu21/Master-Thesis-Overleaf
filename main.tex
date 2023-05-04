@@ -22,6 +22,7 @@
 \usepackage[⟨options⟩]{fancyhdr}
 \usepackage{parskip}
 \usepackage{adjustbox}
+\usepackage{threeparttable}
 \usepackage{chngcntr}
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
@@ -45,6 +46,7 @@
 \newacronym{tmt}{TMT}{Stanford Topic Modeling Toolbox}
 \newacronym{poi}{POI}{Point of Interest}
 \newacronym{api}{API}{Application Programming Interface}
+\newacronym{lbs}{LBS}{Location-based services}
 \newacronym{aoi}{AOI}{Areas of Interest}
 \newacronym{dbscan}{DBSCAN}{Density-Based Spatial Clustering of Applications with Noise}
 \newacronym{tfidf}{TF-IDF}{Term Frequency-Inverse Document Frequency}
@@ -155,31 +157,56 @@ Distinguishing between locals and tourists is crucial when investigating how dif
 \subsection{Place}
 % ====================== | Place Conceptualization | ======================
 \subsubsection{Place Conceptualization}
-City perception can be shaped by individuals' perceptions of various places. To explore place-based perception, the first step is to conceptualize the place. According to \cite{tuan_place_1975}, place is created by human beings for human purposes, and it encompasses not only geometrical and ideographic perspectives but also an experiential perspective. It is important to distinguish between space and place. Space is defined as a continuous and unrestricted area that can be free to use or occupied, moreover, it is abstract and lacks content. While place is a segment of geographical space loaded with human meaning, offering the potential for human interaction \citep{tuan_place_1975, agnew_space_2011, cresswell_place_2014}. \cite{relph_place_1976} developed an \textit{insideness} scale to illustrate the social relationships of a place, which includes the knowledge of the physical details of place, sense of connection with a community, and a personal connection with place. Moreover, \cite{williams_measurement_2003} employed the place attachment \citep{altman_place_1992} as the scale to identify and measure the meanings of places based on the place identity \citep{proshansky_city_1978,proshansky_place_1983} and place dependence \citep{stokols_people_1981}. As the definition of place has evolved, researchers have contributed to the conceptualization of place dimensions. \cite{jorgensen_comparative_2006} described place with three dimensions: (1) place-specific beliefs, also known as place identity, (2) emotions, or place attachment, and (3) behavioral commitments or place dependence. \cite{agnew_space_2011} conceptualized the place with three dimensions: (1) location, which refers to the physical position of a place represented by its toponym and coordinates, (2) locale, which encompasses the properties and affordance of a place, and (3) sense of place, which is associated with the sentiments and emotions of individuals who visit the place \citep{bahrehdar_description_2018}. It is noteworthy that according to the affordance theory, affordance can shape behavior and guide actions of individuals \citep{gibson_theory_1977}, thus the affordance of place can influence how people perceive it. \cite{wartmann_characterizing_2016,wartmann_describing_2018} refined the aspect of the locale with categories of landscape elements.
+City perception can be shaped by individuals' perceptions of various places. To explore place-based perception, the first step is to conceptualize the place. According to \cite{tuan_place_1975}, place is created by human beings for human purposes, and it encompasses not only geometrical and ideographic perspectives but also an experiential perspective. It is important to distinguish between space and place. Space is defined as a continuous and unrestricted area that can be free to use or occupied, moreover, it is abstract and lacks content. While place is a segment of geographical space loaded with human meaning, offering the potential for human interaction \citep{tuan_place_1975, agnew_space_2011, cresswell_place_2014}. \cite{relph_place_1976} developed an \textit{insideness} scale to illustrate the social relationships of a place, which includes the knowledge of the physical details of place, sense of connection with a community, and a personal connection with place. Moreover, \cite{williams_measurement_2003} employed the place attachment \citep{altman_place_1992} as the scale to identify and measure the meanings of places based on the place identity \citep{proshansky_city_1978,proshansky_place_1983} and place dependence \citep{stokols_people_1981}. As the definition of place has evolved, researchers have contributed to the conceptualization of place dimensions. \cite{jorgensen_comparative_2006} described place with three dimensions: (1) place-specific beliefs (\textit{place identity}), (2) emotions (\textit{place attachment}), and (3) behavioral commitments \textit{place dependence}. \cite{agnew_space_2011} conceptualized the place with three dimensions: (1) \textit{location}, which refers to the physical position of a place represented by its name and coordinates, (2) \textit{locale}, which encompasses the properties and affordance of a place, and (3) \textit{sense of place}, which is associated with the sentiments and emotions of individuals who visit the place \citep{bahrehdar_description_2018}. It is noteworthy that according to the affordance theory, \textit{affordance} can shape behavior and guide actions of individuals \citep{gibson_theory_1977}, thus the affordance of place can influence how people perceive it. 
 
-% ====================== | Place Categories/Locale | ======================
+% ====================== | Place Dimensions Representation | ======================
+The dimension \textit{location} is typically represented by the toponym. For the dimension \textit{locale}, 
+\cite{wartmann_characterizing_2016,wartmann_describing_2018} have refined it with categories of landscape elements, indicating the possibility of representing this dimension with place categories. \cite{koirala_social_2015} categorized places based on tourism ontologies, which include (1) leisure, (2) restaurant, (3) attraction, (4) emergency service, (5) transport, (6) accommodation, and (7) other buildings. \cite{liu_stccd_2020} constructed a location category hierarchy tree based on daily purposes, including (1) work/study, (2) food, (3) entertainment, (4) traffic, and (5) live. \acrfull{lbs} providers also categorize places to offer place-related \acrshort{api} for users to search for \acrshort{poi} by category (Table~\ref{tab:lbs_place_categories}). However, these place categories are typically divided based on specific services provided by \acrshort{lbs} providers, and the categorization bias might lead to incomplete categories. For instance, Waze provides services for driving directions and live traffic conditions updates, which means that its place categories tend to be traffic-oriented. Tripadvisor is an online travel agency that provides guidelines for visitors, and it divides places mainly based on where to stay and what to do during a trip. To address this limitation, some studies have modified the place categories provided in \acrshort{lbs} platforms based on their research objectives. For example, in the case of Foursquare check-ins, the place category system is structured hierarchically and there are subcategories under categories. \cite{ferreira_uncovering_2020,yang_identifying_2021} improved the place categories by moving some subcategories into other categories or new categories to gain a better understanding of visitors' behaviors. The dimension \textit{sense of place} is closely linked to people's emotional attachment to the place. Conducting surveys is a way to gather information on people's emotional relationships with places and to understand their positive or negative experiences \citep{manzo_for_2005}. However, surveys can be time-consuming, and \acrshort{ugc} can provide an alternative means of exploring people's relationships with places. \cite{wang_using_2015} utilized Foursquare check-ins to evaluate the performance of four different clustering algorithms in identifying meaningful places. \cite{sui_inferring_2013} applied \acrshort{lda} to georeferenced travel blogs to generate meaningful topics describing places. \cite{hallot_who_2015} combined Google Place reviews and Foursquare check-ins to retrieve place-based semantics, enabling the inference of additional information about users based on their movements.
 
-tourist-functional relations of urban places, venue categories, network graph - Foursquare: \cite{yang_identifying_2021}
-
-Furthermore, places are categorized to discover the relationship between different categories of places. \underline{\cite{liu_stccd_2020}} constructed the location category hierarchy tree based on daily purposes, where the main categories include (1) work/study, (2) food, (3) entertainment, (4) traffic, and (5) live. \cite{koirala_social_2015} categorized places based on tourism ontologies, which include (1) leisure, (2) restaurant, (3) attraction, (4) emergency service, (5) transport, (6) accommodation, and (7) other buildings. Foursquare also provides 10 venue categories, and an increasing number of studies adopt and recategorize the Foursquare venue categories to represent places \cite{ferreira_uncovering_2020,yang_identifying_2021}.
-
-% ====================== | Sense of Place | ======================
-Surveys cab be used to collect people's emotional relationships with places to understand their positive or negative experiences \citep{manzo_for_2005}. \acrshort{ugc} also demonstrates the potential for exploring places. \cite{wang_using_2015} used Foursquare check-ins to evaluate the performance of four different clustering algorithms in identifying meaningful places. \cite{sui_inferring_2013} applied \acrshort{lda} to georeferenced travel blogs to generate meaningful topics describing places. \cite{hallot_who_2015} combined Google Place reviews and Foursquare check-ins to retrieve place-based semantics, enabling the inference of additional information about users based on their movements.
+\begin{table}
+\centering
+\caption{\label{tab:lbs_place_categories}Overview of place categories in various LBS providers.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{10cm}l} \hline
+LBS Provider & Place Categories & Related API\\ \hline
+Google Maps\tnote{a} & Airport, Amusement Park, Bank, Cafe, Embassy, Gym, Hospital, Library, Museum, Zoo, etc. (Google Maps divides places into 96 categories in total ) & Places API \\
+Esri ArcGIS\tnote{b} & Arts and Entertainment, Education, Food, Land Features, Nightlife Spot, Parks and Outdoors, Professional and Other Places, Residence, Shops and Service, Travel and Transport, Water Features & Geocoding REST API \\
+Foursquare\tnote{c} & Arts and Entertainment, Business and Professional Services, Community and Government, Dining and Drinking, Event, Health and Medicine, Landmarks and Outdoors, Retail, Sports and Recreation, Travel and Transportation & Places API \\
+Tripadvisor\tnote{d} & Hotel, Restaurant, Attraction & Location Search API \\
+Waze\tnote{e} & Parking Lot, Car Services, Transportation, Professional and Public, Shopping and Services, Food and Drink, Culture and Entertainment, Other, Lodging, Outdoors, Natural Features & Waze API \\
+HERE\tnote{f} & Eat and Drink, Going Out-Entertainment, Sights and Museums, Natural and Geographical, Transport, Accommodations, Leisure and Outdoor, Shopping, Business and Services, Facilities, Areas and Buildings & Geocoding \& Search API \\
+TomTom\tnote{g} & Agriculture, Beach, Castle, Factory, Garden, School, Railroad Stop, Temple, etc. (TomTom divides places into 778 categories in total ) & Category Search API \\ \hline
+\end{tabular}
+\footnotesize{Source: LBS provider websites as of May 2023.}
+\begin{tablenotes}\footnotesize
+\item[a] \url{https://www.google.com/maps}
+\item[b] \url{https://www.arcgis.com/index.html}
+\item[c] \url{https://foursquare.com/}
+\item[d] \url{https://www.tripadvisor.com/}
+\item[e] \url{https://www.waze.com/live-map/}
+\item[f] \url{https://www.here.com/}
+\item[g] \url{https://www.tomtom.com/}
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
 
  
-% ====================== | Place Popularity Measurement| ======================
+% ====================== | Place Popularity Measurement | ======================
 \subsubsection{Place Popularity Measurement}
+
 a generalized index of dissimilarity \cite{sakoda_generalized_1981}
 
 difference ratio \cite{li_analyzing_2018}
 
-top-ranked locations, location importance: \cite{yin_diversified_2011}
+density ratio: \cite{oreilly_tourism_1986}, \cite{mcelroy_tourism_2003}
+penetration index: \cite{mcelroy_tourism_1998}
+density ratio, penetration ratio: \cite{thomas_tourist_2005}
 
-venue categories - Foursquare: \cite{ferreira_uncovering_2020}
+tourism ratio: \cite{smith_defining_1988}
 
-semantic trajectory clustering, trajectory similarity, community detection >>> clustering, network graph - Flickr + Foursquare: \cite{liu_stccd_2020}
-
-place categories, table 1 - Flickr: \cite{donaire_tourist_2014}
+tourist ratio, touristic level: \cite{xiang_travel_2011}
 
 
 % ============================= || Trajectory || =============================
@@ -337,7 +364,7 @@ For venue categories, Foursquare categorizes the place types into ten categories
 
 \begin{table}
 \centering
-\caption{\label{tab:foursquare_category}Foursquare venue category}
+\caption{\label{tab:foursquare_category}Foursquare venue category.}
 \begin{tabular}{lll} \hline
 No. & Foursquare Venue Category & No. of Check-ins \\ \hline
 1 & Travel \& Transport & 43,051 \\
@@ -354,7 +381,7 @@ No. & Foursquare Venue Category & No. of Check-ins \\ \hline
 
 \begin{table}
 \centering
-\caption{\label{tab:modified_category}Modified Foursquare venue category}
+\caption{\label{tab:modified_category}Modified Foursquare venue category.}
 \begin{adjustbox}{max width=\textwidth, margin=0cm}
 \begin{tabular}{lllp{6cm}p{5cm}} \hline
 No. & Modified Venue Category & No. of Check-ins & Foursquare Venue Category 
@@ -426,7 +453,7 @@ After all these steps, 177,568 photos were left with a total of 717,747 tags (3,
 
 \begin{table}
 \centering
-\caption{\label{tab:flickr_preprocessed}Summary of Flickr data}
+\caption{\label{tab:flickr_preprocessed}Summary of Flickr data.}
 \begin{tabular}{llll} \hline
 Population Group & No. of Users & No. of Photos & No. of Tags \\ \hline
 All Users & 4,687 & 177,568 & 717,747 \\
@@ -448,7 +475,7 @@ Tourists & 3,836 & 112,165 & 457,780 \\ \hline
 \end{figure}
 
 
-% Table~\ref{tab:popular_venues_locals}
+% Table~\ref{tab:popular_venues_locals.}
 % \begin{table}
 % \centering
 % \caption{\label{tab:popular_venues_locals}Top 10 popular venues for locals}
@@ -467,7 +494,7 @@ Tourists & 3,836 & 112,165 & 457,780 \\ \hline
 % \end{tabular}
 % \end{table}
 
-% Table~\ref{tab:popular_venues_tourists}
+% Table~\ref{tab:popular_venues_tourists.}
 % \begin{table}
 % \centering
 % \caption{\label{tab:popular_venues_tourists}Top 10 popular venues for tourists}
@@ -486,7 +513,7 @@ Tourists & 3,836 & 112,165 & 457,780 \\ \hline
 % \end{tabular}
 % \end{table}
 
-% Table~\ref{tab:popular_venues_daytime_locals}
+% Table~\ref{tab:popular_venues_daytime_locals.}
 % \begin{table}
 % \centering
 % \caption{\label{tab:popular_venues_daytime_locals}Top 10 popular venues for locals during daytime}
@@ -516,7 +543,7 @@ Tourists & 3,836 & 112,165 & 457,780 \\ \hline
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{figures/flowchart.png}
-\caption{\label{fig:flowchart}Flickr tag cloud.}
+\caption{\label{fig:flowchart}xxx.}
 \end{figure}
 
 \subsection{Place Distribution}
@@ -524,6 +551,14 @@ Tourists & 3,836 & 112,165 & 457,780 \\ \hline
 Difference ratio
 
 Explain why a comparison should be made, and which approach was applied (formula for Difference ratio)
+
+
+\begin{equation} \label{eq:diff_ratio}
+    R = \frac{t_{i}}{T}-\frac{l_{i}}{L}
+\end{equation}
+
+In Equation \ref{eq:diff_ratio}
+\(t_{i}\) is the number of tourists in the place \(i\), and \(T\) is the total number of unique tourists visiting the study area. Similarly, \(l_{i}\) is the number of locals in the place \(i\), and \(L\) is the total number of unique locals visiting the study area. This index reflects the relative activity density of locals and tourists. A positive \(R\) value indicates a higher density of tourists visiting this place, whereas a negative \(R\) value indicates a higher density of locals.
 
 top-ranked locations, location importance: \cite{yin_diversified_2011}
 
