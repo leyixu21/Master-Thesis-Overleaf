@@ -186,33 +186,40 @@ TomTom\tnote{g} & Agriculture, Beach, Castle, Factory, Garden, School, Railroad 
 The distribution of locals and tourists can provide valuable insights into the popularity of places among two groups of people. In previous studies, researchers have employed various indices to measure the patterns of population distributions. One commonly used index is the \textit{index of dissimilarity}, which was proposed by \cite{sakoda_generalized_1981} to measure the distribution of two populations across geographic areas. \cite{li_analyzing_2018} applied this index to represent the degree of mix between locals and tourists to study their spatial interactions. The \textit{index of dissimilarity} is calculated as the sum of the difference ratio of locals and tourists in each place, reflecting the overall distribution of locals and tourists over the study area. However, the difference ratio itself is also a good indicator to measure the popularity of individual places. In addition, \cite{mcelroy_applying_1993} formulated the \textit{density ratio} (the number of visitors multiplied by the average length of stay, divided by land area multiplied by 365) and the \textit{penetration ratio} (the number of visitors multiplied by the average length of stay, divided by the population multiplied by 365) to reveal the degree of tourists influx into an area. These two indices were typically used to measure the tourist carrying capacity \citep{mcelroy_applying_1993,thomas_tourist_2005}. However, the \textit{penetration ratio}, which shows the proportion of tourists in a specific place at a temporal scale, can also be used to measure the popularity of places among two groups of people. \cite{mcelroy_applying_1993,mcelroy_tourism_1998} developed the \textit{tourism penetration index} to measure the degree of tourism penetration. The calculation of \textit{tourism penetration index} involves three variables: (1) per capita visitor spending, (2) daily visitor densities per 1,000 population, and (3) hotel rooms per square kilometer, as indices to measure the tourism impact. The \textit{tourism penetration index} is then calculated as the unweighted average of the three standardized indices. In the context of place popularity measurement, the second variable, which reveals the average tourist density, also indicates the place popularity among locals and tourists, and standardizing this index helps to investigate the distribution of these two groups of people for each place. Furthermore, the \textit{tourist ratio}, calculated as the ratio of the number of tourists to the number of residents in a specific area, is also an indication of the intensity of tourist influx \citep{faulkner_framework_1997}. 
 
 
-% ============================= || Trajectory || =============================
-\subsection{Trajectory}
+% ============================= || Movement Patterns || =============================
+\subsection{Movement Patterns}
 
-% ====================== | Urban Mobility | ======================
-\subsubsection{Urban Mobility??}
+% ====================== | City Perception through Movement Patterns | ======================
+\subsubsection{City Perception through Movement Patterns}
+
+% network analysis
 tourist movement patterns, network graph, Markov clustering: \cite{hu_graph-based_2019}
 
 tourists' behavior, network graph, ranking of places, locals and tourists comparison - Foursquare: \cite{ferreira_beyond_2015}
 
 reconstruct narratives from georeferenced photographs, place and narrative, network analysis, community detection - Flickr: \cite{straumann_towards_2014}
 
+tourist-functional relations of urban places, venue categories, network graph - Foursquare: \cite{yang_identifying_2021}
+
+% OD-matrix
 digital footprint, mobile phone data + tickets sold + Flicker photos: \cite{girardin_digital_2008}
 
-activity preferences, trajectory, topic modeling (venue types) - Foursquare: \cite{vu_discovering_2019}
+% itinerary/trajectory
+activity preferences, travel itinerary, topic modeling (venue types) - Foursquare: \cite{vu_discovering_2019}
 
 tourists' movement patterns, clustering, GSP algorithm - Flickr: \cite{hopken_flickr_2020}
 
-semantic trajectory, urban mobility patterns, OD matrix - Foursquare: \cite{nin_tweets_2014}
-
 identifying tourist main routes, focus on real trajectory patterns along the street network - Flickr: \cite{mohino_identifying_2018}
 
-tourist-functional relations of urban places, venue categories, network graph - Foursquare: \cite{yang_identifying_2021}
 
-\underline{important!!!: \cite{parent_semantic_2013}}
+% semantic OD-matrix
+semantic trajectory, urban mobility patterns, OD matrix - Foursquare: \cite{nin_tweets_2014}
 
-% ====================== | Semantic Trajectory Construction | ======================
-\subsubsection{Semantic Trajectory Construction}
+
+\underline{important!!!: \cite{parent_semantic_2013}, \cite{yan_semantic_2013}}
+
+% ====================== | Semantic Trajectory | ======================
+\subsubsection{Semantic Trajectory}
 definition of semantic trajectory
 
 \underline{add the figure to show semantic trajectories}
@@ -230,6 +237,16 @@ Constructing spatial and temporal trajectories of different groups of people, li
 
 % ====================== | Sequential Pattern Mining | ======================
 \subsubsection{Sequential Pattern Mining}
+
+\underline{maybe change the section to discuss how to extract behavioral knowledge from trajectories (clustering, classification), refer to \cite{parent_semantic_2013}}
+
+tools to infer behaviors from semantic trajectories \cite{parent_semantic_2013}:
+1. The Semantic Trajectory Data Mining Query Language (ST-DMQL). with POI instance, three kinds of semantic behaviors can be mined: visiting sequences of places, visiting the same places with a certain frequency but in any order, and visiting associations of places (e.g. trajectories that visit museums do also visit religious places).
+
+2. M-ATLAS
+
+
+
 
 spatiotemporal trajectories:
 Trajectory comparison - trajectory similarity measures \cite{tao_comparative_2021}: LSED, DTW, EDR, LCSS, DFD, FD
