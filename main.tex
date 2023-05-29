@@ -109,10 +109,7 @@ The perception of a city is subjective and can vary among both locals and touris
 % ====================== | UGC in City Perception | ======================
 \subsubsection{UGC in City Perception}
 % ============== specific perception ==============
-\underline{add the image of the city}
-\underline{add urban analytics}
-
-City perception, which refers to how people experience and interact with the urban environment, has significant implications for the city's vitality and is a critical topic in the field of urban planning and design \citep{jacobs_death_1961}. The large volume of \acrshort{ugc} available online makes data collection cost-effective, and it has proven to be a valuable data source for gaining insights into public perceptions of cities. City perception research encompasses studies that aim to improve specific subjects within the city, as well as those that focus on understanding general city perception. Among studies that focus on specific subjects, landscape amenities have received widespread attention. For example, \cite{huang_user_2022} utilized Google Maps reviews to evaluate park performance and user experience, which showed the potential of using these reviews to enhance urban landscapes. There are also some studies investigating the soundscape of parks, as city perception can be reflected from an acoustic perspective. Such studies mainly focus on the evaluation of acoustic comfort and people's acceptability of the urban environment \citep{tse_perception_2012, liu_effects_2014}. Urban safety is another popular topic in city perception research. Some cities, despite being popular tourist destinations, suffer from natural disasters or negative publicity about crime, making perceived danger a worthy topic of investigation. \cite{yao_towards_2020} applied Tweets to build a real-time urban analytical and geo-visual system to provide early alerts for crises and emergencies. \cite{yang_crimetelescope_2018} collected crime data and Tweets to predict and visualize crime hotspots.
+City perception, which refers to how people experience and interact with the urban environment, has significant implications for the city's vitality and is a critical topic in the field of urban planning and design \citep{jacobs_death_1961}. It involves the study of individuals' subjective impressions, cognitive maps, and emotional responses towards urban spaces \citep{lynch_image_1960}. The large volume of \acrshort{ugc} available online makes data collection cost-effective, and it has proven to be a valuable data source for urban analytics, including the investigation of public perceptions towards cities. City perception research encompasses studies that aim to improve specific subjects within the city, as well as those that focus on understanding general city perception. Among studies that focus on specific subjects, landscape amenities have received widespread attention. For example, \cite{huang_user_2022} utilized Google Maps reviews to evaluate park performance and user experience, which showed the potential of using these reviews to enhance urban landscapes. There are also some studies investigating the soundscape of parks, as city perception can be reflected from an acoustic perspective. Such studies mainly focus on the evaluation of acoustic comfort and people's acceptability of the urban environment \citep{tse_perception_2012, liu_effects_2014}. Urban safety is another popular topic in city perception research. Some cities, despite being popular tourist destinations, suffer from natural disasters or negative publicity about crime, making perceived danger a worthy topic of investigation. \cite{yao_towards_2020} applied Tweets to build a real-time urban analytical and geo-visual system to provide early alerts for crises and emergencies. \cite{yang_crimetelescope_2018} collected crime data and Tweets to predict and visualize crime hotspots.
 
 % ============== tourist interest - grid and AOI scale ==============
 In studies aimed to investigate general city perceptions, analyses are carried out to identify popular areas at various spatial scales. A grid-based approach has been employed to detect tourist attractions. The study area is divided into equal-sized grids, and the concentration of \acrshort{ugc} within grids is measured. Spatial autocorrelation indices, such as Moran's I and Getis-Ord G statistics, were usually used to identify spatial clusters of tourism activities \citep{garcia-palomares_identification_2015, kim_coastal_2021}. Some studies go beyond exploring the distribution of tourist hotspots and extract semantic information from these hotspots. For example, \cite{li_analyzing_2018} created the location-based word-cloud maps with Flickr tags to better identify the exact attractions in each cluster, enriching aspects of city perception. \cite{bahrehdar_description_2018} delved deeper into Flickr tags by generating semantic topics with topic modeling, and labeled grids with meaningful topics to map users' perception of the space. A non-grid-based approach can also be utilized to discover the spatial patterns of tourist attractions. For instance, Tweets, Flickr images, and Foursquare check-ins were used to detect \acrfull{aoi} with clustering techniques such as K-Means clustering \citep{hartigan_algorithm_1979}, \acrfull{dbscan} \citep{ester_density-based_1996}, and self-developed algorithms \citep{hu_extracting_2015, hasnat_identifying_2018, cranshaw_livehoods_2021}. There are also studies extracting semantic information associated with \acrshort{aoi}. \cite{dunkel_visualizing_2015} clustered Flickr images and subsequently mapped the tags associated with each cluster, with the size reflecting the frequency, which presented a comprehensive overview of people's perceptions of the study areas. \cite{zhou_detecting_2015} applied \acrshort{dbscan} to detect Flickr images communities and then employed random forest to classify Flickr tags into three categories based on the spatial, temporal, and user features. This helped describe detected communities with more precise word clouds. \cite{jailani_machine_2021} used \acrfull{tfidf} to assign weights to keywords of Flickr data, including tags, titles, and descriptions, and utilized \acrshort{dbscan} to cluster weighted keywords, thus the discovered \acrshort{aoi} were integrated with intrinsic semantic information. \cite{santos_uncovering_2018} collected reviews about places from Google Places and Foursquare tips, and generated perception maps to uncover how the urban outdoor areas were expressed in social media.
@@ -228,36 +225,39 @@ The movement patterns of individuals can be mined from semantic trajectories to 
 To extract typical trajectories, it is essential to measure trajectory similarity. Commonly used similarity measures for trajectories include Dynamic Time Warping (DTW) \citep{berndt_using_1994}, Multidimensional Dynamic Time Warping (MD-DTW) \citep{ten_holt_multi-dimensional_2007}, Longest Common SubSequence (LCSS) \citep{vlachos_discovering_2002}, Edit Distance (EDR) \citep{chen_robust_2005}. A comparative study of these trajectory similarity measures was conducted by \cite{tao_comparative_2021}. DTW measures the distance between time series and is specifically suitable for numerical values. It determines the optimal alignment of two sequences to identify the contiguous path with the minimum total distance between the series. However, DTW only considers one dimension. To address this limitation, MT-DTW was developed to adapt DTW for multidimensional sequences. It assigns weights to different dimensions and constructs the distance matrix for each pair of elements in the sequences by normalizing the distance values across all dimensions. Both DTW and MT-DTW have a drawback in that they are sensitive to noises, such as distant elements. LCSS, proposed as a similarity measure for raw trajectories, overcomes this limitation by introducing the distance and matching threshold to identify the longest common subsequence. If the distance between two points falls within the matching threshold, a similarity value of 1 is assigned; otherwise, a similarity value of 0 is assigned. LCSS can also be extended to measure trajectories with additional dimensions, such as semantics. EDR, derived from LCSS, also utilizes the matching threshold with binary values (0, 1) to represent the distance. It calculates the distance between trajectories by seeking the sequence with the minimum number of inserts, deletes, and replacements of points required to transform one trajectory into another. However, most trajectory similarity measures only consider a fixed number of dimensions and deal with fixed types of values. \cite{furtado_multidimensional_2016} proposed the Multidimensional Similarity Measure (MSM) to compute the similarity of trajectories with multiple dimensions, including space, time, and semantics. MSM assumes that different dimensions may have varying levels of importance in different problems, thus assigning weights to dimensions and utilizing thresholds to calculate similarity scores. This approach increases the flexibility of similarity measures. However, MSM does not consider the sequence of the movement, defining two trajectories as similar even if they visit the same place types in different orders. \cite{petry_towards_2019} developed the MUItiple-aspect TrAjectory Similarity (MUITAS) method to measure the similarity of trajectories with heterogeneous semantic dimensions. MUITAS supports different relationships among dimensions by introducing features. A feature represents a unit of analysis within a trajectory, and multiple aspects constitute the feature. Different weights can be assigned to different features based on the importance of aspects within the feature. This approach enhances the ability to capture the complexity of trajectory similarity.
 
 % ============== semantic trajectory clustering ==============
-Given the similarity, trajectories can be clustered to extract typical ones with density-based, hierarchical-based, spectral-based, and community-based trajectory clustering methods \cite{liu_stccd_2020}. A density-based clustering method clusters objects with high density within an area and is able to detect clusters with arbitrary shapes. \acrshort{dbscan} is one of the most classic density-based clustering algorithms and it requires two parameters \textit{Eps} and \textit{MinPts} to detect areas with a high density of objects. \textit{Eps} is the radius of the neighborhood and \textit{MinPts} is the minimum number of neighbors within the radius. Ordering Points To Identify the Clustering Structure (OPTICS) proposed by \cite{ankerst_optics_1999} is also a density-based clustering method, but it orders objects instead of clustering them as \acrshort{dbscan} does, and the ordered objects based on the reachability distance can be grouped into clusters. \cite{cai_mining_2018} applied this algorithm to cluster trajectories with multiple semantic dimensions built with geotagged Flickr photos, and find semantically common trajectory patterns. \cite{zhang_hierarchical_2018} proposed a hierarchical trajectory clustering based periodic pattern mining which considered semantic spatiotemporal information. This algorithm is based on Traclus (Trajectory Clustering) \citep{lee_trajectory_2007} and extends HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise) \citep{campello_density-based_2013} to detect hierarchical clusters. For the community-based trajectory clustering, \cite{el_mahrsi_graph-based_2013} applied a modularity-based community detection algorithm to group frequently visited road segments of different trajectories and discover a hierarchy of nested clusters of road segments. \cite{liu_todmis_2013} proposed Trajectory cOmmunity Discovery using Multiple Information Sources (TODMIS) to mine communities from trajectories, which combines additional information, such as velocity and semantics, with raw trajectories and applied dense sub-graph detection to discover the set of distinct communities.
+Trajectories can be clustered using various methods, including density-based, hierarchical-based, spectral-based, and community-based trajectory clustering techniques \cite{liu_stccd_2020}. A density-based clustering method identifies clusters with high object density within a given area, enabling the detection of clusters with arbitrary shapes. One of the most renowned density-based clustering algorithms is \acrshort{dbscan}, which relies on two parameters, namely, \textit{Eps} (radius of the neighborhood) and \textit{MinPts} (minimum number of neighbors within the radius). Ordering Points To Identify the Clustering Structure (OPTICS) proposed by \cite{ankerst_optics_1999} is another density-based clustering method. OPTICS orders objects instead of clustering them as \acrshort{dbscan} does, and the ordered objects can be grouped into clusters based on the reachability distance. For instance, \cite{cai_mining_2018} applied OPTICS to cluster trajectories with multiple semantic dimensions constructed using geotagged Flickr photos, and identified semantically common trajectory patterns. In the hierarchical-based clustering approach, \cite{zhang_hierarchical_2018} proposed a hierarchical trajectory clustering method based periodic pattern mining, incorporating semantic spatiotemporal information. This method extends Traclus (Trajectory Clustering) \citep{lee_trajectory_2007} and builds upon HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise) \citep{campello_density-based_2013} to detect hierarchical clusters. Regarding community-based trajectory clustering, \cite{el_mahrsi_graph-based_2013} employed a modularity-based community detection algorithm to group frequently visited road segments from different trajectories. This approach enables the discovery of a hierarchy of nested clusters of road segments. \cite{liu_todmis_2013} proposed Trajectory cOmmunity Discovery using Multiple Information Sources (TODMIS) to mine communities from trajectories, which combines additional information, such as velocity and semantics, with raw trajectories and applied dense sub-graph detection to discover the set of distinct communities.
+
 
 % ============== semantic trajectory classification ==============
-Classification groups similar trajectories into predefined classes. For the classification of semantic trajectories, \cite{lee_trajectory_2007} firstly clustered interesting line segments partitioned from trajectories. Then they defined a class for each cluster and classified other trajectories into these predefined classes. \cite{giannotti_unveiling_2011} developed M-Atlas to discover human mobility through querying and mining trajectory data. M-Atlas is a system for the analysis of both raw and semantic trajectories and it supports trajectory clustering and classification. In their work, trajectories were clustered, and new trajectories were classified by assigning each of them to detected clusters. \cite{ferrero_mastermovelets_2020} proposed a new parameter-free method for trajectory classification called MasterMovelets, which finds the most relevant sub-trajectories with the consideration of dimension combinations. 
+Classification is a process that groups similar trajectories into predefined classes. In the context of semantic trajectories, \cite{lee_trajectory_2007} initially clustered interesting line segments derived from trajectories. Subsequently, they assigned a class to each cluster and classified other trajectories by placing them into these predefined classes. To delve into the analysis of trajectory data, \cite{giannotti_unveiling_2011} developed M-Atlas, a comprehensive system that facilitates the exploration of both raw and semantic clustering and classification, and discovered human mobility through querying and mining trajectory data. Within their study, trajectories were clustered, and new trajectories were classified by assigning them to the identified clusters. \cite{ferrero_mastermovelets_2020} introduced a new parameter-free method known as MasterMovelets. This approach identifies the most relevant sub-trajectories while considering various combinations of dimensions. By leveraging this method, trajectory classification can be achieved efficiently and effectively. 
 
 % ============== sequential pattern mining ==============
-Clustering and classification are for grouping semantic trajectories sharing similar attributes, sequential pattern mining is a complementary technique that helps to extract typical mobility patterns that are frequently occurring within trajectories. In sequential pattern mining, frequent points are allowed to occur in a specific temporal order, which means that each point can occur multiple times as long as it is visited several times during the same period. \cite{srikant_mining_1996} proposed the Generalized Sequential Patterns (GSP) algorithm to discover sequential patterns, which allows specifying (1) time constraints between adjacent elements of the sequential pattern, (2) sliding time windows of the transaction, and (3) taxonomies defined by users. \cite{hopken_flickr_2020} applied the GSP algorithm to identify tourists' behavioral patterns using Flickr data, and compared the typical trajectories mined by association rule analysis and sequential pattern mining. \cite{pei_mining_2004} introduced a Prefix-projected Sequential pattern mining (PrefixSpan) algorithm to mine sequential patterns through a pattern-growth approach, which consumes less memory space than GSP. \cite{yin_diversified_2011} applied the PrefixSpan method to discover the trajectory pattern of Flickr users and ranked these patterns with various ranking methods.
-
+Clustering and classification techniques are employed to group semantic trajectories that share similar attributes. In addition to these methods, sequential pattern mining serves as a complementary approach to extract frequently occurring mobility patterns within trajectories. Sequential pattern mining allows for the occurrence of frequent points in a specific temporal order, which means that each point can occur multiple times as long as it is visited several times during the same period. One of the pioneering algorithms in sequential pattern mining is the Generalized Sequential Patterns (GSP) algorithm proposed by \cite{srikant_mining_1996}. This algorithm accommodates the specification of (1) time constraints between adjacent elements of the sequential pattern, (2) sliding time windows of the transaction, and (3) user-defined taxonomies. In the study conducted by \cite{hopken_flickr_2020}, the GSP algorithm was applied to identify behavioral patterns of tourists using Flickr data. The authors compared the typical trajectories mined through association rule analysis and sequential pattern mining. \cite{pei_mining_2004} introduced a Prefix-projected Sequential pattern mining (PrefixSpan) algorithm to mine sequential patterns through a pattern-growth approach, which consumes less memory space than GSP. Furthermore, \cite{yin_diversified_2011} applied the PrefixSpan method to discover trajectory patterns of Flickr users. They also employed various ranking methods to find top-ranked patterns based on different criteria.
 
 % ============================= || Research Gaps || =============================
 \subsection{Research Gaps}
-The previous studies illustrate the possibility of constructing semantic trajectories with social media data. Though both the texts and images have been applied to discover the city perception, there is limited research that integrates the place attributes into semantic trajectory construction. In the context of urban planning, the improvements of the regions should refer to people’s perception of important nodes, which are places in our case. While existing approaches of semantic trajectories construction are not entirely suited for exploring the perception from the place-based perspective. This study leverages social media data to capture the semantic information in people’s movement patterns by considering the place dimensions in trajectory construction.
+City perception can be investigated at different scales, such as grid-based or \acrshort{aoi}-based, but there is limited research exploring how the perception of a city can be understood through trajectories. Previous studies have demonstrated the feasibility of constructing trajectories with \acrshort{ugc} data. While geotagged social media data like Tweets, Flickr photos, and Foursquare check-ins, have been utilized to build trajectories, there is a lack of research that integrates \acrshort{ugc} data as semantic information for trajectory construction and the study of city perception. Most studies directly assign information extracted from \acrshort{ugc} data, such as place type, rating, and price tier, to trajectories as the semantic dimension. However, \acrshort{ugc} also contains latent information which requires additional techniques for extraction. This study assumes that a place can be characterized by three dimensions: location, locale, and sense of place. It integrates these dimensions into the construction of semantic trajectories and enriches them through direct information assignment and topic modeling. For the construction of semantic trajectories, existing approaches are not fully suitable for exploring perception from a place-based perspective. Additionally, city perception varies among different groups of people and over different time spans, making it worthwhile to analyze more precise city perceptions comparatively. To capture the semantic information in trajectories, this study leverages \acrshort{ugc} data and integrates the place dimensions, aiming to identify the movement patterns of both locals and tourists over different time spans. By incorporating \acrshort{ugc} data, this study seeks to provide insights into city perception from a holistic and nuanced perspective.
+
 \newpage
-% ======================================================================================================
 
 
 % ============================================ ||| Study Area and Data Preprocessing ||| ============================================
 \section{Study Area and Data Preprocessing}
 \subsection{Study Area}
-The study area is located in Greater London. As an English-speaking
+The study area is located in Greater London (Figure~\ref{fig:london}). As an English-speaking
 city, Greater London covers an area of 1,572 \(km^2\) and has a population of 9.5 million inhabitants. According to tourism statistics of City of London, before the Covid-19 pandemic, Greater London attracted approximately 21 million visitors annually from across the world. Of these, 19.7 million visitors were day trippers, while 1.3 million visitors stayed overnight. The high volume of visitors makes Greater London an ideal location for studying the city perception of both locals and tourists. The boundary of Greater London used in this study was obtained from \href{https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london}{LONDON DATASTORE} website.
 
-\underline{add figure of study area, London boroughs}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{figures/london.png}
+\caption{\label{fig:london}London boroughs.}
+\end{figure}
 
 \subsection{Data Preprocssing}
-\underline{add the step that divides data into different time spans. put the summary table in the main text, and other tables and figures in the appendix}
 
 Foursquare data and Flickr data in Greater London from April 3, 2012 to September 16, 2013 were collected with Python 3.9.12 to investigate how people move around the city and how they perceive it.
 
-To investigate the city perception of locals and tourists individually, it is necessary to distinguish between the two groups. The combination of user profiles and time intervals was used for the identification of locals and tourists. The user profile served as the primary criterion. Users whose hometown or city of residence in their profiles was London were categorized as locals. In cases where the user profile was not available, the time interval between the user's first and last Foursquare or Flickr points posted in Greater London was used. Users with a time interval greater than 30 days were classified as locals.
+This study examines the city perceptions of locals and tourists, during daytime and nighttime, as well as on weekdays and weekends. Therefore, it is crucial to differentiate between these two population groups across different time spans. To distinguish between locals and tourists, a combination of user profiles and time intervals was utilized for identification. The user profile served as the primary criterion, with individuals whose hometown or city of residence listed as London in their profiles categorized as locals. In cases where the user profile was unavailable, the time interval between the user's initial and final Foursquare or Flickr posts in Greater London was employed. Users with a time interval exceeding 30 days were classified as locals. Regarding time spans, daytime is defined as 6 am to 6 pm, while the remaining hours are considered nighttime. Weekdays encompass Monday to Friday, while the weekend comprises Saturday and Sunday.
 
 \subsubsection{Foursquare Data}
 Foursquare is a platform for users to check in at venues and share their experiences through reviews. As of 2022, Foursquare has more than 55 million monthly active users worldwide. The Foursquare data used in this study was obtained from the Global-scale Check-in Dataset \cite{yang_nationtelescope_2015}, containing two datasets: (1) Foursquare check-ins and (2) Foursquare \acrshort{poi} from April 3, 2012 to September 16, 2013, on a global scale.
@@ -292,14 +292,7 @@ Foursquare check-ins were merged with Foursquare \acrshort{poi} by the venue ID 
 
 After all these steps, a total of 177,207 check-ins by 7,183 users in Greater London were left. Out of these users, 1,087 were identified as locals and they posted 109,558 check-ins, which was far more than the number of check-ins posted by tourists, who amounted to 6,096, but posted only 67,649 check-ins (Table~\ref{tab:foursquare_summary}). Figure~\ref{fig:foursquare_distribution} shows the distribution of Foursquare check-ins, and most check-ins were concentrated in the central area of Greater London. Moreover, compared with tourists, locals tended to share more check-ins in peripheral areas.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.7\textwidth]{figures/foursquare_distribution.png}
-\caption{\label{fig:foursquare_distribution}Distribution of Foursquare check-ins of locals and tourists.}
-\end{figure}
-
-
-\begin{table}
+\begin{table}[h!]
 \centering
 \caption{\label{tab:foursquare_summary}Summary of Foursquare data.}
 \begin{tabular}{llll} \hline
@@ -334,9 +327,15 @@ Time & Population Group & No. of Users & No. of Check-ins \\
 \end{table}
 
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/foursquare_distribution.png}
+\caption{\label{fig:foursquare_distribution}Distribution of Foursquare check-ins of locals (blue) and tourists (red).}
+\end{figure}
+
 For venue categories, Foursquare categorizes the place types into ten categories, namely (1) Travel \& Transport, (2) Food, (3) Professional \& Other Places, (4) Outdoors \& Recreation, (5) Shop \& Service, (6) Nightlife Spot, (7) Arts \& Entertainment, (8) College \& University, (9) Event, (10) Residence. Category 9 Event was not contained in the check-ins used in this study, and Category 10 Residence was removed to protect the privacy of users. The number of check-ins for each Foursquare venue category is shown in Table~\ref{tab:foursquare_category}. There are several combined categories in the Foursquare category system, such as Professional \& Other Places and Outdoors \& Recreation, which makes it ambiguous to determine the visiting purposes of individual check-ins. To overcome this limitation and investigate place properties more precisely, this study divided venues into 11 categories by separating the combined categories and defining new ones based on the third-level categories in the Foursquare category system. The number of check-ins for modified venue categories is presented in Table~\ref{tab:modified_category}. In terms of the category distribution among locals and tourists, the categories Transport and Restaurant were the most prevalent among both locals and tourists. However, certain categories showed a higher prevalence among a specific group, for instance, Shopping Place, Art Place, and Accommodation were more welcomed by tourists, whereas Sports Place received a greater number of check-ins from locals (Figure~\ref{fig:foursquare_category_percent}).
 
-\begin{table}
+\begin{table}[h!]
 \centering
 \caption{\label{tab:foursquare_category}Foursquare venue category.}
 \begin{tabular}{lll} \hline
@@ -353,7 +352,7 @@ No. & Foursquare Venue Category & No. of Check-ins \\ \hline
 \end{table}
 
 
-\begin{table}
+\begin{table}[h!]
 \centering
 \caption{\label{tab:modified_category}Modified Foursquare venue category.}
 \begin{adjustbox}{max width=\textwidth, margin=0cm}
@@ -381,7 +380,7 @@ No. & Modified Venue Category & No. of Check-ins & Foursquare Venue Category
 % \caption{\label{fig:foursquare_category}Venue categories visited by locals and tourists.}
 % \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{figures/foursquare_category_percent.png}
 \caption{\label{fig:foursquare_category_percent}Percent of venue categories visited by locals and tourists.}
@@ -415,18 +414,16 @@ The Flickr data required additional cleaning and identification of locals and to
     \item Identified locals and tourists based on the number of days spent in Greater London and user profiles. This study used \href{https://www.flickr.com/services/api/flickr.profile.getProfile.html}{flickr.profile.getProfile} provided by \href{https://www.flickr.com/services/api/}{Flickr API} to collect user profiles, which contained information about the users' hometowns and cities. Users who had stayed in Greater London for more than 30 days were considered locals. For the remaining users, this study would also flag them as locals if their hometown or city in their profiles was listed as London.
 \end{enumerate}
 
-After all these steps, 177,568 photos were left with a total of 717,747 tags (3,365 unique tags). These tags were used by 4,687 users, with 851 locals and 3,836 tourists uploading 259,967 and 457,780 tags respectively (Table~\ref{tab:flickr_summary}). The distribution of Flickr photos indicates that the majority of photos were taken in the center of Greater London, while tourists tended to share more photos around Heathrow Airport (Figure~\ref{fig:flickr_distribution}). The word cloud in Figure~\ref{fig:flickr_tag_cloud} illustrates the most frequently used tags, including city, architecture, street, park, and art.
-
-
-
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{figures/flickr_tags_cv.png}
 \caption{\label{fig:flickr_tags_cv}Tag profiles.}
 \end{figure}
 
+After all these steps, 177,568 photos were left with a total of 717,747 tags (3,365 unique tags). These tags were used by 4,687 users, with 851 locals and 3,836 tourists uploading 259,967 and 457,780 tags respectively (Table~\ref{tab:flickr_summary}). The distribution of Flickr photos indicates that the majority of photos were taken in the center of Greater London, while tourists tended to share more photos around Heathrow Airport (Figure~\ref{fig:flickr_distribution}). The word cloud in Figure~\ref{fig:flickr_tag_cloud} illustrates the most frequently used tags, including city, architecture, street, park, and art.
 
-\begin{table}
+
+\begin{table}[h!]
 \centering
 \caption{\label{tab:flickr_summary}Summary of Flickr data.}
 \begin{tabular}{lllll} \hline
@@ -461,13 +458,13 @@ Time & Population Group & No. of Users & No. of Photos & No. of Tags \\
 \end{table}
 
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/flickr_distribution.png}
-\caption{\label{fig:flickr_distribution}Distribution of Flickr photos of locals and tourists.}
+\caption{\label{fig:flickr_distribution}Distribution of Flickr photos of locals (blue) and tourists (red).}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/flickr_tag_cloud.png}
 \caption{\label{fig:flickr_tag_cloud}Flickr tag cloud.}
@@ -533,9 +530,24 @@ Time & Population Group & No. of Users & No. of Photos & No. of Tags \\
 \newpage
 
 
-\section{Methodology}
-why spatial, temporal, and semantic
+% ============================================ ||| Methodology ||| ============================================
 why different time spans (daytime/nighttime, weekday/weekend) are used: places and trajectories are temporally different
+
+\section{Methodology}
+\underline{refer to figure 3 in \cite{cai_mining_2018}}
+\underline{Figure~\ref{fig:flowchart}}
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{figures/flowchart.png}
+\caption{\label{fig:flowchart}xxx.}
+\end{figure}
+% ============================= || Place Modeling || =============================
+\subsection{Place Modeling}
+
+% ====================== | Place Construction | ======================
+\subsubsection{Place Construction}
+
+\underline{introduce dbscan}
 
 why cluster check-ins
 \underline{definition of place, which will be used to explain why places are clusters of check-ins instead of merely check-ins}
@@ -544,18 +556,6 @@ why cluster check-ins
 
 \underline{pseudocode}
 
-
-\underline{refer to figure 3 in \cite{cai_mining_2018}}
-\underline{Figure~\ref{fig:flowchart}}
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth]{figures/flowchart.png}
-\caption{\label{fig:flowchart}xxx.}
-\end{figure}
-
-\subsection{Place Construction}
-
-\underline{introduce dbscan}
 
 \underline{Table~\ref{tab:place_category_daytime}}
 \begin{table}
@@ -577,51 +577,9 @@ No. & Place Category & No. of Places & No. of Visits \\ \hline
 \end{tabular}
 \end{table}
 
-\subsection{Place Dimensions}
-\subsubsection{Definition of Dimensions}
-\underline{add a table of place dimensions, refer to table 6 in \cite{ferrero_mastermovelets_2020}}
+% ====================== | Place Popularity Exploration | ======================
+\subsubsection{Place Popularity Exploration}
 
-definition of semantic place with mathematical expressions
-
-Location, Locale, Sense of Place
-Location:
-why not coordinates
-1. the spatial distance will be considered in computing the similarity, which also takes the coordinates to do the computation. Moreover, the coordinates cannot deliver enough semantic information
-2. every place has a unique coordinate, and it makes no sense to compute the similarity in this dimension as no two places will be similar to each other in location
-why the borough name
-"enrichment with geographic regions" for trajectory data in previous studies \cite{yan_semantic_2013}
-
-Locale:
-"enrichment with geographic points" \cite{yan_semantic_2013}
-
-
-% however, the identity of the place should also be considered in the definition of place, as it distinguishes place from location. Compared with location, which is merely a point described by coordinates, place is an identifiable location formed based on human consensus with definable properties \citep{purves_places_2019}.
-
-sense of place:
-People's emotional relationships with places are subjective and need not be strong and positive \citep{altman_place_1992}. Someone may feel nostalgic about the place he used to visit, even if the place itself is not objectively positive or negative \cite{relph_geographical_1985}. Descriptive words can also be used to describe emotions about a place other than simply positive or negative.
-
-\subsubsection{Topic Modeling}
-\underline{cite this: https://github.com/polsci/colab-gensim-mallet}
-
- \acrshort{lda} assumes that a document contains a randomized combination of latent topics. To generate the document, a K-vector \(\theta\) that represents the mixture proportion of \(k\) topics is sampled3 with a Dirichlet prior distribution \(p(\theta|\alpha)\). The variable \(k\) specifies the dimension of the distribution and also the dimension of the topic variable \(z\), which defines the total number of topics generated by the model. A Dirichlet variable \(\theta\) with a dimension of \(k\) can take values in the \((k-1)\)-simplex and has a probability density on this simplex, which is determined by the following equation:
-
-\begin{equation} \label{eq:lda}
-    p(\theta|\alpha)\ = \frac{\Gamma(\sum_{i=1}^{k} \alpha_{i})}{\prod_{i=1}^{k}\Gamma(\alpha_{i})}\theta_{1}^{z_{1}-1}...\theta_{k}^{z_{k}-1}
-\end{equation}
-
-In Equation \ref{eq:lda}, the parameter \(\alpha\) is the hyperparameter of the Dirichlet distribution, representing a prior count of the frequency of an individual topic appearing in a document. Figure~\ref{fig:lda} illustrates the generative process of \acrshort{lda}. The parameter \(\beta\) is also a Dirichlet prior hyperparameter that determines the degree of smoothing over word distributions in all topics. The values of \(\alpha\) and \(\beta\) are chosen based on the size of the vocabulary and the number of topics selected \citep{blei_latent_2003}. Optimizing these parameters is crucial to obtain meaningful results from this method \citep{vayansky_review_2020}. 
-
-\begin{figure}
-\centering
-\includegraphics[width=0.7\textwidth]{figures/lda.png}
-\caption{\label{fig:lda}Illustration of the LDA generative process. The outer box M denotes the repeated sampling for each document and the inner box N represents sampling within each document. The box K represents sampling for each topic \citep{vayansky_review_2020}.}
-\end{figure}
-
-
-Concept talk question: Buffer overlap of Foursquare places, which makes the same Flickr tag belongs to two places
-
-\subsection{Place Distribution}
-\subsubsection{Preferences of Locals and Tourists}
 Difference ratio
 
 Explain why a comparison should be made, and which approach was applied (formula for Difference ratio)
@@ -644,19 +602,11 @@ In Equation \ref{eq:diff_ratio}
 \(t_{i}\) is the number of tourists in the place \(i\), and \(T\) is the total number of unique tourists visiting the study area. Similarly, \(l_{i}\) is the number of locals in the place \(i\), and \(L\) is the total number of unique locals visiting the study area. This index reflects the relative activity density of locals and tourists. A positive \(R\) value indicates a higher density of tourists visiting this place, whereas a negative \(R\) value indicates a higher density of locals.
 
 top-ranked locations, location importance: \cite{yin_diversified_2011}
-
-\subsubsection{Place Clustering}
-K-means
-
-
-
-\subsection{Semantic Trajectories Patterns}
+% ============================= || Semantic Trajectory Modeling || =============================
+\subsection{Semantic Trajectory Modeling}
 introduce the process
-
-
-\subsubsection{Exploratory Analysis???}
-
-\subsubsection{Trajectories Construction}
+% ====================== | Semantic Trajectory Construction | ======================
+\subsubsection{Semantic Trajectory Construction}
 definition of semantic trajectory with mathematical expressions
 cite trajminer
 
@@ -672,13 +622,62 @@ Figure \ref{fig:trajectory_begin_end}
 \caption{\label{fig:trajectory_begin_end}Trajectories extracted from a movement track \citep{parent_semantic_2013}.}
 \end{figure}
 
+
+% ====================== | Semantic Enrichment | ======================
+\subsubsection{Semantic Enrichment through a Place-based approach}
+
+\underline{add a table of place dimensions, refer to table 6 in \cite{ferrero_mastermovelets_2020}}
+
+definition of semantic place with mathematical expressions
+
+Location, Locale, Sense of Place
+Location:
+why not coordinates
+1. the spatial distance will be considered in computing the similarity, which also takes the coordinates to do the computation. Moreover, the coordinates cannot deliver enough semantic information
+2. every place has a unique coordinate, and it makes no sense to compute the similarity in this dimension as no two places will be similar to each other in location
+why the borough name
+"enrichment with geographic regions" for trajectory data in previous studies \cite{yan_semantic_2013}
+
+Locale:
+"enrichment with geographic points" \cite{yan_semantic_2013}
+
+
+% however, the identity of the place should also be considered in the definition of place, as it distinguishes place from location. Compared with location, which is merely a point described by coordinates, place is an identifiable location formed based on human consensus with definable properties \citep{purves_places_2019}.
+
+sense of place:
+People's emotional relationships with places are subjective and need not be strong and positive \citep{altman_place_1992}. Someone may feel nostalgic about the place he used to visit, even if the place itself is not objectively positive or negative \cite{relph_geographical_1985}. Descriptive words can also be used to describe emotions about a place other than simply positive or negative.
+
+Topic Modeling
+\underline{cite this: https://github.com/polsci/colab-gensim-mallet}
 Foursquare check-ins with no nearby Flickr tags >>>
 Tried buffer sizes of 1000m, 500m, and 250m, but there are always check-ins with no Flickr tags around >>>
 Applied the topic imputation for these check-ins >>>
 Gaussian kernel >>>
 Buffer size of 500m has the best coherence value in topic modeling
 
-\subsubsection{Trajectories Similarity}
+ \acrshort{lda} assumes that a document contains a randomized combination of latent topics. To generate the document, a K-vector \(\theta\) that represents the mixture proportion of \(k\) topics is sampled3 with a Dirichlet prior distribution \(p(\theta|\alpha)\). The variable \(k\) specifies the dimension of the distribution and also the dimension of the topic variable \(z\), which defines the total number of topics generated by the model. A Dirichlet variable \(\theta\) with a dimension of \(k\) can take values in the \((k-1)\)-simplex and has a probability density on this simplex, which is determined by the following equation:
+
+\begin{equation} \label{eq:lda}
+    p(\theta|\alpha)\ = \frac{\Gamma(\sum_{i=1}^{k} \alpha_{i})}{\prod_{i=1}^{k}\Gamma(\alpha_{i})}\theta_{1}^{z_{1}-1}...\theta_{k}^{z_{k}-1}
+\end{equation}
+
+In Equation \ref{eq:lda}, the parameter \(\alpha\) is the hyperparameter of the Dirichlet distribution, representing a prior count of the frequency of an individual topic appearing in a document. Figure~\ref{fig:lda} illustrates the generative process of \acrshort{lda}. The parameter \(\beta\) is also a Dirichlet prior hyperparameter that determines the degree of smoothing over word distributions in all topics. The values of \(\alpha\) and \(\beta\) are chosen based on the size of the vocabulary and the number of topics selected \citep{blei_latent_2003}. Optimizing these parameters is crucial to obtain meaningful results from this method \citep{vayansky_review_2020}. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{figures/lda.png}
+\caption{\label{fig:lda}Illustration of the LDA generative process. The outer box M denotes the repeated sampling for each document and the inner box N represents sampling within each document. The box K represents sampling for each topic \citep{vayansky_review_2020}.}
+\end{figure}
+
+Concept talk question: Buffer overlap of Foursquare places, which makes the same Flickr tag belongs to two places
+
+% ============================= || City Perception Investigation || =============================
+\subsection{City Perception Investigation}
+introduce the process
+
+why spatial, temporal, and semantic
+% ====================== | Semantic Trajectory Clustering | ======================
+\subsubsection{Semantic Trajectory Clustering}
 MSM, MUITAS
 Cite it!
 @misc{petry2019trajminer,
@@ -687,10 +686,12 @@ Cite it!
   year={2019},
   howpublished={\url{https://trajminer.github.io}},
 }
-\subsubsection{Trajectories Clustering}
+
 Agglomerative Clustering, DBSCAN
 
+% ====================== | Sequential Pattern Mining | ======================
 \subsubsection{Sequential Pattern Mining}
+
 GSP: \cite{prado_lima_gsp-py_2020}
 
 \underline{Concept talk question: Locals and tourists have very different trajectories, how to compare them?
@@ -701,6 +702,7 @@ GSP: \cite{prado_lima_gsp-py_2020}
 
 https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
 \newpage
+
 
 \subsection{Results Evaluation???}
 
