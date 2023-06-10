@@ -52,6 +52,7 @@
 \newacronym{dbscan}{DBSCAN}{Density-Based Spatial Clustering of Applications with Noise}
 \newacronym{tfidf}{TF-IDF}{Term Frequency-Inverse Document Frequency}
 \newacronym{gps}{GPS}{Global Positioning System}
+\newacronym{kde}{KDE}{Kernel Density Estimation}
 
 
 \begin{document}
@@ -100,7 +101,8 @@ Given the varying functionalities of different areas, they tend to attract diver
 \textbf{RQ2: How do locals and tourists perceive the city along their semantic trajectories at different time spans?}
 
 The perception of a city is subjective and can vary among both locals and tourists, with changes over time. To investigate city perception more accurately, constructing semantic trajectories that consider both population groups and time spans is useful. Specifically, semantic trajectories of locals and tourists during different times of day and week, including daytime and nighttime, as well as weekdays and weekends, will be constructed. By incorporating the semantic attributes of places into these trajectories, the city perception of both locals and tourists at various time spans can be interpreted and compared.
-\newpage
+
+\clearpage
 
 % ============================================ ||| Related Work||| ============================================
 \section{Related Work}
@@ -238,14 +240,13 @@ Clustering and classification techniques are employed to group semantic trajecto
 \subsection{Research Gaps}
 City perception can be investigated at different scales, such as grid-based or \acrshort{aoi}-based, but there is limited research exploring how the perception of a city can be understood through trajectories. Previous studies have demonstrated the feasibility of constructing trajectories with \acrshort{ugc} data. While geotagged social media data like Tweets, Flickr photos, and Foursquare check-ins, have been utilized to build trajectories, there is a lack of research that integrates \acrshort{ugc} data as semantic information for trajectory construction and the study of city perception. Most studies directly assign information extracted from \acrshort{ugc} data, such as place type, rating, and price tier, to trajectories as the semantic dimension. However, \acrshort{ugc} also contains latent information which requires additional techniques for extraction. This study assumes that a place can be characterized by three dimensions: location, locale, and sense of place. It integrates these dimensions into the construction of semantic trajectories and enriches them through direct information assignment and topic modeling. For the construction of semantic trajectories, existing approaches are not fully suitable for exploring perception from a place-based perspective. Additionally, city perception varies among different groups of people and over different time spans, making it worthwhile to analyze more precise city perceptions comparatively. To capture the semantic information in trajectories, this study leverages \acrshort{ugc} data and integrates the place dimensions, aiming to identify the movement patterns of both locals and tourists over different time spans. By incorporating \acrshort{ugc} data, this study seeks to provide insights into city perception from a holistic and nuanced perspective.
 
-\newpage
-
+\clearpage
 
 % ============================================ ||| Study Area and Data Preprocessing ||| ============================================
 \section{Study Area and Data Preprocessing}
 \subsection{Study Area}
 The study area is located in Greater London in Great Britain (Figure~\ref{fig:study_area}). As an English-speaking
-city, Greater London covers an area of 1,572 \(km^2\) and has a population of 9.5 million inhabitants. According to tourism statistics of City of London, before the Covid-19 pandemic, Greater London attracted approximately 21 million visitors annually from across the world. Of these, 19.7 million visitors were day trippers, while 1.3 million visitors stayed overnight. The high volume of visitors makes Greater London an ideal location for studying the city perception of both locals and tourists. The boundary of Greater London used in this study was obtained from \href{https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london}{LONDON DATASTORE} website.
+city, Greater London covers an area of 1,572 \(km^2\) and has a population of 9.5 million inhabitants. According to tourism statistics of City of London, before the Covid-19 pandemic, Greater London attracted approximately 21 million visitors annually from across the world. Of these, 19.7 million visitors were day trippers, while 1.3 million visitors stayed overnight. The high volume of visitors makes Greater London an ideal location for studying the city perception of both locals and tourists. The boundary of Greater London used in this study was obtained from LONDON DATASTORE website \footnote{\url{https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london}}.
 
 \begin{figure}[h!]
 \centering
@@ -253,8 +254,8 @@ city, Greater London covers an area of 1,572 \(km^2\) and has a population of 9.
 \caption{\label{fig:study_area}Study area.}
 \end{figure}
 
-\subsection{Data Preprocssing}
-Foursquare data and Flickr data in Greater London from April 3, 2012 to September 16, 2013 were collected with Python 3.9.12 to investigate how people move around the city and how they perceive it.
+\subsection{Data Preprocssing} \label{data_preprocessing}
+Foursquare data and Flickr data in Greater London from April 3, 2012 to September 16, 2013 were collected to investigate how people move around the city and how they perceive it.
 
 This study examines the city perceptions of locals and tourists, during daytime and nighttime, as well as on weekdays and weekends. Therefore, it is crucial to differentiate between these two population groups across different time spans. To distinguish between locals and tourists, a combination of user profiles and time intervals was utilized for identification. The user profile served as the primary criterion, with individuals whose hometown or city of residence listed as London in their profiles categorized as locals. In cases where the user profile was unavailable, the time interval between the user's initial and final Foursquare or Flickr posts in Greater London was employed. Users with a time interval exceeding 30 days were classified as locals. Regarding time spans, daytime is defined as 6 am to 6 pm, while the remaining hours are considered nighttime. Weekdays encompass Monday to Friday, while the weekend comprises Saturday and Sunday.
 
@@ -282,11 +283,11 @@ Foursquare check-ins were merged with Foursquare \acrshort{poi} by the venue ID 
 \begin{enumerate}
     \item Merged check-ins with \acrshort{poi} to get the coordinates for each check-in.
     \item Removed duplicated check-ins.
-    \item Updated venue categories of check-ins based on the \href{http://foursquare-categories.herokuapp.com/}{ Foursquare category}. The Foursquare category system uses a three-level hierarchy. For example, the Arts \& Entertainment first-level category includes a second-level category called Movie Theater, which in turn contains three third-level categories: Drive-in Theater, Indie Movie Theater, and Multiplex. This study kept only the first-level categories to represent 
+    \item Updated venue categories of check-ins based on the Foursquare category \footnote{\url{http://foursquare-categories.herokuapp.com/}}. The Foursquare category system uses a three-level hierarchy. For example, the Arts \& Entertainment first-level category includes a second-level category called Movie Theater, which in turn contains three third-level categories: Drive-in Theater, Indie Movie Theater, and Multiplex. This study kept only the first-level categories to represent 
     check-ins.
     \item Removed check-ins that were labeled as Residence to protect the privacy of Foursquare users.
     \item Removed users whose total travel distances are less than one kilometer. This study aims to investigate city perception through the analysis of trajectories. As such, trajectories with short travel distances are considered unsuitable for discovering meaningful patterns of city perception. Therefore, users with short travel distances were removed.
-    \item Identified locals and tourists based on the number of days spent in Greater London, total travel distances, and user profiles. Users who spent more than 30 days in Greater London and had a total travel distance greater than 100 km were considered locals. For the remaining users, those who listed London as their hometown in their profiles were also categorized as locals. The user profiles were retrieved using \href{https://location.foursquare.com/developer/reference/v2-users-user_id}{Get User Details} provided by \href{https://location.foursquare.com/developer/reference/foursquare-api-overview}{Foursquare API}.
+    \item Identified locals and tourists based on the number of days spent in Greater London, total travel distances, and user profiles. Users who spent more than 30 days in Greater London and had a total travel distance greater than 100 km were considered locals. For the remaining users, those who listed London as their hometown in their profiles were also categorized as locals. The user profiles were retrieved using Get User Details \footnote{\url{https://location.foursquare.com/developer/reference/v2-users-user_id}} provided by Foursquare API.
 \end{enumerate}
 
 After all these steps, a total of 177,207 check-ins by 7,183 users in Greater London were left. Out of these users, 1,087 were identified as locals and they posted 109,558 check-ins, which was far more than the number of check-ins posted by tourists, who amounted to 6,096, but posted only 67,649 check-ins (Table~\ref{tab:foursquare_summary}). Figure~\ref{fig:foursquare_distribution} shows the distribution of Foursquare check-ins, and most check-ins were concentrated in the central area of Greater London. Moreover, compared with tourists, locals tended to share more check-ins in peripheral areas.
@@ -328,7 +329,7 @@ Time & Population Group & No. of Users & No. of Check-ins \\
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/foursquare_distribution.png}
+\includegraphics[width=1\textwidth]{figures/foursquare_distribution.png}
 \caption{\label{fig:foursquare_distribution}Distribution of Foursquare check-ins of locals and tourists.}
 \end{figure}
 
@@ -383,7 +384,7 @@ No. & Modified Venue Category & No. of Check-ins & Foursquare Venue Category
 
 
 \subsubsection{Flickr Data}
-Flickr is an online photo management and sharing application where users can upload photos. As of 2023, the Flickr community has shared tens of billions of photos. Flickr data was collected via \href{https://www.flickr.com/services/api/}{Flickr API} with the Python library \href{https://stuvel.eu/software/flickrapi/}{flickrapi}. To collect Flickr photos, the method \href{https://www.flickr.com/services/api/flickr.photos.search.html}{flickr.photos.search} was applied to get photos. A total of 954,260 photos with unique 250,254 tags uploaded by 28,633 users in Greater London from April 3, 2012 to September 16, 2013 were collected. The main fields of Flickr data include:
+Flickr is an online photo management and sharing application where users can upload photos. As of 2023, the Flickr community has shared tens of billions of photos. Flickr data was collected via Flickr API with the Python library flickrapi \footnote{\url{https://stuvel.eu/software/flickrapi/}}. To collect Flickr photos, the method flickr.photos.search \footnote{\url{https://www.flickr.com/services/api/flickr.photos.search.html}} was applied to get photos. A total of 954,260 photos with unique 250,254 tags uploaded by 28,633 users in Greater London from April 3, 2012 to September 16, 2013 were collected. The main fields of Flickr data include:
 \begin{itemize}
     \item Photo ID
     \item User ID
@@ -404,8 +405,8 @@ The Flickr data required additional cleaning and identification of locals and to
     \item Removed duplicates. Duplicated tags in the same list were removed. Moreover, duplicated photos of the same user at the same location with the same tags were removed.
     \item Removed prolific and unprolific users. Prolific users were defined as those who contributed more than 5\% of all photos in the dataset, while unprolific users were defined as those who uploaded less than five photos in total per day.
     \item Removed tags with a coefficient of variation greater than 300 to reduce the contribution bias. Some tags were dominantly used by prolific users, which might lead to distortions of tags. The coefficient of variation measures whether a tag is evenly used among prolific and unprolific users \cite{hollenstein_exploring_2010}. To determine the coefficient of variation, the Flickr photos were sorted based on user contribution, with the most prolific users' photos at the top. Subsequently, all photos were equally distributed into 100 bins. For each tag, a tag profile was constructed, which stored its frequency in each of the 100 bins. The coefficient of variation was calculated as the ratio of the standard deviation to the mean of the tag frequencies in the 100 bins. The lower the coefficient of variation, the more evenly the tag is distributed. For instance, based on the histogram that displays the number of photos with a certain tag in a user distribution order, the tag \textit{square} with a coefficient of variation less than 300 is more evenly distributed than the tag \textit{forms} with a coefficient of variation greater than 300.
-    \item Removed tags that were place names in Greater London. \href{http://www.geonames.org/}{GeoNames} offers \href{http://download.geonames.org/export/dump/}{Free Gazetteer Data} that includes place names in Great Britain. Place names in Greater London were filtered out from the downloaded data, and any tag that matched with these place names was removed.
-    \item Identified locals and tourists based on the number of days spent in Greater London and user profiles. This study used \href{https://www.flickr.com/services/api/flickr.profile.getProfile.html}{flickr.profile.getProfile} provided by \href{https://www.flickr.com/services/api/}{Flickr API} to collect user profiles, which contained information about the users' hometowns and cities. Users who had stayed in Greater London for more than 30 days were considered locals. For the remaining users, this study would also flag them as locals if their hometown or city in their profiles was listed as London.
+    \item Removed tags that were place names in Greater London. GeoNames offers Free Gazetteer Data \footnote{\url{http://download.geonames.org/export/dump/}} that includes place names in Great Britain. Place names in Greater London were filtered out from the downloaded data, and any tag that matched with these place names was removed.
+    \item Identified locals and tourists based on the number of days spent in Greater London and user profiles. This study used flickr.profile.getProfile \footnote{\url{https://www.flickr.com/services/api/flickr.profile.getProfile.html}} provided by Flickr API to collect user profiles, which contained information about the users' hometowns and cities. Users who had stayed in Greater London for more than 30 days were considered locals. For the remaining users, this study would also flag them as locals if their hometown or city in their profiles was listed as London.
 \end{enumerate}
 
 \begin{figure}[h!]
@@ -451,10 +452,9 @@ Time & Population Group & No. of Users & No. of Photos & No. of Tags \\
 \end{tabular}
 \end{table}
 
-
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/flickr_distribution.png}
+\includegraphics[width=1\textwidth]{figures/flickr_distribution.png}
 \caption{\label{fig:flickr_distribution}Distribution of Flickr photos of locals and tourists.}
 \end{figure}
 
@@ -464,6 +464,194 @@ Time & Population Group & No. of Users & No. of Photos & No. of Tags \\
 \caption{\label{fig:flickr_tag_cloud}Flickr tag cloud.}
 \end{figure}
 
+
+\clearpage
+
+
+% ============================================ ||| Methodology ||| ============================================
+\section{Methodology}
+
+% ============================= || Overview || =============================
+\subsection{Overview}
+The methodology employed in this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was tackled by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{semantic_trajectory_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories from each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted based on Python 3.10.12 in Google Colab.
+
+\underline{center the figure below!!}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.2\textwidth]{figures/workflow.png}
+\caption{\label{fig:workflow}Workflow.}
+\end{figure}
+
+
+% ============================= || Hotspots Detection || =============================
+\subsection{Hotspots Detection}\label{hotspots_detection}
+
+% ====================== | Kernel Density Estimation | ======================
+\subsubsection{Kernel Density Estimation}
+Differences in visiting preferences between locals and tourists show the importance of investigating the distribution patterns within these distinct population groups. To explore these patterns, the use of a nonparametric model called \acrfull{kde} proves valuable. \acrshort{kde} offers a means of estimating probability distributions without relying on specific assumptions about their form. Unlike parametric approaches, nonparametric density estimation requires a minimum number of parameters to construct a model and estimates these parameters through the likelihood principle. This approach provides flexibility in modeling the distribution of data. To formally define \acrshort{kde}, consider a set of independent and identically distributed random samples, denoted as $X_{1},X_{2},...,X_{n} \in \mathbb{R}$, drawn from an unknown distribution $P$ with density function $p$. In this context, \acrshort{kde} can be expressed as:
+
+\begin{equation} \label{eq:kde}
+\hat{p}_{n}(x) = \frac{1}{nh^{d}} \sum_{i=1}^n k\bigg(\frac{x-X_i}{h}\bigg),
+\end{equation}
+
+where $h$ is a bandwidth parameter that controls the degree of smoothing in \acrshort{kde}. A large bandwidth might result in an over-smoothed estimate, obscuring meaningful features within the data. Conversely, a small bandwidth might lead to an under-smoothed estimate, failing to reveal the true underlying shape with random noise. The kernel function $K: \mathbb{R^{d}} \rightarrow \mathbb{R}$ is a smooth function employed by \acrshort{kde} to calculate the weighted average of neighboring observed data. This weighting process effectively smooths out the data, with closer points receiving higher weights. The Gaussian kernel (Equation \ref{eq:gaussian_kernel}) and the Spherical kernel (Equation \ref{eq:spherical_kernel}) are the two widely used kernels.
+
+\begin{equation} \label{eq:gaussian_kernel}
+K_{\text{Gaussian}}(x) = \frac{exp\left(-\frac{\|x\|^{2}}{2}\right)}{v_{1,d}}, \quad v_{1,d} = \int exp\left(-\frac{\|x\|^{2}}{2}\right) \, dx 
+\end{equation}
+
+\begin{equation} \label{eq:spherical_kernel}
+K_{\text{Spherical}}(x) = \frac{I\left(\|x\| \leq 1\right)}{v_{2,d}}, \quad v_{2,d} = \int I\left(\|x\| \leq 1\right) \, dx 
+\end{equation}
+
+In this study, \acrshort{kde} was employed to analyze the distribution of Foursquare check-ins of locals and tourists. To visualize the distribution effectively, the seaborn.kdeplot \footnote{\url{https://seaborn.pydata.org/generated/seaborn.kdeplot.html}} function from the Python library seaborn was utilized. The default bandwidth method \textit{scoott}, with a default bandwidth value of 1 was applied. This choice is appropriate given the smooth distribution of Foursquare check-ins, making the default bandwidth value well-suited for the analysis. Furthermore, the Gaussian kernel was provided by seaborn.kdeplot was used as the kernel smoother.
+
+% ====================== | Calculation of Difference Ratio | ======================
+\subsubsection{Calculation of Difference Ratio}
+The extent to which locals and tourists mix within a given area provides insights into the popularity of that area among these two distinct groups. To assess the level of integration between locals and tourists, the dissimilarity index $D$ was employed, as previously utilized in a study by \cite{li_analyzing_2018}. The dissimilarity index quantifies the degree of dissimilarity between the two groups and is defined as:
+
+\begin{equation} \label{eq:dissimilarity_index}
+    D = \frac{1}{2}\sum_{i=1}^{N}\bigg|\frac{t_{i}}{T}-\frac{l_{i}}{L}\bigg|
+\end{equation}
+
+where $t_{i}$ represents the number of tourists in the $i_{th}$ given area, and $T$ represents the total number of tourists in the city. Similarly, $l_{i}$ represents the number of locals in the $i_{th}$ given area, and $L$ represents the total number of locals in the city. A higher value of $D$ indicates a greater degree of mixing between locals and tourists across the entire area, and conversely, a lower value suggests a lower level of mixing. However, it's important to note that the $D$ provides only a single value representing the overall mixture degree within the city, lacking information about the distribution of the mixture degree across different areas in the city.
+
+To address this limitation, this study employed a rasterization approach, dividing Greater London into equal-sized cells with a cell size of 1km by 1 km. This allowed for the visualization of the mixture degree within each raster. While both the number of visitors and the number of check-ins in each raster could be used to calculate the mixture degree, the latter is more suitable for reflecting activity density. Consequently, the number of check-ins made by locals and tourists in each raster was counted respectively to calculate the mixture degree. To capture the mixture degree in each raster, the difference ratio $R$ was computed based on the equation of dissimilarity index $D$. This ratio serves as a representative measure of the mixture degree within each raster, and it is defined as:
+
+\begin{equation} \label{eq:diff_ratio}
+    R = \frac{t_{i}}{T}-\frac{l_{i}}{L}
+\end{equation}
+
+where $t_{i}$ represents the number of tourists' check-ins in the raster $i$, and $T$ represents the total number of tourists' check-ins shared citywide. Similarly, $l_{i}$ represents the number of locals' check-ins in the raster $i$, and $L$ represents the total number of locals' check-ins shared citywide. This ratio provides insights into the relative activity density between locals and tourists within each raster. A larger positive value of $R$ indicates a higher density of check-ins shared by tourists in that particular raster. Conversely, a larger negative value of \(R\) indicates a higher density of check-ins shared by locals in the same raster.
+
+% ============================= || Semantic Trajectory Modeling || =============================
+\subsection{Semantic Trajectory Modeling} \label{semantic_trajectory_modeling}
+
+% ====================== | Place Construction | ======================
+\subsubsection{Place Construction}
+
+\underline{introduce dbscan}
+
+why cluster check-ins
+\underline{definition of place, which will be used to explain why places are clusters of check-ins instead of merely check-ins}
+
+\underline{refer to notes in logbooks!!!!}
+
+\underline{pseudocode}
+
+
+
+% Place Dimensions
+
+\underline{add a table of place dimensions, refer to table 6 in \cite{ferrero_mastermovelets_2020}}
+
+definition of semantic place with mathematical expressions
+
+Location, Locale, Sense of Place
+Location:
+why not coordinates
+1. the spatial distance will be considered in computing the similarity, which also takes the coordinates to do the computation. Moreover, the coordinates cannot deliver enough semantic information
+2. every place has a unique coordinate, and it makes no sense to compute the similarity in this dimension as no two places will be similar to each other in location
+why the borough name
+"enrichment with geographic regions" for trajectory data in previous studies \cite{yan_semantic_2013}
+
+Locale:
+"enrichment with geographic points" \cite{yan_semantic_2013}
+
+
+% however, the identity of the place should also be considered in the definition of place, as it distinguishes place from location. Compared with location, which is merely a point described by coordinates, place is an identifiable location formed based on human consensus with definable properties \citep{purves_places_2019}.
+
+sense of place:
+People's emotional relationships with places are subjective and need not be strong and positive \citep{altman_place_1992}. Someone may feel nostalgic about the place he used to visit, even if the place itself is not objectively positive or negative \cite{relph_geographical_1985}. Descriptive words can also be used to describe emotions about a place other than simply positive or negative.
+
+% ====================== | Topic Modeling | ======================
+\subsubsection{Topic Modeling}
+Topic Modeling
+\underline{cite this: https://github.com/polsci/colab-gensim-mallet}
+Foursquare check-ins with no nearby Flickr tags >>>
+Tried buffer sizes of 1000m, 500m, and 250m, but there are always check-ins with no Flickr tags around >>>
+Applied the topic imputation for these check-ins >>>
+Gaussian kernel >>>
+Buffer size of 500m has the best coherence value in topic modeling
+
+ \acrshort{lda} assumes that a document contains a randomized combination of latent topics. To generate the document, a K-vector \(\theta\) that represents the mixture proportion of \(k\) topics is sampled3 with a Dirichlet prior distribution \(p(\theta|\alpha)\). The variable \(k\) specifies the dimension of the distribution and also the dimension of the topic variable \(z\), which defines the total number of topics generated by the model. A Dirichlet variable \(\theta\) with a dimension of \(k\) can take values in the \((k-1)\)-simplex and has a probability density on this simplex, which is determined by the following equation
+
+\begin{equation} \label{eq:lda}
+    p(\theta|\alpha)\ = \frac{\Gamma(\sum_{i=1}^{k} \alpha_{i})}{\prod_{i=1}^{k}\Gamma(\alpha_{i})}\theta_{1}^{z_{1}-1}...\theta_{k}^{z_{k}-1}
+\end{equation}
+
+In Equation \ref{eq:lda}, the parameter \(\alpha\) is the hyperparameter of the Dirichlet distribution, representing a prior count of the frequency of an individual topic appearing in a document. Figure~\ref{fig:lda} illustrates the generative process of \acrshort{lda}. The parameter \(\beta\) is also a Dirichlet prior hyperparameter that determines the degree of smoothing over word distributions in all topics. The values of \(\alpha\) and \(\beta\) are chosen based on the size of the vocabulary and the number of topics selected \citep{blei_latent_2003}. Optimizing these parameters is crucial to obtain meaningful results from this method \citep{vayansky_review_2020}. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{figures/lda.png}
+\caption{\label{fig:lda}Illustration of the LDA generative process. The outer box M denotes the repeated sampling for each document and the inner box N represents sampling within each document. The box K represents sampling for each topic \citep{vayansky_review_2020}.}
+\end{figure}
+
+Concept talk question: Buffer overlap of Foursquare places, which makes the same Flickr tag belongs to two places
+
+% ====================== | Semantic Trajectory Construction | ======================
+\subsubsection{Semantic Trajectory Construction}
+definition of semantic trajectory with mathematical expressions
+cite trajminer
+
+trajectory data cleaning
+remove check-ins in trajectories with length less than 3 >>> topic modeling >>> trajectory construction
+
+determine the Begin and the End of the trajectory (they are the first and last positions of the object for this trajectory)
+
+Figure \ref{fig:trajectory_begin_end}
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{figures/begin_end.png}
+\caption{\label{fig:trajectory_begin_end}Trajectories extracted from a movement track \citep{parent_semantic_2013}.}
+\end{figure}
+
+
+% ============================= || Typical Semantic Trajectory Mining || =============================
+\subsection{Typical Semantic Trajectory Mining} \label{typical_semantic_trajectory_mining}
+introduce the process
+
+% ====================== | Semantic Trajectory Clustering | ======================
+\subsubsection{Semantic Trajectory Clustering}
+introduce the process
+
+why spatial, temporal, and semantic
+
+
+% Semantic Trajectory Clustering
+MSM, MUITAS
+Cite it!
+@misc{petry2019trajminer,
+  title={Trajminer},
+  author={Petry, Lucas May and others},
+  year={2019},
+  howpublished={\url{https://trajminer.github.io}},
+}
+
+Agglomerative Clustering, DBSCAN
+
+since dimensions can have different natures, each dimension needs an appropriate distance function and a threshold to match two elements \cite{furtado_multidimensional_2016}.
+
+% ====================== | Sequential Pattern Mining | ======================
+\subsubsection{Sequential Pattern Mining}
+GSP: \cite{prado_lima_gsp-py_2020}
+
+\underline{Concept talk question: Locals and tourists have very different trajectories, how to compare them?
+
+(1) Describe what the trajectories of locals and tourists look like, and what’s the visiting direction
+
+(2) Make histograms about the main place types and topics within the trajectories, and compare them
+
+https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
+
+
+\clearpage
+
+
+% ============================================ ||| Results ||| ============================================
+\section{Results}
 
 % Table~\ref{tab:popular_venues_locals.}
 % \begin{table}
@@ -521,198 +709,6 @@ Time & Population Group & No. of Users & No. of Photos & No. of Tags \\
 % 10 & London St Pancras International Railway Station (STP) & 252 & Transport \\ \hline
 % \end{tabular}
 % \end{table}
-\newpage
-
-
-% ============================================ ||| Methodology ||| ============================================
-\section{Methodology}
-\underline{refer to figure 3 in \cite{cai_mining_2018}}
-\underline{Figure~\ref{fig:flowchart}}
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth]{figures/flowchart.png}
-\caption{\label{fig:flowchart}xxx.}
-\end{figure}
-% ============================= || Hotspots Detection || =============================
-\subsection{Hotspots Detection}
-
-
-% ====================== | Kernel Density Estimation | ======================
-\subsubsection{Kernel Density Estimation}
-
-
-
-% ====================== | Calculation of Difference Ratio | ======================
-\subsubsection{Calculation of Difference Ratio}
-
-Explain why a comparison should be made, and which approach was applied (formula for Difference ratio)
-
-The index of dissimilarity \(D\) is defined as:
-
-\begin{equation} \label{eq:dissimilarity_index}
-    D = \frac{1}{2}\sum_{i=1}^{N}\bigg|\frac{t_{i}}{T}-\frac{l_{i}}{L}\bigg|
-\end{equation}
-
-where \(t_{i}\) is the number of tourists in the \(i_{th}\) place, and \(T\) is the total number of tourists to the city. Similarly, \(l_{i}\) is the number of locals in the \(i_{th}\) place, and \(L\) is the total number of locals to the city.
-
-the difference ratio can be used to represent the distribution of locals and tourists in each place. 
-
-\begin{equation} \label{eq:diff_ratio}
-    R = \frac{t_{i}}{T}-\frac{l_{i}}{L}
-\end{equation}
-
-In Equation \ref{eq:diff_ratio}
-\(t_{i}\) is the number of tourists in the place \(i\), and \(T\) is the total number of unique tourists visiting the study area. Similarly, \(l_{i}\) is the number of locals in the place \(i\), and \(L\) is the total number of unique locals visiting the study area. This index reflects the relative activity density of locals and tourists. A positive \(R\) value indicates a higher density of tourists visiting this place, whereas a negative \(R\) value indicates a higher density of locals.
-
-top-ranked locations, location importance: \cite{yin_diversified_2011}
-
-% ============================= || Semantic Trajectory Modeling || =============================
-\subsection{Semantic Trajectory Modeling}
-
-% ====================== | Place Construction | ======================
-\subsubsection{Place Construction}
-
-\underline{introduce dbscan}
-
-why cluster check-ins
-\underline{definition of place, which will be used to explain why places are clusters of check-ins instead of merely check-ins}
-
-\underline{refer to notes in logbooks!!!!}
-
-\underline{pseudocode}
-
-
-\underline{Table~\ref{tab:place_category_daytime}}
-\begin{table}
-\centering
-\caption{\label{tab:place_category_daytime}Place category count during daytime.}
-\begin{tabular}{llll} \hline
-No. & Place Category & No. of Places & No. of Visits \\ \hline
-1 & Transport & 43,051 & xxx \\
-2 & Restaurant & 34,376 & xxx \\
-3 & Professional Place & 22,184 & xxx \\
-4 & Entertainment Place & 20,429 & xxx \\
-5 & Shopping Place & 19,772 & xxx \\
-6 & Art Place & 18,418 & xxx \\
-7 & Green \& Blue Space & 14,285 & xxx \\
-8 & Accommodation Place & 4,692 & xxx \\
-9 & Sports Place & 4,692 & xxx \\
-10 & Others & 4,692 & xxx \\
-11 & Service Place & 4,692 & xxx \\ \hline
-\end{tabular}
-\end{table}
-
-
-% Place Dimensions
-
-\underline{add a table of place dimensions, refer to table 6 in \cite{ferrero_mastermovelets_2020}}
-
-definition of semantic place with mathematical expressions
-
-Location, Locale, Sense of Place
-Location:
-why not coordinates
-1. the spatial distance will be considered in computing the similarity, which also takes the coordinates to do the computation. Moreover, the coordinates cannot deliver enough semantic information
-2. every place has a unique coordinate, and it makes no sense to compute the similarity in this dimension as no two places will be similar to each other in location
-why the borough name
-"enrichment with geographic regions" for trajectory data in previous studies \cite{yan_semantic_2013}
-
-Locale:
-"enrichment with geographic points" \cite{yan_semantic_2013}
-
-
-% however, the identity of the place should also be considered in the definition of place, as it distinguishes place from location. Compared with location, which is merely a point described by coordinates, place is an identifiable location formed based on human consensus with definable properties \citep{purves_places_2019}.
-
-sense of place:
-People's emotional relationships with places are subjective and need not be strong and positive \citep{altman_place_1992}. Someone may feel nostalgic about the place he used to visit, even if the place itself is not objectively positive or negative \cite{relph_geographical_1985}. Descriptive words can also be used to describe emotions about a place other than simply positive or negative.
-
-% ====================== | Topic Modeling | ======================
-\subsubsection{Topic Modeling}
-Topic Modeling
-\underline{cite this: https://github.com/polsci/colab-gensim-mallet}
-Foursquare check-ins with no nearby Flickr tags >>>
-Tried buffer sizes of 1000m, 500m, and 250m, but there are always check-ins with no Flickr tags around >>>
-Applied the topic imputation for these check-ins >>>
-Gaussian kernel >>>
-Buffer size of 500m has the best coherence value in topic modeling
-
- \acrshort{lda} assumes that a document contains a randomized combination of latent topics. To generate the document, a K-vector \(\theta\) that represents the mixture proportion of \(k\) topics is sampled3 with a Dirichlet prior distribution \(p(\theta|\alpha)\). The variable \(k\) specifies the dimension of the distribution and also the dimension of the topic variable \(z\), which defines the total number of topics generated by the model. A Dirichlet variable \(\theta\) with a dimension of \(k\) can take values in the \((k-1)\)-simplex and has a probability density on this simplex, which is determined by the following equation:
-
-\begin{equation} \label{eq:lda}
-    p(\theta|\alpha)\ = \frac{\Gamma(\sum_{i=1}^{k} \alpha_{i})}{\prod_{i=1}^{k}\Gamma(\alpha_{i})}\theta_{1}^{z_{1}-1}...\theta_{k}^{z_{k}-1}
-\end{equation}
-
-In Equation \ref{eq:lda}, the parameter \(\alpha\) is the hyperparameter of the Dirichlet distribution, representing a prior count of the frequency of an individual topic appearing in a document. Figure~\ref{fig:lda} illustrates the generative process of \acrshort{lda}. The parameter \(\beta\) is also a Dirichlet prior hyperparameter that determines the degree of smoothing over word distributions in all topics. The values of \(\alpha\) and \(\beta\) are chosen based on the size of the vocabulary and the number of topics selected \citep{blei_latent_2003}. Optimizing these parameters is crucial to obtain meaningful results from this method \citep{vayansky_review_2020}. 
-
-\begin{figure}
-\centering
-\includegraphics[width=0.7\textwidth]{figures/lda.png}
-\caption{\label{fig:lda}Illustration of the LDA generative process. The outer box M denotes the repeated sampling for each document and the inner box N represents sampling within each document. The box K represents sampling for each topic \citep{vayansky_review_2020}.}
-\end{figure}
-
-Concept talk question: Buffer overlap of Foursquare places, which makes the same Flickr tag belongs to two places
-
-% ====================== | Semantic Trajectory Construction | ======================
-\subsubsection{Semantic Trajectory Construction}
-definition of semantic trajectory with mathematical expressions
-cite trajminer
-
-trajectory data cleaning
-remove check-ins in trajectories with length less than 3 >>> topic modeling >>> trajectory construction
-
-determine the Begin and the End of the trajectory (they are the first and last positions of the object for this trajectory)
-
-Figure \ref{fig:trajectory_begin_end}
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{figures/begin_end.png}
-\caption{\label{fig:trajectory_begin_end}Trajectories extracted from a movement track \citep{parent_semantic_2013}.}
-\end{figure}
-
-
-% ============================= || Typical Semantic Trajectory Mining || =============================
-\subsection{Typical Semantic Trajectory Mining}
-introduce the process
-
-% ====================== | Semantic Trajectory Clustering | ======================
-\subsubsection{Semantic Trajectory Clustering}
-introduce the process
-
-why spatial, temporal, and semantic
-
-
-% Semantic Trajectory Clustering
-MSM, MUITAS
-Cite it!
-@misc{petry2019trajminer,
-  title={Trajminer},
-  author={Petry, Lucas May and others},
-  year={2019},
-  howpublished={\url{https://trajminer.github.io}},
-}
-
-Agglomerative Clustering, DBSCAN
-
-since dimensions can have different natures, each dimension needs an appropriate distance function and a threshold to match two elements \cite{furtado_multidimensional_2016}.
-
-% ====================== | Sequential Pattern Mining | ======================
-\subsubsection{Sequential Pattern Mining}
-GSP: \cite{prado_lima_gsp-py_2020}
-
-\underline{Concept talk question: Locals and tourists have very different trajectories, how to compare them?
-
-(1) Describe what the trajectories of locals and tourists look like, and what’s the visiting direction
-
-(2) Make histograms about the main place types and topics within the trajectories, and compare them
-
-https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
-
-
-\newpage
-
-
-% ============================================ ||| Results ||| ============================================
-\section{Results}
 
 % ============================= || Spatiotemporal Patterns of Hotspots || =============================
 \subsection{Spatiotemporal Patterns of Hotspots}
@@ -734,6 +730,25 @@ https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
 % ====================== | Place Distribution | ======================
 \subsubsection{Place Distribution}
 
+\underline{Table~\ref{tab:place_category_daytime}}[h!]
+\begin{table}
+\centering
+\caption{\label{tab:place_category_daytime}Place category count during daytime.}
+\begin{tabular}{llll} \hline
+No. & Place Category & No. of Places & No. of Visits \\ \hline
+1 & Transport & 43,051 & xxx \\
+2 & Restaurant & 34,376 & xxx \\
+3 & Professional Place & 22,184 & xxx \\
+4 & Entertainment Place & 20,429 & xxx \\
+5 & Shopping Place & 19,772 & xxx \\
+6 & Art Place & 18,418 & xxx \\
+7 & Green \& Blue Space & 14,285 & xxx \\
+8 & Accommodation Place & 4,692 & xxx \\
+9 & Sports Place & 4,692 & xxx \\
+10 & Others & 4,692 & xxx \\
+11 & Service Place & 4,692 & xxx \\ \hline
+\end{tabular}
+\end{table}
 
 % ====================== | Place Dimensions | ======================
 \subsubsection{Place Dimensions}
@@ -824,7 +839,8 @@ Figure \ref{fig:flickr_trend_week}
 \includegraphics[width=0.8\textwidth]{figures/flickr_trend_week.png}
 \caption{\label{fig:flickr_trend_week}Temporal Flickr photos sharing pattern along the week.}
 \end{figure}
-\newpage
+
+\clearpage
 
 
 \section{Discussion}
@@ -836,12 +852,12 @@ Figure \ref{fig:flickr_trend_week}
 limitation: foursquare is not for everyone, most users are young people
 
 
-\newpage
+\clearpage
 
 
 \section{Conclusion}
-\newpage
 
+\clearpage
 
 
 \pagenumbering{roman}
@@ -849,7 +865,8 @@ limitation: foursquare is not for everyone, most users are young people
 \bibliographystyle{apacite}
 \bibliography{references}
 
-\newpage
+\clearpage
+
 \section{Appendix}
 
 \end{document}
