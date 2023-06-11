@@ -27,7 +27,8 @@
 \usepackage{chngcntr}
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
-
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
 
 
 \title{Discovering City Perception by Mining Semantic Trajectory}
@@ -296,7 +297,7 @@ After all these steps, a total of 177,207 check-ins by 7,183 users in Greater Lo
 \centering
 \caption{\label{tab:foursquare_summary}Summary of Foursquare data.}
 \begin{tabular}{llll} \hline
-Time & Population Group & No. of Users & No. of Check-ins \\
+Time & Population group & No. of users & No. of check-ins \\
 \hline
 \multirow{3}{*}{Overall} 
 & All Users & 7,183 & 177,207 \\
@@ -339,7 +340,7 @@ For venue categories, Foursquare categorizes the place types into ten categories
 \centering
 \caption{\label{tab:foursquare_category}Foursquare venue category.}
 \begin{tabular}{lll} \hline
-No. & Foursquare Venue Category & No. of Check-ins \\ \hline
+No. & Foursquare venue category & No. of check-ins \\ \hline
 1 & Travel \& Transport & 43,051 \\
 2 & Food & 34,376 \\
 3 & Professional \& Other Places & 22,184 \\
@@ -357,7 +358,7 @@ No. & Foursquare Venue Category & No. of Check-ins \\ \hline
 \caption{\label{tab:modified_category}Modified Foursquare venue category.}
 \begin{adjustbox}{max width=\textwidth, margin=0cm}
 \begin{tabular}{lllp{6cm}p{5cm}} \hline
-No. & Modified Venue Category & No. of Check-ins & Foursquare Venue Category 
+No. & Modified venue category & No. of check-ins & Foursquare venue category 
 & Example \\ \hline
 1 & Transport & 36,994 & Travel \& Transport & Airport, Train Station, Bus Station, etc. \\
 2 & Restaurant & 34,376 & Food & Sandwich Place, Asian Restaurant, Italian Restaurant, etc. \\
@@ -422,7 +423,7 @@ After all these steps, 177,568 photos were left with a total of 717,747 tags (3,
 \centering
 \caption{\label{tab:flickr_summary}Summary of Flickr data.}
 \begin{tabular}{lllll} \hline
-Time & Population Group & No. of Users & No. of Photos & No. of Tags \\
+Time & Population group & No. of users & No. of photos & No. of tags \\
 \hline
 \multirow{3}{*}{Overall} 
 & All Users & 4,687 & 177,568 & 717,747 \\
@@ -475,11 +476,10 @@ Time & Population Group & No. of Users & No. of Photos & No. of Tags \\
 \subsection{Overview}
 The methodology employed in this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was tackled by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{semantic_trajectory_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories from each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted based on Python 3.10.12 in Google Colab.
 
-\underline{center the figure below!!}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.2\textwidth]{figures/workflow.png}
+\includegraphics[width=1\textwidth]{figures/workflow.png}
 \caption{\label{fig:workflow}Workflow.}
 \end{figure}
 
@@ -650,77 +650,144 @@ https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
 \clearpage
 
 
+
 % ============================================ ||| Results ||| ============================================
 \section{Results}
 
-% Table~\ref{tab:popular_venues_locals.}
-% \begin{table}
-% \centering
-% \caption{\label{tab:popular_venues_locals}Top 10 popular venues for locals}
-% \begin{tabular}{llll} \hline
-% No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
-% 1 & London Waterloo Railway Station (WAT) & 874 & Transport \\
-% 2 & London Paddington Railway Station (PAD) & 515 & Transport \\
-% 3 & London King's Cross Railway Station (KGX) & 510 & Transport \\
-% 4 & London Euston Railway Station & 463 & Transport \\
-% 5 & London Victoria Railway Station (VIC) & 459 & Transport \\
-% 6 & London Liverpool Street Railway Station (LST) & 407 & Transport \\
-% 7 & Westfield London  & 406 & Shopping Place \\
-% 8 & London Bridge Railway Station (LBG) & 366 & Transport \\
-% 9 & Westfield Stratford City & 353 & Shopping Place \\
-% 10 & London St Pancras International Railway Station (STP) & 302 & Transport \\ \hline
-% \end{tabular}
-% \end{table}
-
-% Table~\ref{tab:popular_venues_tourists.}
-% \begin{table}
-% \centering
-% \caption{\label{tab:popular_venues_tourists}Top 10 popular venues for tourists}
-% \begin{tabular}{llll} \hline
-% No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
-% 1 & London Euston Railway Station & 944 & Transport \\
-% 2 & London King's Cross Railway Station (KGX) & 693 & Transport \\
-% 3 & London Paddington Railway Station (PAD) & 616 & Transport \\
-% 4 & Harrods & 610 & Shopping Place \\
-% 5 & London Waterloo Railway Station (WAT) & 587 & Transport \\
-% 6 & London Victoria Railway Station (VIC) & 493 & Transport \\
-% 7 & London St Pancras International Railway Station (STP) & 489 & Transport \\
-% 8 & Piccadilly Circus & 468 & Green \& Blue Space \\
-% 9 & Buckingham Palace & 440 & Art Place \\
-% 10 & Trafalgar Square & 397 & Green \& Blue Space \\ \hline
-% \end{tabular}
-% \end{table}
-
-% Table~\ref{tab:popular_venues_daytime_locals.}
-% \begin{table}
-% \centering
-% \caption{\label{tab:popular_venues_daytime_locals}Top 10 popular venues for locals during daytime}
-% \begin{tabular}{llll} \hline
-% No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
-% 1 & London Waterloo Railway Station (WAT) & 723 & Transport \\
-% 2 & London Paddington Railway Station (PAD) & 439 & Transport \\
-% 3 & London King's Cross Railway Station (KGX) & 427 & Transport \\
-% 4 & London Euston Railway Station & 397 & Transport \\
-% 5 & London Victoria Railway Station (VIC) & 397 & Transport \\
-% 6 & London Liverpool Street Railway Station (LST) & 351 & Transport \\
-% 7 & Westfield London & 343 & Shopping Place \\
-% 8 & Westfield Stratford City & 314 & Shopping Place \\
-% 9 & London Bridge Railway Station (LBG) & 301 & Transport \\
-% 10 & London St Pancras International Railway Station (STP) & 252 & Transport \\ \hline
-% \end{tabular}
-% \end{table}
-
 % ============================= || Spatiotemporal Patterns of Hotspots || =============================
 \subsection{Spatiotemporal Patterns of Hotspots}
+RQ1: Which areas are more popular among locals and tourists at different time spans?
+
+\subsubsection{Data Exploration}
+
+1. stacked bar chart of check-ins count
+2. boxplot of category
+3. line chart of locals and tourists
+
+
+Figure \ref{fig:foursquare_day_count_pie}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/foursquare_day_count_pie.png}
+\caption{\label{fig:foursquare_day_count_pie}Percent of Foursquare data of locals and tourists during daytime and nighttime.}
+\end{figure}
+
+% Figure \ref{fig:flickr_day_count_pie}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=1.13\textwidth]{figures/flickr_day_count_pie.png}
+% \caption{\label{fig:flickr_day_count_pie}Percent of Flickr data of locals and tourists during daytime and nighttime.}
+% \end{figure}
+
+
+Figure \ref{fig:foursquare_week_count_pie}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/foursquare_week_count_pie.png}
+\caption{\label{fig:foursquare_week_count_pie}Percent of Foursquare data of locals and tourists during weekdays and weekends.}
+\end{figure}
+
+% Figure \ref{fig:flickr_week_count_pie}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=1.13\textwidth]{figures/flickr_week_count_pie.png}
+% \caption{\label{fig:flickr_week_count_pie}Percent of Flickr data of locals and tourists during weekdays and weekends.}
+% \end{figure}
+
+
+Figure \ref{fig:foursquare_trend_day}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/foursquare_trend_day.png}
+\caption{\label{fig:foursquare_trend_day}Temporal Foursquare check-ins sharing pattern along the day.}
+\end{figure}
+
+Figure \ref{fig:foursquare_trend_week}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/foursquare_trend_week.png}
+\caption{\label{fig:foursquare_trend_week}Temporal Foursquare check-ins sharing pattern along the week.}
+\end{figure}
+
+
+% Figure \ref{fig:flickr_trend_day}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figures/flickr_trend_day.png}
+% \caption{\label{fig:flickr_trend_day}Temporal Flickr photos sharing pattern along the day.}
+% \end{figure}
+
+% Figure \ref{fig:flickr_trend_week}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figures/flickr_trend_week.png}
+% \caption{\label{fig:flickr_trend_week}Temporal Flickr photos sharing pattern along the week.}
+% \end{figure}
+
 
 
 % ====================== | Hotspots of Locals and Tourists | ======================
 \subsubsection{Hotspots of Locals and Tourists}
 
+1. introduce the difference ratio figure
+2. modify the two tables below
+3. introduce popular areas by combining the top check-ins and popular attractions in \url{https://www.visitacity.com/en/london/attractions-map?gclid=CjwKCAjw4ZWkBhA4EiwAVJXwqdhgvZxKEwv72KeA4PozSckbHY5A41jKUD2D8fSCh5QfIYs5QSugtRoCfbcQAvD_BwE} in rasters with high difference ratio values
+
+
+\paragraph{Daytime vs. Nighttime}
+
+
+\paragraph{Weekday vs. Weekend}
+
 
 % ====================== | Mixture of Locals and Tourists in Hotspots | ======================
 \subsubsection{Mixture of Locals and Tourists in Hotspots}
 
+
+popular check-ins for locals: top 10 check-ins in rasters with diff ratio > 0.01
+Table~\ref{tab:popular_venues_locals.}
+\begin{table}
+\centering
+\caption{\label{tab:popular_venues_locals}Top 10 popular venues for locals}
+\begin{tabular}{llll} \hline
+No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
+1 & London Waterloo Railway Station (WAT) & 874 & Transport \\
+2 & London Paddington Railway Station (PAD) & 515 & Transport \\
+3 & London King's Cross Railway Station (KGX) & 510 & Transport \\
+4 & London Euston Railway Station & 463 & Transport \\
+5 & London Victoria Railway Station (VIC) & 459 & Transport \\
+6 & London Liverpool Street Railway Station (LST) & 407 & Transport \\
+7 & Westfield London  & 406 & Shopping Place \\
+8 & London Bridge Railway Station (LBG) & 366 & Transport \\
+9 & Westfield Stratford City & 353 & Shopping Place \\
+10 & London St Pancras International Railway Station (STP) & 302 & Transport \\ \hline
+\end{tabular}
+\end{table}
+
+popular check-ins for tourists: top 10 check-ins in rasters with diff ratio < -0.01
+Table~\ref{tab:popular_venues_tourists.}
+\begin{table}
+\centering
+\caption{\label{tab:popular_venues_tourists}Top 10 popular venues for tourists}
+\begin{tabular}{llll} \hline
+No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
+1 & London Euston Railway Station & 944 & Transport \\
+2 & London King's Cross Railway Station (KGX) & 693 & Transport \\
+3 & London Paddington Railway Station (PAD) & 616 & Transport \\
+4 & Harrods & 610 & Shopping Place \\
+5 & London Waterloo Railway Station (WAT) & 587 & Transport \\
+6 & London Victoria Railway Station (VIC) & 493 & Transport \\
+7 & London St Pancras International Railway Station (STP) & 489 & Transport \\
+8 & Piccadilly Circus & 468 & Green \& Blue Space \\
+9 & Buckingham Palace & 440 & Art Place \\
+10 & Trafalgar Square & 397 & Green \& Blue Space \\ \hline
+\end{tabular}
+\end{table}
+
+\paragraph{Daytime vs. Nighttime}
+
+
+\paragraph{Weekday vs. Weekend}
 
 
 % ============================= || Spatiotemporal Patterns of Places || =============================
@@ -730,8 +797,9 @@ https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
 % ====================== | Place Distribution | ======================
 \subsubsection{Place Distribution}
 
-\underline{Table~\ref{tab:place_category_daytime}}[h!]
-\begin{table}
+\underline{Table~\ref{tab:place_category_daytime}}
+
+\begin{table}[!h]
 \centering
 \caption{\label{tab:place_category_daytime}Place category count during daytime.}
 \begin{tabular}{llll} \hline
@@ -753,7 +821,8 @@ No. & Place Category & No. of Places & No. of Visits \\ \hline
 % ====================== | Place Dimensions | ======================
 \subsubsection{Place Dimensions}
 
-
+include tables and figures on the visiting frequencies to foursquare check-ins category of locals and tourists, and briefly describe which categories are more frequently visited by locals/tourists
+% https://colab.research.google.com/drive/1xLXGgWscXJIaRYVmw7RzFpymd2js7Kuc#scrollTo=8aQpz87SLvQQ
 
 % ============================= || Spatiotemporal City Perception through Semantic Trajectory || =============================
 \subsection{Spatiotemporal City Perception through Semantic Trajectory}
@@ -770,75 +839,9 @@ No. & Place Category & No. of Places & No. of Visits \\ \hline
 % ====================== | Typical Semantic Trajectory and City Perception | ======================
 \subsubsection{Typical Semantic Trajectory and City Perception}
 
-RQ1: Which areas are more popular among locals and tourists at different time spans?
-
-For each section,
-include tables on the number of locals and tourists during daytime, nighttime/weekday, weekend
-
-include tables and figures on the visiting frequencies to foursquare check-ins category of locals and tourists, and briefly describe which categories are more frequently visited by locals/tourists
-% https://colab.research.google.com/drive/1xLXGgWscXJIaRYVmw7RzFpymd2js7Kuc#scrollTo=8aQpz87SLvQQ
-
-
-Figure \ref{fig:foursquare_day_count_pie}
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{figures/foursquare_day_count_pie.png}
-\caption{\label{fig:foursquare_day_count_pie}Percent of Foursquare data of locals and tourists during daytime and nighttime.}
-\end{figure}
-
-Figure \ref{fig:flickr_day_count_pie}
-\begin{figure}
-\centering
-\includegraphics[width=1.13\textwidth]{figures/flickr_day_count_pie.png}
-\caption{\label{fig:flickr_day_count_pie}Percent of Flickr data of locals and tourists during daytime and nighttime.}
-\end{figure}
-
-
-Figure \ref{fig:foursquare_week_count_pie}
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{figures/foursquare_week_count_pie.png}
-\caption{\label{fig:foursquare_week_count_pie}Percent of Foursquare data of locals and tourists during weekdays and weekends.}
-\end{figure}
-
-Figure \ref{fig:flickr_week_count_pie}
-\begin{figure}
-\centering
-\includegraphics[width=1.13\textwidth]{figures/flickr_week_count_pie.png}
-\caption{\label{fig:flickr_week_count_pie}Percent of Flickr data of locals and tourists during weekdays and weekends.}
-\end{figure}
-
-
 RQ2: How do locals and tourists perceive the city along their semantic trajectories at different time spans
 
-Figure \ref{fig:foursquare_trend_day}
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{figures/foursquare_trend_day.png}
-\caption{\label{fig:foursquare_trend_day}Temporal Foursquare check-ins sharing pattern along the day.}
-\end{figure}
 
-Figure \ref{fig:foursquare_trend_week}
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{figures/foursquare_trend_week.png}
-\caption{\label{fig:foursquare_trend_week}Temporal Foursquare check-ins sharing pattern along the week.}
-\end{figure}
-
-
-Figure \ref{fig:flickr_trend_day}
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{figures/flickr_trend_day.png}
-\caption{\label{fig:flickr_trend_day}Temporal Flickr photos sharing pattern along the day.}
-\end{figure}
-
-Figure \ref{fig:flickr_trend_week}
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{figures/flickr_trend_week.png}
-\caption{\label{fig:flickr_trend_week}Temporal Flickr photos sharing pattern along the week.}
-\end{figure}
 
 \clearpage
 
