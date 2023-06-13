@@ -222,7 +222,7 @@ Detecting the movement patterns of visitors from their trajectories helps to und
 \acrfull{gps} data is widely used for constructing trajectories. Various approaches exist for identifying stops from \acrshort{gps} data. One method involves detecting stops by examining the absence of \acrshort{gps} signals or when the velocity remains zero during a specific time interval \citep{ashbrook_using_2003}. However, the presence of signal errors decreases the accuracy of identifying actual stops using this technique. Alternatively, other approaches consider both the \acrshort{gps} data and background geographic information to identify stops. \cite{alvares_model_2007} developed an algorithm named SMoT (Stops and Moves of Trajectories) for extracting stops and moves. In their study, a stop is defined as a location where an object remains for a minimal amount of time, and it is annotated with the corresponding place type and timestamp. Density-based clustering algorithms are also employed to identify stops. \cite{palma_clustering-based_2008} treated stops as \acrshort{poi} and utilized various \acrshort{dbscan} algorithms to cluster points as places based on the speed between two points. To enrich trajectories with semantic enrichment, different techniques have been employed, such as semantic regions, semantic lines, and semantic points, to annotate trajectories \citep{yan_semantic_2013}. Semantic regions refer to meaningful geographic areas, such as land use, and stops in trajectories can be annotated with semantic information by considering their topological correlation with these regions. Semantic lines typically represent transport networks, the movements within trajectories can be linked to road segments through map-matching algorithms, helping to infer the transportation mode, such as walking, driving, or using public transportation like metros. Semantic points correspond to \acrshort{poi} with meaningful place types, like restaurants, museums, and train stations. Stops in trajectories can be linked to the closest \acrshort{poi} to annotate semantic information. Furthermore, stops and moves can be annotated with activities, like staying at home, having lunch at a restaurant, or working at a company, by considering the time individuals spend at different \acrshort{poi} and their routines \cite{parent_semantic_2013}.
 
 % ============== UGC data ==============
-In addition to utilizing \acrshort{gps} data, the growing utilization of \acrshort{ugc} data shows its potential in semantic trajectory construction by providing more semantic information beyond the spatial location. Trajectories have been built using check-ins gathered from platforms like Foursquare, Gowalla, and Brightkite. In these cases, a stop is defined as a semantic \acrshort{poi} with a minimum of 10 check-ins, and consecutive check-ins within a 10-min threshold are removed as duplicates \citep{petry_towards_2019,ferrero_mastermovelets_2020}. Another approach employed by \cite{nin_tweets_2014} involved aggregating geotagged tweets to create trajectories, associating them with Foursquare categories to construct the Semantic Origin Destination Matrix of Foursquare categories. Geotagged photos from Flickr have also served as a valuable data source for building semantic trajectories. \cite{cai_mining_2018} conducted semantic trajectory clustering using geotagged photos from Flickr to mine mobility patterns. Additionally, they identified semantic regions of interest where a high density of trajectories passed, providing more meaningful descriptions of the trajectories. Similarly, \cite{yang_quantifying_2017} utilized geotagged Flickr photos to extract tourist trajectories, expanding the trajectory dimensions from topological and temporal spaces to semantic spaces. This allowed for a better understanding of travel motifs and the discovery of meaningful patterns of tourist behavior. In terms of semantic enrichment, various attributes have been employed to enrich the semantic information of trajectories, including place type, price tier, rating, day of the week, time of day, and weather information have been used to enrich semantic information for trajectories \cite{cai_mining_2018,petry_towards_2019,liu_stccd_2020,ferrero_mastermovelets_2020}. Place type is a fundamental contextual piece of information associated with semantic trajectories, which can be collected from sources such as \href{http://www.geonames.org/}{GeoNames} or represented by venue categories derived from check-ins. Studies that utilized check-ins to construct trajectories also considered the price tier and rating associated with the check-ins. These attributes, together with place type, provide additional information about the visited places. Day of the week and time of day assist in interpreting mobility patterns with greater time granularity. For instance, it is possible to identify typical trajectories where an individual commutes from home to work at 8 am, has lunch at a restaurant at 12 pm, and so on during weekdays. The incorporation of weather information helps to capture the influence of weather conditions on individuals' movement patterns.
+In addition to utilizing \acrshort{gps} data, the growing utilization of \acrshort{ugc} data shows its potential in semantic trajectory construction by providing more semantic information beyond the spatial location. Trajectories have been built using check-ins gathered from platforms like Foursquare, Gowalla, and Brightkite. In these cases, a stop is defined as a semantic \acrshort{poi} with a minimum of 10 check-ins, and consecutive check-ins within a 10-min threshold are removed as duplicates \citep{petry_towards_2019,ferrero_mastermovelets_2020}. Another approach employed by \cite{nin_tweets_2014} involved aggregating geotagged tweets to create trajectories, associating them with Foursquare categories to construct the Semantic Origin Destination Matrix of Foursquare categories. Geotagged photos from Flickr have also served as a valuable data source for building semantic trajectories. \cite{cai_mining_2018} conducted semantic trajectory clustering using geotagged photos from Flickr to mine mobility patterns. Additionally, they identified semantic regions of interest where a high density of trajectories passed, providing more meaningful descriptions of the trajectories. Similarly, \cite{yang_quantifying_2017} utilized geotagged Flickr photos to extract tourist trajectories, expanding the trajectory dimensions from topological and temporal spaces to semantic spaces. This allowed for a better understanding of travel motifs and the discovery of meaningful patterns of tourist behavior. In terms of semantic enrichment, various attributes have been employed to enrich the semantic information of trajectories, including place type, price tier, rating, day of the week, time of day, and weather information have been used to enrich semantic information for trajectories \cite{cai_mining_2018,petry_towards_2019,liu_stccd_2020,ferrero_mastermovelets_2020}. Place type is a fundamental contextual piece of information associated with semantic trajectories, which can be collected from sources such as \href{http://www.geonames.org/}{GeoNames} or represented by venue categories derived from check-ins. Studies that utilized check-ins to construct trajectories also considered the price tier and rating associated with the check-ins. These attributes, together with place type, provide additional information about the visited places. Day of the week and time of day assist in interpreting mobility patterns with greater time granularity. For instance, it is possible to identify typical trajectories where an individual commutes from home to work at 8 am, has lunch at a restaurant at 12 pm, and so on during weekdayss. The incorporation of weather information helps to capture the influence of weather conditions on individuals' movement patterns.
 
 % ====================== | Semantic Trajectory Pattern Mining | ======================
 \subsubsection{Semantic Trajectory Pattern Mining}
@@ -262,7 +262,7 @@ city, Greater London covers an area of 1,572 \(km^2\) and has a population of 9.
 \subsection{Data Preprocssing} \label{data_preprocessing}
 Foursquare data and Flickr data in Greater London from April 3, 2012 to September 16, 2013 were collected to investigate how people move around the city and how they perceive it.
 
-This study examines the city perceptions of locals and tourists, during daytime and nighttime, as well as on weekdays and weekends. Therefore, it is crucial to differentiate between these two population groups across different time spans. To distinguish between locals and tourists, a combination of user profiles and time intervals was utilized for identification. The user profile served as the primary criterion, with individuals whose hometown or city of residence listed as London in their profiles categorized as locals. In cases where the user profile was unavailable, the time interval between the user's initial and final Foursquare or Flickr posts in Greater London was employed. Users with a time interval exceeding 30 days were classified as locals. Regarding time spans, daytime is defined as 6 am to 6 pm, while the remaining hours are considered nighttime. Weekdays encompass Monday to Friday, while the weekend comprises Saturday and Sunday.
+This study examines the city perceptions of locals and tourists, during the daytime and nighttime, as well as on weekdays and weekends. Therefore, it is crucial to differentiate between these two population groups across different time spans. To distinguish between locals and tourists, a combination of user profiles and time intervals was utilized for identification. The user profile served as the primary criterion, with individuals whose hometown or city of residence listed as London in their profiles categorized as locals. In cases where the user profile was unavailable, the time interval between the user's initial and final Foursquare or Flickr posts in Greater London was employed. Users with a time interval exceeding 30 days were classified as locals. Regarding time spans, daytime is defined as 6 am to 6 pm, while the remaining hours are considered nighttime. Weekdays encompass Monday to Friday, while the weekend comprises Saturday and Sunday.
 
 \subsubsection{Foursquare Data}
 Foursquare is a platform for users to check in at venues and share their experiences through reviews. As of 2022, Foursquare has more than 55 million monthly active users worldwide. The Foursquare data used in this study was obtained from the Global-scale Check-in Dataset \cite{yang_nationtelescope_2015}, containing two datasets: (1) Foursquare check-ins and (2) Foursquare \acrshort{poi} from April 3, 2012 to September 16, 2013, on a global scale.
@@ -478,7 +478,7 @@ Time & Population group & No. of users & No. of photos & No. of tags \\
 
 % ============================= || Overview || =============================
 \subsection{Overview}
-The methodology employed in this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was tackled by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{semantic_trajectory_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories from each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted based on Python 3.10.12 in Google Colab.
+The methodology employed in this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was tackled by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{semantic_trajectory_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories from each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted based on Python 3.10.12.
 
 
 \begin{figure}[h!]
@@ -513,7 +513,7 @@ In this study, \acrshort{kde} was employed to analyze the distribution of Foursq
 
 % ====================== | Calculation of Difference Ratio | ======================
 \subsubsection{Calculation of Difference Ratio}
-The extent to which locals and tourists mix within a given area provides insights into the popularity of that area among these two distinct groups. To assess the level of integration between locals and tourists, the dissimilarity index $D$ was employed, as previously utilized in a study by \cite{li_analyzing_2018}. The dissimilarity index quantifies the degree of dissimilarity between the two groups and is defined as:
+The extent to which locals and tourists mix within a given area provides insights into the popularity of that area among these two distinct groups. Representing the mixture of these two groups based solely on the count difference between locals and tourists may introduce bias, as the significant disparity in their numbers can skew the results. To assess the level of integration between locals and tourists, the dissimilarity index $D$ was employed, as previously utilized in a study by \cite{li_analyzing_2018}. The dissimilarity index quantifies the degree of dissimilarity between the two groups and is defined as:
 
 \begin{equation} \label{eq:dissimilarity_index}
     D = \frac{1}{2}\sum_{i=1}^{N}\bigg|\frac{t_{i}}{T}-\frac{l_{i}}{L}\bigg|
@@ -661,7 +661,7 @@ https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
 % ============================= || Spatiotemporal Patterns of Hotspots || =============================
 \subsection{Spatiotemporal Patterns of Hotspots}
 
-To investigate the popularity of different areas among both locals and tourists at various times, Foursquare check-ins were utilized to detect spatiotemporal hotspots. Figure~\ref{fig:foursquare_checkins_count} and Figure~\ref{fig:foursquare_checkins_trend} reveal the number and temporal pattern of check-ins. It was observed that locals exhibited higher activity levels compared to tourists, generating a greater number of check-ins throughout different time periods. Notably, daytime check-ins outnumbered nighttime check-ins. Analyzing the temporal pattern, locals displayed three prominent spikes in check-ins during daytime, specifically at 8 am, 12 pm, and 6 pm. Conversely, their activity diminished during nighttime, particularly at midnight. On the other hand, tourists were more active at 12 pm during daytime but showed reduced activity after 6 pm. Furthermore, weekdays experienced a higher number of check-ins compared to weekends. Locals exhibited a consistent sharing pattern from Monday to Thursday, with a notable spike on Fridays. Conversely, during weekends, locals shared significantly fewer check-ins. Tourists displayed a similar pattern from Monday to Thursday but exhibited increased activity on Fridays and Saturdays, followed by fewer check-ins on Sundays.
+To investigate the popularity of different areas among both locals and tourists at various times, Foursquare check-ins were utilized to detect spatiotemporal hotspots. Figure~\ref{fig:foursquare_checkins_count} and Figure~\ref{fig:foursquare_checkins_trend} reveal the number and temporal pattern of check-ins. It was observed that locals exhibited higher activity levels compared to tourists, generating a greater number of check-ins throughout different time periods. Notably, daytime check-ins outnumbered nighttime check-ins. Analyzing the temporal pattern, locals displayed three prominent spikes in check-ins during the daytime, specifically at 8 am, 12 pm, and 6 pm. Conversely, their activity diminished during the nighttime, particularly at midnight. On the other hand, tourists were more active at 12 pm during the daytime but showed reduced activity after 6 pm. Furthermore, weekdays experienced a higher number of check-ins compared to weekends. Locals exhibited a consistent sharing pattern from Monday to Thursday, with a notable spike on Fridays. Conversely, during weekendss, locals shared significantly fewer check-ins. Tourists displayed a similar pattern from Monday to Thursday but exhibited increased activity on Fridays and Saturdays, followed by fewer check-ins on Sundays.
 
 
 \begin{figure}[!h]
@@ -675,12 +675,12 @@ To investigate the popularity of different areas among both locals and tourists 
 
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/foursquare_trend_day.png} 
-\caption{Day pattern}
+\caption{Day pattern.}
 \label{fig:kde_locals_weekday}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/foursquare_trend_week.png}
-\caption{Week pattern}
+\caption{Week pattern.}
 \label{fig:kde_tourists_weekday}
 \end{subfigure}
 
@@ -689,169 +689,187 @@ To investigate the popularity of different areas among both locals and tourists 
 
 
 % ====================== | Hotspots of Locals and Tourists | ======================
-\subsubsection{Hotspots of Locals and Tourists}
+\subsubsection{Hotspots of Locals and Tourists} \label{hotspots}
 
-
+% ============== Daytime vs. Nighttime ==============
 \subsubsubsection{Daytime vs. Nighttime}
 % daytime
-Figure~\ref{fig:kde_daytime} illustrates the estimated distribution of Foursquare check-ins during daytime using \acrshort{kde}. Despite generating fewer check-ins compared to locals, tourists exhibit similar hotspot distribution patterns. The city center, specifically the vicinity surrounding the junction of Westminster, Camden, and the City of London, emerges as a highly popular area among both locals and tourists. These boroughs contain an abundance of cultural and historical landmarks, including the Tower of London, Westminster Abbey, and St. Paul's Cathedral. Moreover, the high transport connectivity of these boroughs enhances their attractiveness. Major train stations, including Waterloo Station and King's Cross St. Pancras, provide convenient access to and from different areas of London. As a result, a significant number of individuals are drawn to these boroughs, leading to a substantial influx of people. Another notable hotspot is situated around Stratford in Newham borough, primarily due to the Stratford Shopping Centre, which appeals to individuals who enjoy shopping. Additionally, the southern region of Hillingdon, where Heathrow Airport is located, is another hotspot where people share a large number of check-ins. Furthermore, the boundary of Richmond upon Thames and Kingston upon Thames reveals an aggregation of check-ins, and these boroughs contain thriving communities with a blend of history and natural beauty. One notable difference between locals and tourists is the presence of work-related hotspots for locals. The City of London, in particular, serves as a major business hub, with numerous corporate headquarters attracting locals for employment purposes. Similarly, Canary Wharf, located near the Isle of Dogs within the Tower Hamlets borough, represents another hotspot for locals due to its status as part of London's central business district, drawing a large number of professionals. Moreover, boroughs located on the outskirts of London, such as Croydon, Merton, Bromley, Brent, and Harrow, form smaller yet noteworthy hotspots. These areas are characterized by their residential settlement and exhibit a greater concentration of locals compared to tourists.
+Figure~\ref{fig:kde_daytime} illustrates the estimated distribution of Foursquare check-ins during the daytime using \acrshort{kde}. Despite generating fewer check-ins compared to locals, tourists exhibit similar hotspot distribution patterns. The city center, specifically the vicinity surrounding the junction of Westminster, Camden, and the City of London, emerges as a highly popular area among both locals and tourists. These boroughs contain an abundance of cultural and historical landmarks, including the Tower of London, Westminster Abbey, and St. Paul's Cathedral. Moreover, the high transport connectivity of these boroughs enhances their attractiveness. Major train stations, including Waterloo Station and King's Cross St. Pancras, provide convenient access to and from different areas of London. As a result, a significant number of individuals are drawn to these boroughs, leading to a substantial influx of people. Another notable hotspot is situated around Stratford in Newham borough, primarily due to the Stratford Shopping Centre, which appeals to individuals who enjoy shopping. Additionally, the southern region of Hillingdon, where Heathrow Airport is located, is another hotspot where people share a large number of check-ins. Furthermore, the boundary of Richmond upon Thames and Kingston upon Thames reveals an aggregation of check-ins, and these boroughs contain thriving communities with a blend of history and natural beauty. One notable difference between locals and tourists is the presence of work-related hotspots for locals. The City of London, in particular, serves as a major business hub, with numerous corporate headquarters attracting locals for employment purposes. Similarly, Canary Wharf, located near the Isle of Dogs within the Tower Hamlets borough, represents another hotspot for locals due to its status as part of London's central business district, drawing a large number of professionals. Moreover, boroughs located on the outskirts of London, such as Croydon, Merton, Bromley, Brent, and Harrow, form smaller yet noteworthy hotspots. These areas are characterized by their residential settlement and exhibit a greater concentration of locals compared to tourists.
 
 
 \begin{figure}[!h]
 
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_locals_daytime.png} 
-\caption{Locals}
+\caption{Locals.}
 \label{fig:kde_locals_daytime}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_tourists_daytime.png}
-\caption{Tourists}
+\caption{Tourists.}
 \label{fig:kde_tourists_daytime}
 \end{subfigure}
 
-\caption{Kernel density estimation of Foursquare check-ins during daytime.} \label{fig:kde_daytime}
+\caption{Kernel density estimation of Foursquare check-ins during the daytime.} \label{fig:kde_daytime}
 \end{figure}
 
 % nighttime & comparison
-The city center still serves as the primary hotspot for both locals and tourists during nighttime, as shown in Figure~\ref{fig:kde_nighttime}. In addition to its cultural and historical attractions, the city center also offers abundant shopping and entertainment options, including renowned areas such as Oxford Street and Regent Street, which provide vibrant nightlife scenes. For locals, the concentration of check-ins in the city center during nighttime is lower compared to daytime. Furthermore, the hotspot around Canary Wharf, a bustling business district, diminishes, indicating a reduced number of locals visiting this area during nighttime. However, the hotspots in Heathrow Airport and boroughs on the outskirts of London, such as Croydon, Bromley, and Harrow, remain prominent. This suggests that these areas are aggregated with a significant number of locals, possibly due to air transport activities ad residential settlements. In terms of locals, although the primary hotspot remains in the city center, the concentration of check-ins in this area decreases during nighttime. Moreover, there is a reduction or disappearance of hotspots in the suburban areas, indicating a decrease in the number of tourists visiting these regions during nighttime. However, the hotspot around Heathrow Airport remains stable, suggesting that a certain number of tourists still visit the airport during nighttime.
+The city center still serves as the primary hotspot for both locals and tourists during the nighttime, as shown in Figure~\ref{fig:kde_nighttime}. In addition to its cultural and historical attractions, the city center also offers abundant shopping and entertainment options, including renowned areas such as Oxford Street and Regent Street, which provide vibrant nightlife scenes. For locals, the concentration of check-ins in the city center during the nighttime is lower compared to daytime. Furthermore, the hotspot around Canary Wharf, a bustling business district, diminishes, indicating a reduced number of locals visiting this area during the nighttime. However, the hotspots in Heathrow Airport and boroughs on the outskirts of London, such as Croydon, Bromley, and Harrow, remain prominent. This suggests that these areas are aggregated with a significant number of locals, possibly due to air transport activities ad residential settlements. In terms of locals, although the primary hotspot remains in the city center, the concentration of check-ins in this area decreases during the nighttime. Moreover, there is a reduction or disappearance of hotspots in the suburban areas, indicating a decrease in the number of tourists visiting these regions during the nighttime. However, the hotspot around Heathrow Airport remains stable, suggesting that a certain number of tourists still visit the airport during the nighttime.
+
 
 \begin{figure}[!h]
 
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_locals_nighttime.png} 
-\caption{Locals}
+\caption{Locals.}
 \label{fig:kde_locals_nighttime}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_tourists_nighttime.png}
-\caption{Tourists}
+\caption{Tourists.}
 \label{fig:kde_tourists_nighttime}
 \end{subfigure}
 
-\caption{Kernel density estimation of Foursquare check-ins during nighttime.} \label{fig:kde_nighttime}
+\caption{Kernel density estimation of Foursquare check-ins during the nighttime.} \label{fig:kde_nighttime}
 \end{figure}
 
 
+% ============== Weekday vs. Weekend ==============
 \subsubsubsection{Weekday vs. Weekend}
 % weekday
-Figure~\ref{fig:kde_weekday} reveals that both locals and tourists have distinct primary hotspots in the city center, though with differences in their spatial distribution. These two hotspots encompass the area surrounding the junction of Westminster, Camden, and the City of London, but locals exhibit a distinct concentration in the eastern part, with a notable emphasis on the City of London. The City of London serves as a prominent financial district. And the presence of iconic structures such as 30 St Mary Axe and Canary Wharf further reinforces the City of London's status as an important hub for corporate offices, attracting individuals for weekday work engagements. Consistent with the hotspot distribution observed during daytime, locals also visit Heathrow Airport in the southern region of Hillingdon and various outskirt boroughs such as Croydon, Merton, Bromley, Harrow, Richmond upon Thames, and Kingston upon Thames. In contrast, tourists' primary hotspot in the city center gravitates towards the vicinity of Westminster and Camden, which contain numerous tourist attractions, shopping destinations, and entertainment venues. Notably, tourists are less active in the outer regions of London, indicating a relatively lower level of engagement in these areas. Among the outskirt boroughs, Hillingdon, where Heathrow Airport is located, gains more popularity among tourists compared to other areas.
+Figure~\ref{fig:kde_weekday} reveals that both locals and tourists have distinct primary hotspots in the city center during weekdays, though with differences in their spatial distribution. These two hotspots encompass the area surrounding the junction of Westminster, Camden, and the City of London, but locals exhibit a distinct concentration in the eastern part, with a notable emphasis on the City of London. The City of London serves as a prominent financial district. And the presence of iconic structures such as 30 St Mary Axe and Canary Wharf further reinforces the City of London's status as an important hub for corporate offices, attracting individuals for weekday work engagements. Consistent with the hotspot distribution observed during the daytime, locals also visit Heathrow Airport in the southern region of Hillingdon and various outskirt boroughs such as Croydon, Merton, Bromley, Harrow, Richmond upon Thames, and Kingston upon Thames. In contrast, tourists' primary hotspot in the city center gravitates towards the vicinity of Westminster and Camden, which contain numerous tourist attractions, shopping destinations, and entertainment venues. Notably, tourists are less active in the outer regions of London, indicating a relatively lower level of engagement in these areas. Among the outskirt boroughs, Hillingdon, where Heathrow Airport is located, gains more popularity among tourists compared to other areas.
+
 
 \begin{figure}[!h]
 
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_locals_weekday.png} 
-\caption{Locals}
+\caption{Locals.}
 \label{fig:kde_locals_weekday}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_tourists_weekday.png}
-\caption{Tourists}
+\caption{Tourists.}
 \label{fig:kde_tourists_weekday}
 \end{subfigure}
 
-\caption{Kernel density estimation of Foursquare check-ins during weekdays.} \label{fig:kde_weekday}
+\caption{Kernel density estimation of Foursquare check-ins during weekdayss.} \label{fig:kde_weekday}
 \end{figure}
 
-
 % weekend & comparison
-xxxxxx
+Figure~\ref{fig:kde_weekend} shows the estimated distribution of Foursquare check-ins made by locals and tourists during weekends. The city center continues to serve as the primary hotspot for both groups. However, the concentration of check-ins by locals in this area is relatively lower compared to tourists. Additionally, hotspots around Stratford in Newham and Heathrow Airport in Hillingdon are evident for both locals and tourists. during weekends, locals display a scattered pattern across the outskirts of London, with a decrease in activity density within the city center. Conversely, tourists share fewer check-ins in the outer boroughs and are more concentrated in the city center. In comparison to the weekday hotspots, both locals and tourists share fewer check-ins during weekends. Locals demonstrate greater activity in the outskirt boroughs, while tourists tend to concentrate their activities within the inner part of London.
 
 
 \begin{figure}[!h]
 
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_locals_weekend.png} 
-\caption{Locals}
+\caption{Locals.}
 \label{fig:kde_locals_weekend}
 \end{subfigure}
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=1\linewidth]{figures/kde_tourists_weekend.png}
-\caption{Tourists}
+\caption{Tourists.}
 \label{fig:kde_tourists_weekend}
 \end{subfigure}
 
-\caption{Kernel density estimation of Foursquare check-ins during weekends.} \label{fig:kde_weekend}
+\caption{Kernel density estimation of Foursquare check-ins during weekendss.} \label{fig:kde_weekend}
 \end{figure}
 
 
 % ====================== | Mixture of Locals and Tourists in Hotspots | ======================
 \subsubsection{Mixture of Locals and Tourists in Hotspots}
 
-1. introduce the difference ratio figure
-2. modify the two tables below
-3. introduce popular areas by combining the top check-ins and popular attractions in \url{https://www.visitacity.com/en/london/attractions-map?gclid=CjwKCAjw4ZWkBhA4EiwAVJXwqdhgvZxKEwv72KeA4PozSckbHY5A41jKUD2D8fSCh5QfIYs5QSugtRoCfbcQAvD_BwE} in rasters with high difference ratio values
-
-popular check-ins for locals: top 10 check-ins in rasters with diff ratio > 0.01
-Table~\ref{tab:popular_venues_locals}
-\begin{table}
-\centering
-\caption{\label{tab:popular_venues_locals}Top 10 popular venues for locals.}
-\begin{tabular}{llll} \hline
-No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
-1 & London Waterloo Railway Station (WAT) & 874 & Transport \\
-2 & London Paddington Railway Station (PAD) & 515 & Transport \\
-3 & London King's Cross Railway Station (KGX) & 510 & Transport \\
-4 & London Euston Railway Station & 463 & Transport \\
-5 & London Victoria Railway Station (VIC) & 459 & Transport \\
-6 & London Liverpool Street Railway Station (LST) & 407 & Transport \\
-7 & Westfield London  & 406 & Shopping Place \\
-8 & London Bridge Railway Station (LBG) & 366 & Transport \\
-9 & Westfield Stratford City & 353 & Shopping Place \\
-10 & London St Pancras International Railway Station (STP) & 302 & Transport \\ \hline
-\end{tabular}
-\end{table}
-
-popular check-ins for tourists: top 10 check-ins in rasters with diff ratio < -0.01
-Table~\ref{tab:popular_venues_tourists}
-\begin{table}
-\centering
-\caption{\label{tab:popular_venues_tourists}Top 10 popular venues for tourists.}
-\begin{tabular}{llll} \hline
-No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
-1 & London Euston Railway Station & 944 & Transport \\
-2 & London King's Cross Railway Station (KGX) & 693 & Transport \\
-3 & London Paddington Railway Station (PAD) & 616 & Transport \\
-4 & Harrods & 610 & Shopping Place \\
-5 & London Waterloo Railway Station (WAT) & 587 & Transport \\
-6 & London Victoria Railway Station (VIC) & 493 & Transport \\
-7 & London St Pancras International Railway Station (STP) & 489 & Transport \\
-8 & Piccadilly Circus & 468 & Green \& Blue Space \\
-9 & Buckingham Palace & 440 & Art Place \\
-10 & Trafalgar Square & 397 & Green \& Blue Space \\ \hline
-\end{tabular}
-\end{table}
-
+% ============== Daytime vs. Nighttime ==============
 \subsubsubsection{Daytime vs. Nighttime}
+% daytime
+The difference ratio quantifies the mixture degree of locals and tourists within each raster. A higher difference ratio indicates a higher proportion of tourists, while a lower difference ratio suggests a higher concentration of locals. Figure~\ref{fig:raster_diff_daytime} illustrates the difference ratios between locals and tourists during the daytime. Most areas receive similar popularity from locals and tourists, but the city center demonstrates distinct distribution patterns of these two groups of people. Tourists tend to cluster around Westminster, Camden, and the City of London, while locals are more concentrated in the eastern region. These findings align with the observations in Section \ref{hotspots}. Heathrow Airport also emerges as a hotspot with a higher activity density of tourists, as reflected by the positive difference ratios in certain rasters. The category distribution of check-ins within rasters with significant difference ratios (greater than 0.01 or less than -0.01) during the daytime is represented in Figure~\ref{fig:diff_pop_category_daytime}. Tourists demonstrate a preference for restaurants, transportation, and shopping places, while locals show a higher inclination towards professional places, restaurants, and entertainment places. For more detailed information, refer to Table~\ref{tab:popular_venues_touristspop_daytime} and Table~\ref{tab:popular_venues_localspop_daytime} in Appendix \ref{appendix}, which highlight the top 10 popular venues within rasters wit notable difference ratios during the daytime. In areas with a higher density of tourists, notable venues include transportation hubs like London King's Cross Railway Station, luxury department stores like Harrods, and prominent public squares such as Picadilly Circus and Trafalgar Square. Conversely, in areas with a higher density of locals, professional venues like Google Campus - London and other companies, as well as restaurants around Shoreditch, are more popular.
+
+% nighttime & comparison
+Figure~\ref{fig:raster_diff_nighttime} represents the difference ratios between locals and tourists during the nighttime. The city center, especially Westminster, becomes increasingly popular among tourists, while the area around the City of London shows a balanced number of locals and tourists, indicating reduced activities of locals during the nighttime. Table~\ref{tab:diff_pop_category_nighttime} reveals that tourists exhibit a heightened interest in entertainment places during the nighttime, while maintaining their preference for restaurants and transportation. Locals, on the other hand, shift their focus from professional places to entertainment places and still show interest in restaurants. Notably, popular nighttime venues for both locals and tourists include nightclubs and pubs, alongside transportation hubs (refer to Table~\ref{tab:popular_venues_touristspop_nighttime} and Table~\ref{tab:popular_venues_localspop_nighttime}).
+
+
+
 
 \begin{figure}[!h]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/raster_diff_daytime.png}
-\caption{\label{fig:raster_diff_daytime}Difference ratio between locals and tourists during daytime.}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/raster_diff_daytime.png} 
+\caption{Daytime.}
+\label{fig:raster_diff_daytime}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/raster_diff_nighttime.png}
+\caption{Nighttime.}
+\label{fig:raster_diff_nighttime}
+\end{subfigure}
+
+\caption{Difference ratio of rasters during the daytime and nighttime.} \label{fig:raster_diff_day}
 \end{figure}
 
 
 \begin{figure}[!h]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/raster_diff_nighttime.png}
-\caption{\label{fig:raster_diff_nighttime}Difference ratio between locals and tourists during nighttime.}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/diff_pop_category_daytime.png} 
+\caption{Daytime.}
+\label{fig:diff_pop_category_daytime}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/diff_pop_category_nighttime.png}
+\caption{Nighttime.}
+\label{fig:diff_pop_category_nighttime}
+\end{subfigure}
+
+\caption{Number of check-in categories in popular areas during the daytime and nighttime.} \label{fig:hotspots_category_day}
 \end{figure}
 
 
+
+% ============== Weekday vs. Weekend ==============
 \subsubsubsection{Weekday vs. Weekend}
 
+
 \begin{figure}[!h]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/raster_diff_weekday.png}
-\caption{\label{fig:raster_diff_weekday}Difference ratio between locals and tourists during weekday.}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/raster_diff_weekday.png} 
+\caption{Weekday.}
+\label{fig:raster_diff_weekday}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/raster_diff_weekend.png}
+\caption{Weekend.}
+\label{fig:raster_diff_weekend}
+\end{subfigure}
+
+\caption{Difference ratio of rasters during weekdays and weekends.} \label{fig:raster_diff_week}
 \end{figure}
 
 
 \begin{figure}[!h]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/raster_diff_weekend.png}
-\caption{\label{fig:raster_diff_weekend}Difference ratio between locals and tourists during weekend.}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/diff_pop_category_weekday.png} 
+\caption{Weekday.}
+\label{fig:diff_pop_category_weekday}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=1\linewidth]{figures/diff_pop_category_weekend.png}
+\caption{Weekend.}
+\label{fig:diff_pop_category_weekend}
+\end{subfigure}
+
+\caption{Number of check-in categories in popular areas during weekdays and weekends.} \label{fig:hotspots_category_week}
 \end{figure}
+
+
+
+Table~\ref{tab:popular_venues_touristspop_weekday}
+Table~\ref{tab:popular_venues_localspop_weekday}
+Table~\ref{tab:popular_venues_touristspop_weekend}
+Table~\ref{tab:popular_venues_localspop_weekend}
+
 
 % ============================= || Spatiotemporal Patterns of Places || =============================
 \subsection{Spatiotemporal Patterns of Places}
@@ -864,7 +882,7 @@ No. & Venue Name & No. of Check-ins & Venue Category \\ \hline
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:place_category_daytime}Place category count during daytime.}
+\caption{\label{tab:place_category_daytime}Place category count during the daytime.}
 \begin{tabular}{llll} \hline
 No. & Place Category & No. of Places & No. of Visits \\ \hline
 1 & Transport & 43,051 & xxx \\
@@ -933,15 +951,199 @@ limitation: foursquare is not for everyone, most users are young people
 
 \clearpage
 
-\section{Appendix}
+
+\appendix
+\section{Appendix} \label{appendix}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_touristspop_daytime}Top 10 popular venues within rasters with a difference ratio exceeding 0.01 (indicating a higher number of tourists) during the daytime.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & London King's Cross Railway Station (KGX) & 1030 & Transportation hub \\
+2 & London Victoria Railway Station (VIC) & 806 & Transportation hub \\
+3 & Harrods & 716 & Luxury department store \\
+4 & London St Pancras International Railway Station (STP) & 682 & Transportation hub \\
+5 & London St Pancras International Eurostar Terminal & 511 & Transportation hub \\
+6 & Piccadilly Circus & 473 & Public space with iconic illuminated billboards \\
+7 & Trafalgar Square & 465 & Public square with historical and cultural landmarks \\
+8 & Selfridges & 464 & Luxury department store \\
+9 & Buckingham Palace & 459 & Iconic official residence of the British monarch \\
+10 & Big Ben (Elizabeth Tower) & 352 & Iconic tower clock \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_localspop_daytime}Top 10 popular venues within rasters with a difference ratio lower than -0.01 (indicating a higher number of locals) during the daytime.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & Google Campus - London & 160 & Vibrant hub for tech startups and entrepreneurs \\
+2 & Shoreditch Grind & 94 & Trendy coffee shop and cocktail bar \\
+3 & Ozone Coffee Roasters & 84 & Renowned specialty coffee roastery \\
+4 & Old Street London Underground Station & 84 & Transportation hub \\
+5 & SapientRazorfish & 77 & Global digital consultancy \\
+6 & Shoreditch House & 61 & Private members' club \\
+7 & CCA International & 59 & Global customer experience management company \\
+8 & BOXPARK Shoreditch & 56 & Innovative retail and dining destination \\
+9 & Dishoom & 50 & Restaurant \\
+10 & Shoreditch Triangle & 46 & Cultural and creative hub \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_touristspop_nighttime}Top 10 popular venues within rasters with a difference ratio exceeding 0.01 (indicating a higher number of tourists) during the nighttime.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & London Euston Railway Station & 199 & Transportation hub \\
+2 & Piccadilly Circus & 179 & Public space with iconic illuminated billboards \\
+3 & London Paddington Railway Station (PAD) & 165 & Transportation hub \\
+4 & London Victoria Railway Station (VIC) & 146 & Transportation hub \\
+5 & Trafalgar Square & 115 & Public square with historical and cultural landmarks \\
+6 & Charing Cross Railway Station (CHX) & 111 & Transportation hub \\
+7 & Heaven & 95 & Nightclub \\
+8 & Leicester Square & 91 & Bustling entertainment hub \\
+9 & Harrods & 57 & Luxury department store \\
+10 & The Harp, Covent Garden & 52 & Pub \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_localspop_nighttime}Top 10 popular venues within rasters with a difference ratio lower than -0.01 (indicating a higher number of locals) during the nighttime.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & Shoreditch House & 45 & Private members' club \\
+2 & Tesco Express & 31 & Convenience store \\
+3 & Old Street London Underground Station & 21 & Transportation hub \\
+4 & Xoyo & 21 & Nightclub \\
+5 & TfL Bus 314 & 21 & Bus service \\
+6 & Strongroom 314 & 20 & Recording studio \\
+7 & Zigfrid von Underbelly & 19 & Bar \\
+8 & Concrete & 19 & Nightclub \\
+9 & The Park & 19 & Green space \\
+10 & The Old Blue Last & 19 & Pub \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_touristspop_weekday}Top 10 popular venues within rasters with a difference ratio exceeding 0.01 (indicating a higher number of tourists) during weekdays.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & London Euston Railway Station & 1100 & Transportation hub \\
+2 & London King's Cross Railway Station (KGX) & 937 & Transportation hub \\
+3 & London Victoria Railway Station (VIC) & 695 & Transportation hub \\
+4 & London St Pancras International Railway Station (STP) & 562 & Transportation hub \\
+5 & Harrods & 544 & Luxury department store \\
+6 & London St Pancras International Eurostar Terminal & 454 & Transportation hub \\
+7 & Piccadilly Circus & 446 & Public space with iconic illuminated billboards \\
+8 & Trafalgar Square & 341 & Public square with historical and cultural landmarks \\
+9 & Selfridges & 329 & Luxury department store \\
+10 & Buckingham Palace & 319 & Iconic official residence of the British monarch \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_localspop_weekday}Top 10 popular venues within rasters with a difference ratio lower than -0.01 (indicating a higher number of locals) during weekdays.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & London Liverpool Street Railway Station (LST) & 604 & Transportation hub \\
+2 & Google Campus - London & 155 & Vibrant hub for tech startups and entrepreneurs \\
+3 & Shoreditch Grind & 84 & Trendy coffee shop and cocktail bar \\
+4 & Shoreditch House & 84 & Private members' club \\
+5 & Old Street London Underground Station & 83 & Transportation hub \\
+6 & SapientRazorfish & 77 & Global digital consultancy \\
+7 & UBS Wealth Management & 77 & Global financial service firm \\
+8 & Ozone Coffee Roasters & 75 & Renowned specialty coffee roastery \\
+9 & Bank London Underground and DLR Station & 73 & Transportation hub \\
+10 & Liverpool Street London Underground Station & 72 & Transportation hub \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_touristspop_weekend}Top 10 popular venues within rasters with a difference ratio exceeding 0.01 (indicating a higher number of tourists) during weekends.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & London Paddington Railway Station (PAD) & 278 & Transportation hub \\
+2 & London King's Cross Railway Station (KGX) & 266 & Transportation hub \\
+3 & London Victoria Railway Station (VIC) & 257 & Transportation hub \\
+4 & Trafalgar Square & 239 & Public square with historical and cultural landmarks \\
+5 & London St Pancras International Railway Station (STP) & 229 & Transportation hub \\
+6 & Harrods & 229 & Luxury department store \\
+7 & Piccadilly Circus & 206 & Public space with iconic illuminated billboards \\
+8 & Buckingham Palace & 183 & Iconic official residence of the British monarch \\
+9 & Selfridges & 177 & Luxury department store \\
+10 & Big Ben (Elizabeth Tower) & 163 & Iconic tower clock \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:popular_venues_localspop_weekend}Top 10 popular venues within rasters with a difference ratio lower than -0.007 (indicating a higher number of locals) during weekends.}
+\begin{adjustbox}{max width=\textwidth, margin=0cm}
+\begin{threeparttable}
+\begin{tabular}{lp{5cm}lp{4cm}} \hline
+No. & Venue Name & No. of Check-ins & Description \\ \hline
+1 & BOXPARK Shoreditch & 27 & Innovative retail and dining destination \\
+2 & Shoreditch Grind & 23 & Trendy coffee shop and cocktail bar \\
+3 & Shoreditch House & 22 & Private members' club \\
+4 & Old Street London Underground Station & 22 & Transportation hub \\
+5 & Hoxton Grill & 15 & Restaurant \\
+6 & Shoreditch Triangle & 15 & Cultural and creative hub \\
+7 & The Hoxton, Shoreditch & 15 & Hotel \\
+8 & The Water Poet & 13 & Pub \\
+9 & Zigfrid von Underbelly & 12 & Bar \\
+10 & Ozone Coffee Roasters & 12 & Renowned specialty coffee roastery \\ \hline
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+
 
 boxplot of category
+
 
 % Figure \ref{fig:flickr_day_count_pie}
 % \begin{figure}[!h]
 % \centering
 % \includegraphics[width=1.13\textwidth]{figures/flickr_day_count_pie.png}
-% \caption{\label{fig:flickr_day_count_pie}Percent of Flickr data of locals and tourists during daytime and nighttime.}
+% \caption{\label{fig:flickr_day_count_pie}Percent of Flickr data of locals and tourists during the daytime and nighttime.}
 % \end{figure}
 
 % Figure \ref{fig:flickr_trend_day}
@@ -957,4 +1159,6 @@ boxplot of category
 % \includegraphics[width=0.8\textwidth]{figures/flickr_trend_week.png}
 % \caption{\label{fig:flickr_trend_week}Temporal Flickr photos sharing pattern along the week.}
 % \end{figure}
+
+
 \end{document}
