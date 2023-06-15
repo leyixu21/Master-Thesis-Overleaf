@@ -59,6 +59,7 @@
 \newacronym{tfidf}{TF-IDF}{Term Frequency-Inverse Document Frequency}
 \newacronym{gps}{GPS}{Global Positioning System}
 \newacronym{kde}{KDE}{Kernel Density Estimation}
+\newacronym{mallet}{MALLET}{Machine Learning for Language Toolkit}
 
 
 \begin{document}
@@ -129,18 +130,18 @@ Constructing trajectories serves as an alternative approach to discovering how v
 \subsubsection{Topic Modeling of UGC}
 \acrfull{nlp} has emerged as a powerful tool for information retrieval. Within \acrshort{nlp}, topic modeling has become increasingly popular in recent years, especially in text mining for \acrshort{ugc}. Topic modeling branches off from the area of generative probabilistic modeling and is used to identify latent themes within a large corpus. Given a set of documents,  topic modeling allows researchers to gain insights into topics being discussed by people \citep{sui_inferring_2013}. In topic modeling, a \textit{word} or \textit{term} is a single token, which is the fundamental unit of individual data. A \textit{document} refers to a piece of text comprising multiple words. A \textit{corpus} is a collection of documents and serves as the basis for topic modeling. A \textit{vocabulary} represents all distinct words in a corpus. A \textit{topic} is a latent theme discovered in topic modeling, and it is characterized as a probability distribution spanning a given vocabulary \citep{vayansky_review_2020}. Figure~\ref{fig:topic_modeling} shows the process of topic modeling. With the corpus as the input, topic modeling is performed to generate a set of topics, each of which represents a cluster of words with the probability of belonging to the topic. Furthermore, the results of topic modeling include the distribution of topics in each document, which indicates the degree of association between the topics and the document, as well as the frequency of words within each topic. The origin of the topic model is \acrfull{lsi} proposed by \cite{papadimitriou_latent_2000}, but \acrshort{lsi} is not a probabilistic model. To address this limitation, \cite{hofmann_unsupervised_2001} introduced \acrfull{plsi} and subsequently, \cite{blei_latent_2003} proposed \acrfull{lda}, which is a more complete generative probabilistic model \citep{liu_overview_2016}. Compared with \acrshort{plsi}, \acrshort{lda} generates better disambiguation of words and more precise identification of topics in documents due to its consideration of a sparse Dirichlet prior in the topic distribution \citep{barde_overview_2017}.
 
-The \acrshort{lda} method has demonstrated its usefulness as a valuable tool for understanding unstructured data. In practice, several tools are available for implementing the \acrshort{lda} model. \acrfull{mallet} \footnote{\url{https://mimno.github.io/Mallet/index}} is a Java-based package that provides efficient and sampling-based implementations of \acrshort{lda} related models. Gensim \footnote{\url{https://pypi.org/project/gensim/}} is a Python library that implements popular topic modeling algorithms, including \acrshort{lda} and \acrshort{lsi}. \acrfull{tmt} \footnote{\url{https://downloads.cs.stanford.edu/nlp/software/tmt/tmt-0.4/}} is another tool that trains topic models to create summaries of the text. An evaluation of \acrshort{mallet} and Gensim was conducted to compare their performances \citep{ebeid_mallet_2016}. To facilitate the interpretation of \acrshort{lda} results, \cite{sievert_ldavis_2014} developed LDAvis \footnote{\url{https://github.com/cpsievert/LDAvis}}, a web-based interactive visualization of topics. LDAvis allows users to select a topic to reveal the most relevant terms for that topic. Users can also select a term to reveal its conditional distribution over topics (Figure~\ref{fig:ldavis}). LDAvis leverages the R language, specifically the shiny package, to enable users to visualize topics. Additionally, a Python library, pyLDAvis \footnote{\url{https://github.com/bmabey/pyLDAvis}} was developed to provide interactive topic model visualization in Python, which is a port of the R LDAvis package.
+The \acrshort{lda} method has demonstrated its usefulness as a valuable tool for understanding unstructured data. In practice, several tools are available for implementing the \acrshort{lda} model. \acrfull{mallet} \footnote{\url{https://mimno.github.io/Mallet/index}} is a Java-based package that provides efficient and sampling-based implementations of \acrshort{lda} related models. Gensim \footnote{\url{https://radimrehurek.com/gensim/}} is a Python library that implements popular topic modeling algorithms, including \acrshort{lda} and \acrshort{lsi}. \acrfull{tmt} \footnote{\url{https://downloads.cs.stanford.edu/nlp/software/tmt/tmt-0.4/}} is another tool that trains topic models to create summaries of the text. An evaluation of \acrshort{mallet} and Gensim was conducted to compare their performances \citep{ebeid_mallet_2016}. To facilitate the interpretation of \acrshort{lda} results, \cite{sievert_ldavis_2014} developed LDAvis \footnote{\url{https://github.com/cpsievert/LDAvis}}, a web-based interactive visualization of topics. LDAvis allows users to select a topic to reveal the most relevant terms for that topic. Users can also select a term to reveal its conditional distribution over topics (Figure~\ref{fig:ldavis}). LDAvis leverages the R language, specifically the shiny package, to enable users to visualize topics. Additionally, a Python library, pyLDAvis \footnote{\url{https://github.com/bmabey/pyLDAvis}} was developed to provide interactive topic model visualization in Python, which is a port of the R LDAvis package.
 
 Topic modeling using \acrshort{lda} has been widely adopted for extracting information from \acrshort{ugc}. For instance, Flickr tags have been utilized for investigating the properties of places and semantic similarity of streets \citep{bahrehdar_description_2018, bahrehdar_streets_2020}. In addition, the venue categories of Foursquare check-ins have been used to extract semantic information about places. The \acrshort{lda} has been employed to the venue categories of users' check-ins along their movements to depict different types of users with distinct character profiles \citep{ferreira_uncovering_2020} and discover implicit activity preferences of users \citep{vu_discovering_2019}. Furthermore, Google reviews have been found to be a good data source to extract leisure activity potentials in urban space \citep{van_weerdenburg_where_2019}.
 
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/topic_modeling.png}
 \caption{\label{fig:topic_modeling}Framework of topic modeling \citep{usmani_natural_2021}.}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
 \includegraphics[width=1\textwidth]{figures/ldavis.png}
 \caption{\label{fig:ldavis}The layout of LDAvis \citep{sievert_ldavis_2014}.}
@@ -164,7 +165,7 @@ City perception can be shaped by individuals' perceptions of various places. To 
 The dimension \textit{location} is typically represented by the toponym. For the dimension \textit{locale}, 
 \cite{wartmann_characterizing_2016,wartmann_describing_2018} have refined it with categories of landscape elements, indicating the possibility of representing this dimension with place categories. \cite{koirala_social_2015} categorized places based on tourism ontologies, which include (1) leisure, (2) restaurant, (3) attraction, (4) emergency service, (5) transport, (6) accommodation, and (7) other buildings. \cite{liu_stccd_2020} constructed a location category hierarchy tree based on daily purposes, including (1) work/study, (2) food, (3) entertainment, (4) traffic, and (5) live. \acrfull{lbs} providers also categorize places to offer place-related \acrshort{api} for users to search for \acrshort{poi} by category (Table~\ref{tab:lbs_place_categories}). However, these place categories are typically divided based on specific services provided by \acrshort{lbs} providers, and the categorization bias might lead to incomplete categories. For instance, Waze provides services for driving directions and live traffic conditions updates, which means that its place categories tend to be traffic-oriented. Tripadvisor is an online travel agency that provides guidelines for visitors, and it divides places mainly based on where to stay and what to do during a trip. To address this limitation, some studies have modified the place categories provided in \acrshort{lbs} platforms based on their research objectives. For example, in the case of Foursquare check-ins, the place category system is structured hierarchically and there are subcategories under categories. \cite{ferreira_uncovering_2020,yang_identifying_2021} improved the place categories by moving some subcategories into other categories or new categories to gain a better understanding of visitors' behaviors. The dimension \textit{sense of place} is closely linked to people's emotional attachment to the place. Conducting surveys is a way to gather information on people's emotional relationships with places and to understand their positive or negative experiences \citep{manzo_for_2005}. However, surveys can be time-consuming, and \acrshort{ugc} can provide an alternative means of exploring people's relationships with places. \cite{wang_using_2015} utilized Foursquare check-ins to evaluate the performance of four different clustering algorithms in identifying meaningful places. \cite{sui_inferring_2013} applied \acrshort{lda} to georeferenced travel blogs to generate meaningful topics describing places. \cite{hallot_who_2015} combined Google Place reviews and Foursquare check-ins to retrieve place-based semantics, enabling the inference of additional information about users based on their movements.
 
-\begin{table}
+\begin{table}[!h]
 \centering
 \caption{\label{tab:lbs_place_categories}Overview of place categories in various LBS providers.}
 \begin{adjustbox}{max width=\textwidth, margin=0cm}
@@ -207,17 +208,27 @@ The distribution of locals and tourists can provide valuable insights into the p
 % ============== introduction to the semantic trajectory ==============
 Detecting the movement patterns of visitors from their trajectories helps to understand their visiting behaviors. However, interpreting these patterns can sometimes be challenging due to the lack of contextual information. To address this, attempts have been made to integrate semantic descriptions into raw trajectories to build semantic trajectories. A trajectory can be assumed as a sequence of stops and moves \citep{spaccapietra_conceptual_2008}. Stops represent specific points along the trajectory where the moving object stays for a certain duration, typically denoting locations of interest. For instance, in tourism studies, stops could include sightseeing spots, hotels, airports, etc. \citep{yuan_review_2017}. Moves represent the transitions between stops in a trajectory, indicating the segments from one stop to the next. Unlike raw trajectories that only capture spatial or spatiotemporal properties (Figure~\ref{fig:raw_trajectory_example}), semantic trajectories enrich stops and moves with contextual data such as weather, transport means, and place type (Figure~\ref{fig:semantic_trajectory_example}). The integration of semantic information enables the extraction of meaningful trajectory behaviors. For example, in the context of tourism, a tourist behavior can be identified if the trajectory begins and ends at an accommodation place, with several stops at museums or tourist attractions \citep{parent_semantic_2013}. Constructing a semantic trajectory involves identifying stops, which are the important places of trajectory, based on the trajectory data. Subsequently, stops or moves are annotated with semantic information, and this process is also called semantic enrichment.
 
-\begin{figure}
+\begin{figure}[!h]
+
 \centering
-\includegraphics[width=0.8\textwidth]{figures/raw_trajectory_example.png}
-\caption{\label{fig:raw_trajectory_example}Example of raw trajectory \citep{ferrero_mastermovelets_2020}.}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/raw_trajectory_example.png} 
+\caption{Raw trajectory.}
+\label{fig:raw_trajectory_example}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/semantic_trajectory_example.png}
+\caption{Semantic trajectory}
+\label{fig:semantic_trajectory_example}
+\end{subfigure}
+
+\caption{Example of trajectories \citep{ferrero_mastermovelets_2020}.}
+\label{fig:trajectory_example}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{figures/semantic_trajectory_example.png}
-\caption{\label{fig:semantic_trajectory_example}Example of semantic trajectory \citep{ferrero_mastermovelets_2020}.}
-\end{figure}
+
 
 % ============== GPS data ==============
 \acrfull{gps} data is widely used for constructing trajectories. Various approaches exist for identifying stops from \acrshort{gps} data. One method involves detecting stops by examining the absence of \acrshort{gps} signals or when the velocity remains zero during a specific time interval \citep{ashbrook_using_2003}. However, the presence of signal errors decreases the accuracy of identifying actual stops using this technique. Alternatively, other approaches consider both the \acrshort{gps} data and background geographic information to identify stops. \cite{alvares_model_2007} developed an algorithm named SMoT (Stops and Moves of Trajectories) for extracting stops and moves. In their study, a stop is defined as a location where an object remains for a minimal amount of time, and it is annotated with the corresponding place type and timestamp. Density-based clustering algorithms are also employed to identify stops. \cite{palma_clustering-based_2008} treated stops as \acrshort{poi} and utilized various \acrshort{dbscan} algorithms to cluster points as places based on the speed between two points. To enrich trajectories with semantic enrichment, different techniques have been employed, such as semantic regions, semantic lines, and semantic points, to annotate trajectories \citep{yan_semantic_2013}. Semantic regions refer to meaningful geographic areas, such as land use, and stops in trajectories can be annotated with semantic information by considering their topological correlation with these regions. Semantic lines typically represent transport networks, the movements within trajectories can be linked to road segments through map-matching algorithms, helping to infer the transportation mode, such as walking, driving, or using public transportation like metros. Semantic points correspond to \acrshort{poi} with meaningful place types, like restaurants, museums, and train stations. Stops in trajectories can be linked to the closest \acrshort{poi} to annotate semantic information. Furthermore, stops and moves can be annotated with activities, like staying at home, having lunch at a restaurant, or working at a company, by considering the time individuals spend at different \acrshort{poi} and their routines \cite{parent_semantic_2013}.
@@ -240,7 +251,7 @@ Trajectories can be clustered using various methods, including density-based, hi
 Classification is a process that groups similar trajectories into predefined classes. In the context of semantic trajectories, \cite{lee_trajectory_2007} initially clustered interesting line segments derived from trajectories. Subsequently, they assigned a class to each cluster and classified other trajectories by placing them into these predefined classes. To delve into the analysis of trajectory data, \cite{giannotti_unveiling_2011} developed M-Atlas, a comprehensive system that facilitates the exploration of both raw and semantic clustering and classification, and discovered human mobility through querying and mining trajectory data. Within their study, trajectories were clustered, and new trajectories were classified by assigning them to the identified clusters. \cite{ferrero_mastermovelets_2020} introduced a new parameter-free method known as MasterMovelets. This approach identifies the most relevant sub-trajectories while considering various combinations of dimensions. By leveraging this method, trajectory classification can be achieved efficiently and effectively. 
 
 % ============== sequential pattern mining ==============
-Clustering and classification techniques are employed to group semantic trajectories that share similar attributes. In addition to these methods, sequential pattern mining serves as a complementary approach to extract frequently occurring mobility patterns within trajectories. Sequential pattern mining allows for the occurrence of frequent points in a specific temporal order, which means that each point can occur multiple times as long as it is visited several times during the same period. One of the pioneering algorithms in sequential pattern mining is the Generalized Sequential Patterns (GSP) algorithm proposed by \cite{srikant_mining_1996}. This algorithm accommodates the specification of (1) time constraints between adjacent elements of the sequential pattern, (2) sliding time windows of the transaction, and (3) user-defined taxonomies. In the study conducted by \cite{hopken_flickr_2020}, the GSP algorithm was applied to identify behavioral patterns of tourists using Flickr data. The authors compared the typical trajectories mined through association rule analysis and sequential pattern mining. \cite{pei_mining_2004} introduced a Prefix-projected Sequential pattern mining (PrefixSpan) algorithm to mine sequential patterns through a pattern-growth approach, which consumes less memory space than GSP. Furthermore, \cite{yin_diversified_2011} applied the PrefixSpan method to discover trajectory patterns of Flickr users. They also employed various ranking methods to find top-ranked patterns based on different criteria.
+Clustering and classification techniques are employed to group semantic trajectories that share similar attributes. In addition to these methods, sequential pattern mining serves as a complementary approach to extract frequently occurring mobility patterns within trajectories. Sequential pattern mining allows for the occurrence of frequent points in a specific temporal order, which means that each point can occur multiple times as long as it is visited several times during the same period. One of the pioneering algorithms in sequential pattern mining is the Generalized Sequential Patterns (GSP) algorithm proposed by \cite{srikant_mining_1996}. This algorithm accommodates the specification of (1) time constraints between adjacent elements of the sequential pattern, (2) sliding time windows of the transaction, and (3) user-defined taxonomies. In the study conducted by \cite{hopken_flickr_2020}, the GSP algorithm was applied to identify behavioral patterns of tourists using Flickr data. The authors compared the typical trajectories mined through association rule analysis and sequential pattern mining. \cite{pei_mining_2004} introduced a Prefix-projected Sequential pattern mining (PrefixSpan) algorithm to mine sequential patterns through a pattern-growth approach, which consumes less memory space than GSP. Furthermore, \cite{yin_diversified_2011} applied the PrefixSpan method to discover the trajectory patterns of Flickr users. They also employed various ranking methods to find top-ranked patterns based on different criteria.
 
 % ============================= || Research Gaps || =============================
 \subsection{Research Gaps}
@@ -497,7 +508,7 @@ The methodology employed in this study is illustrated in Figure~\ref{fig:workflo
 Differences in visiting preferences between locals and tourists show the importance of investigating the distribution patterns within these distinct population groups. To explore these patterns, the use of a nonparametric model called \acrfull{kde} proves valuable. \acrshort{kde} offers a means of estimating probability distributions without relying on specific assumptions about their form. Unlike parametric approaches, nonparametric density estimation requires a minimum number of parameters to construct a model and estimates these parameters through the likelihood principle. This approach provides flexibility in modeling the distribution of data. To formally define \acrshort{kde}, consider a set of independent and identically distributed random samples, denoted as $X_{1},X_{2},...,X_{n} \in \mathbb{R}$, drawn from an unknown distribution $P$ with density function $p$. In this context, \acrshort{kde} can be expressed as:
 
 \begin{equation} \label{eq:kde}
-\hat{p}_{n}(x) = \frac{1}{nh^{d}} \sum_{i=1}^n k\bigg(\frac{x-X_i}{h}\bigg),
+\hat{p}_{n}(x) = \frac{1}{nh^{d}} \sum_{i=1}^n k\bigg(\frac{x-X_i}{h}\bigg)
 \end{equation}
 
 where $h$ is a bandwidth parameter that controls the degree of smoothing in \acrshort{kde}. A large bandwidth might result in an over-smoothed estimate, obscuring meaningful features within the data. Conversely, a small bandwidth might lead to an under-smoothed estimate, failing to reveal the true underlying shape with random noise. The kernel function $K: \mathbb{R^{d}} \rightarrow \mathbb{R}$ is a smooth function employed by \acrshort{kde} to calculate the weighted average of neighboring observed data. This weighting process effectively smooths out the data, with closer points receiving higher weights. The Gaussian kernel (Equation \ref{eq:gaussian_kernel}) and the Spherical kernel (Equation \ref{eq:spherical_kernel}) are the two widely used kernels.
@@ -535,66 +546,66 @@ where $t_{i}$ represents the number of tourists' check-ins in the raster $i$, an
 
 % ====================== | Place Construction | ======================
 \subsubsection{Place Construction}
-A place is a segment of geographical space that holds meanings, and a check-in is a specific instance or event that represents an individual's interaction with a place. This study constructed places by clustering check-ins. The \acrfull{hdbscan} developed by \cite{campello_density-based_2013} was utilized as the clustering algorithm in this study. It is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities. The features used in the clustering included the coordinates and categories of check-ins. The coordinates of check-ins were converted to EPSG:27700, a projected coordinate system for United Kingdom, and then standardized by the StandardScaler to unit variance. The categories of check-ins were converted into numerical values with the label encoding. The distance matrix was precomputed by the Gower distance before \acrshort{hdbscan}. The Gower distance is able to  measure the dissimilarity of two items with mixed numeric and non-numeric data. The feature importance was also considered in the distance matrix, with x and y coordinates weighting 0.8 in total, and categories weighting 0.2. In the application of \acrshort{hdbscan}, the minimum number of check-ins within the cluster was set as 3, meaning that one place should contain at least three check-ins. The \acrshort{hdbscan} labeled each check-in to assign it to the correponding cluster. Check-ins labeled as -1 were considered as outliers, which were removed in this study. The place should cover a certain area rather than merely a point. Thus with check-ins clustered as places, this study built convex hulls for these clusters to represent place areas.
+A place is a segment of geographical space that holds meaningful attributes, while a check-in is a specific instance or event that represents an individual's interaction with a place. In this study, places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013}. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, reducing user input bias. Prior to \acrshort{hdbscan}, the Gower distance \citep{gower_general_1971} was computed as a distance matrix. The Gower distance is suitable for measuring the dissimilarity between items with mixed numeric and non-numeric data. The Gower similarity matrix is defined as:
 
-\underline{equations for hdbscan and gower distance}
+\begin{equation} \label{gower_similarity}
+S_{Gower}(x_{i},x_{j}) = \frac{\sum_{k=1}^{p}s_{ijk}\delta_{ijk}}{\sum_{k=1}^{p}\delta_{ijk}}
+\end{equation}
 
+where $s_{ijk} \in [0,1]$ is the score for each feature $k = 1,2, ...,p$. If $x_{i}$ and $x_{j}$ are close to each other along feature $k$, the score $s_{ijk}$ is close to 1. Conversely, if they are far apart along feature $k$, the score $s_{ijk}$ is close to 0. The Gower similarity matrix was then converted to a distance matrix:
 
+\begin{equation} \label{gower_distance}
+D_{Gower}(x_{i},x_{j}) = \sqrt{1-S_{Gower}(x_{i},x_{j})}
+\end{equation}
 
-\underline{pseudocode}
+The features used for clustering included the coordinates and categories of check-ins. The coordinates of check-ins were converted to EPSG:27700 projected coordinate system for the United Kingdom, and then standardized by the StandardScaler to unit variance. The categories of check-ins were converted into numerical values using label encoding. The feature importance was considered in the distance matrix, with coordinates accounting for 80\% of the weighting and categories accounting for 20\%. 
 
-1. definition of place, which will be used to explain why places are clusters of check-ins instead of merely check-ins
-2. cluster check-ins with hdbscan
-3. construct the convex hull for check-ins within the same cluster to represent the place
-4. place dimensions: location (borough name), locale (category), sense of place (move on to the next section Topic Modeling)
-% Place Dimensions
+In the application of \acrshort{hdbscan}, a minimum number of three check-ins within a cluster was set to define a place, ensuring that each place encompassed a certain number of check-ins. Check-ins labeled as -1 were considered outliers and removed from the study. To represent the spatial extent of a place, convex hulls were built around the clusters of check-ins, creating polygons that approximate the area covered by each place.
 
-\underline{add a table of place dimensions, refer to table 6 in \cite{ferrero_mastermovelets_2020}}
-
-definition of semantic place with mathematical expressions
-
-Location, Locale, Sense of Place
-Location:
-why not coordinates
-1. the spatial distance will be considered in computing the similarity, which also takes the coordinates to do the computation. Moreover, the coordinates cannot deliver enough semantic information
-2. every place has a unique coordinate, and it makes no sense to compute the similarity in this dimension as no two places will be similar to each other in location
-why the borough name
-"enrichment with geographic regions" for trajectory data in previous studies \cite{yan_semantic_2013}
-
-Locale:
-"enrichment with geographic points" \cite{yan_semantic_2013}
-
-
-% however, the identity of the place should also be considered in the definition of place, as it distinguishes place from location. Compared with location, which is merely a point described by coordinates, place is an identifiable location formed based on human consensus with definable properties \citep{purves_places_2019}.
-
-sense of place:
-People's emotional relationships with places are subjective and need not be strong and positive \citep{altman_place_1992}. Someone may feel nostalgic about the place he used to visit, even if the place itself is not objectively positive or negative \cite{relph_geographical_1985}. Descriptive words can also be used to describe emotions about a place other than simply positive or negative.
+To enrich the semantic information of places, three dimensions conceptualized by \citep{agnew_space_2011}, namely location, locale, and sense of place, were employed. The location dimension was represented by the borough name, specifically the borough where the majority of check-ins within a place cluster were located. The locale dimension was represented by the most frequently occurring check-in category within the place cluster. The sense of place dimension utilized Flickr tags associated with the place cluster to capture people's perceptions. Topic modeling was applied to generate a set of topics based on these tags, providing a representation of the sense of place associated with each place.
 
 % ====================== | Topic Modeling | ======================
 \subsubsection{Topic Modeling}
-Topic Modeling
-\underline{cite this: https://github.com/polsci/colab-gensim-mallet}
-Foursquare check-ins with no nearby Flickr tags >>>
-Tried buffer sizes of 1000m, 500m, and 250m, but there are always check-ins with no Flickr tags around >>>
-Applied the topic imputation for these check-ins >>>
-Gaussian kernel >>>
-Buffer size of 500m has the best coherence value in topic modeling
-
- \acrshort{lda} assumes that a document contains a randomized combination of latent topics. To generate the document, a K-vector \(\theta\) that represents the mixture proportion of \(k\) topics is sampled3 with a Dirichlet prior distribution \(p(\theta|\alpha)\). The variable \(k\) specifies the dimension of the distribution and also the dimension of the topic variable \(z\), which defines the total number of topics generated by the model. A Dirichlet variable \(\theta\) with a dimension of \(k\) can take values in the \((k-1)\)-simplex and has a probability density on this simplex, which is determined by the following equation
+\acrfull{lda} was employed for topic modeling in this study. \acrshort{lda} is a three-level hierarchical Bayesian model in which words (e.g., tags) are collected into documents, and each word's presence is attributable to one of the document's topics. The generative process of \acrshort{lda} is illustrated in Figure~\ref{fig:lda}. To generate a document, a K-vector $\theta$ representing the mixture proportion of $k$ topics is sampled from a Dirichlet prior distribution $p(\theta|\alpha)$. The variable $k$ specifies the dimension of the distribution and also the dimension of the topic variable $z$, which defines the total number of topics generated by the model. The Dirichlet variable $\theta$ takes values within the $(k-1)$-simplex and has a probability density on this simplex, defined by the following equation:
 
 \begin{equation} \label{eq:lda}
     p(\theta|\alpha)\ = \frac{\Gamma(\sum_{i=1}^{k} \alpha_{i})}{\prod_{i=1}^{k}\Gamma(\alpha_{i})}\theta_{1}^{z_{1}-1}...\theta_{k}^{z_{k}-1}
 \end{equation}
 
-In Equation \ref{eq:lda}, the parameter \(\alpha\) is the hyperparameter of the Dirichlet distribution, representing a prior count of the frequency of an individual topic appearing in a document. Figure~\ref{fig:lda} illustrates the generative process of \acrshort{lda}. The parameter \(\beta\) is also a Dirichlet prior hyperparameter that determines the degree of smoothing over word distributions in all topics. The values of \(\alpha\) and \(\beta\) are chosen based on the size of the vocabulary and the number of topics selected \citep{blei_latent_2003}. Optimizing these parameters is crucial to obtain meaningful results from this method \citep{vayansky_review_2020}. 
-
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/lda.png}
+\includegraphics[width=0.6\textwidth]{figures/lda.png}
 \caption{\label{fig:lda}Illustration of the LDA generative process. The outer box M denotes the repeated sampling for each document and the inner box N represents sampling within each document. The box K represents sampling for each topic \citep{vayansky_review_2020}.}
 \end{figure}
 
-Concept talk question: Buffer overlap of Foursquare places, which makes the same Flickr tag belongs to two places
+where $\alpha$ is the hyperparameter of the Dirichlet distribution, which represents a prior count of the frequency of an individual topic appearing in a document. The parameter $\beta$ is also a Dirichlet prior hyperparameter that determines the smoothing level over word distributions in all topics. The values of $\alpha$ and $\beta$ are selected based on the size of the vocabulary and the number of topics chosen \citep{blei_latent_2003}. To determine the optimal number of topics, the \textit{coherence value} can be used to measure the semantic quality of the generated topics. The \textit{coherence value} is calculated based on the probability of words in a topic co-occurring in the place clusters assigned that topic, and it can be defined as:
+
+\begin{equation} \label{eq:coherence_value}
+    coherence = \sum_{i}\sum_{j<1}\log\frac{D(w_{j},w_{i})+\beta}{D(w_{i})}
+\end{equation}
+
+where $\beta$ is to prevent log zero errors, $D(w_{j},w_{i})$ is the number of co-occurrence of two terms in a document, and $D(w_{i}$ is the number of occurrences of the more probable terms. A higher coherence value indicates that the words within a topic are more closely related to each other, making topics more interpretable to humans.
+
+In practice, the \acrshort{lda} model was implemented using \acrfull{mallet}. \acrshort{mallet} is a Java-based console application, but the Python library gensim, developed by \cite{rehurek_software_2010}, provides a wrapper model called LdaMallet for \acrshort{mallet}, which was utilized in this study. The input to the \acrshort{lda} model was a corpus consisting of documents, where each document stored the Flickr tags within each place cluster represented by the place convex hull. The corpus was structured as a $word \times document$ matrix, where each row represented a vector $w = {w_{1},w_{2},...,w_{v}}$ of length $V$ corresponding to the number of words in the vocabulary, and $w_{v}$ denoted the frequency of word $v$ in the document. The \acrshort{lda} model generated a set of topics as its main output, along with topic distribution and topic terms, which facilitated the determination and interpretation of topics for each place. The topic distribution for each place consisted of a list of topics and the probabilities of the place belonging to each corresponding topic. The topic terms for each topic comprised a list of tags, accompanied by their probabilities of being associated with that topic. The most probable topic was assigned to each place, and the tags for each topic were visualized using LDAvis to explore the distribution of tags within topics.
+
+In instances where certain places had no tags within their convex hulls, a topic imputation was employed to assign topics to those empty places. This imputation process relied on the topic distribution of nearby places that did contain Flickr tags in a weighted average approach. The imputed topic distribution represented the probability distribution across a predefined set of topics. Based on this imputation topic distribution, the places were assigned the most probable topics. The calculation for imputed topic distribution of the target empty place can be expressed as:
+
+\begin{equation} \label{eq:topic_imputation}
+    \theta_{imputed} = \frac{1}{W}\sum_{i}{n}w_{i}\theta_{i}
+\end{equation}
+
+where $\theta_{i}$ represents the topic distribution for place $i$, and $n$ is the number of places in the neighborhood of the target empty place. The weight assigned to each place, $w_{i}$, is determined by the distance between place $i$ and the target empty place, which is defined as:
+
+\begin{equation} \label{eq:topic_imputation_w_i}
+    w_{i} = \exp(\frac{-d(i,j)^2}{2\sigma^2})
+\end{equation}
+
+where $\sigma$ controls the smoothness of the weighting function. $d(i,t)$ is the distance between place $i$ and place $j$. A larger value of $\sigma$ gives more weight to places that are closer to the target empty place, while a smaller value of $\sigma$ gives more weight to places that are farther away. $W$ ensures that the sum of the weights to 1 so that the imputed topic distribution is a valid probability distribution, which is defined as:
+
+\begin{equation} \label{eq:topic_imputation_W}
+    W = \sum_{i}{n}w_{i}
+\end{equation}
+
 
 % ====================== | Semantic Trajectory Construction | ======================
 \subsubsection{Semantic Trajectory Construction}
@@ -606,7 +617,7 @@ remove check-ins in trajectories with length less than 3 >>> topic modeling >>> 
 
 determine the Begin and the End of the trajectory (they are the first and last positions of the object for this trajectory)
 
-Figure \ref{fig:trajectory_begin_end}
+Figure \ref{fig:trajectory_begin_end}[!h]
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{figures/begin_end.png}
