@@ -34,6 +34,13 @@
 \usepackage{subcaption}
 \usepackage[export]{adjustbox}
 \usepackage{wrapfig}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
 \title{Discovering City Perception by Mining Semantic Trajectory}
 \author{Leyi Xu}
@@ -59,7 +66,6 @@
 \newacronym{tfidf}{TF-IDF}{Term Frequency-Inverse Document Frequency}
 \newacronym{gps}{GPS}{Global Positioning System}
 \newacronym{kde}{KDE}{Kernel Density Estimation}
-\newacronym{mallet}{MALLET}{Machine Learning for Language Toolkit}
 
 
 \begin{document}
@@ -201,7 +207,7 @@ The distribution of locals and tourists can provide valuable insights into the p
 
 
 % ============================= || Semantic Trajectory || =============================
-\subsection{Semantic Trajectory}
+\subsection{Semantic Trajectory} \label{semantic_trajectory}
 
 % ====================== | Semantic Trajectory Construction | ======================
 \subsubsection{Trajectory Construction}
@@ -490,7 +496,7 @@ Time & Population group & No. of users & No. of photos & No. of tags \\
 
 % ============================= || Overview || =============================
 \subsection{Overview}
-The methodology employed in this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was tackled by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{semantic_trajectory_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories from each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted based on Python 3.10.12.
+The methodology employed in this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was tackled by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{place_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories from each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted based on Python 3.10.12.
 
 
 \begin{figure}[h!]
@@ -541,11 +547,11 @@ To address this limitation, this study employed a rasterization approach, dividi
 
 where $t_{i}$ represents the number of tourists' check-ins in the raster $i$, and $T$ represents the total number of tourists' check-ins shared citywide. Similarly, $l_{i}$ represents the number of locals' check-ins in the raster $i$, and $L$ represents the total number of locals' check-ins shared citywide. This ratio provides insights into the relative activity density between locals and tourists within each raster. A larger positive value of $R$ indicates a higher density of check-ins shared by tourists in that particular raster. Conversely, a larger negative value of \(R\) indicates a higher density of check-ins shared by locals in the same raster.
 
-% ============================= || Semantic Trajectory Modeling || =============================
-\subsection{Semantic Trajectory Modeling} \label{semantic_trajectory_modeling}
+% ============================= || Place Modeling || =============================
+\subsection{Place Modeling} \label{place_modeling}
 
 % ====================== | Place Construction | ======================
-\subsubsection{Place Construction}
+\subsubsection{Place Construction} \label{place_construction}
 A place is a segment of geographical space that holds meaningful attributes, while a check-in is a specific instance or event that represents an individual's interaction with a place. In this study, places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013}. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, reducing user input bias. Prior to \acrshort{hdbscan}, the Gower distance \citep{gower_general_1971} was computed as a distance matrix. The Gower distance is suitable for measuring the dissimilarity between items with mixed numeric and non-numeric data. The Gower similarity matrix is defined as:
 
 \begin{equation} \label{gower_similarity}
@@ -607,15 +613,22 @@ where $\sigma$ controls the smoothness of the weighting function. $d(i,t)$ is th
 \end{equation}
 
 
+
+
+% ============================= || Typical Semantic Trajectory Mining || =============================
+\subsection{Typical Semantic Trajectory Mining} \label{typical_semantic_trajectory_mining}
+introduce the process
+
+
 % ====================== | Semantic Trajectory Construction | ======================
 \subsubsection{Semantic Trajectory Construction}
-definition of semantic trajectory with mathematical expressions
-cite trajminer
+This study investigated city perception by analyzing semantic trajectories. These trajectories were constructed based on the places defined in Section \ref{place_construction}. The concept of semantic trajectories is defined in Definition \ref{def:semantic_trajectory}.
 
-trajectory data cleaning
-remove check-ins in trajectories with length less than 3 >>> topic modeling >>> trajectory construction
+\begin{definition}[Semantic trajectory] \label{def:semantic_trajectory}
+A semantic trajectory is a sequence of places $T=\langle p_{1},p_{2},...,p_{n} \langle$, with $p=(x,y,D)$ being the place $i$ at the position $(x,y)$ annotated by the dimensions $D={d_{1},d_{2},d_{3}}$.
+\end{definition}
 
-determine the Begin and the End of the trajectory (they are the first and last positions of the object for this trajectory)
+To determine the beginning and end of each trajectory, it was necessary to consider the movement of individuals, as shown in Figure~\ref{fig:trajectory_begin_end}. A time gap of five hours was used as a criterion to determine whether two consecutive places belonged to the same trajectory. Specifically, if the time gap between two consecutive places exceeded five hours, the former place was considered the last position of the current trajectory, while the latter place marked the beginning of the new trajectory. Furthermore, the analysis of city perception focused on longer trajectories, as they conveyed more information. Therefore, only trajectories consisting of more than five places were considered in this study.
 
 Figure \ref{fig:trajectory_begin_end}[!h]
 \begin{figure}
@@ -625,26 +638,17 @@ Figure \ref{fig:trajectory_begin_end}[!h]
 \end{figure}
 
 
-% ============================= || Typical Semantic Trajectory Mining || =============================
-\subsection{Typical Semantic Trajectory Mining} \label{typical_semantic_trajectory_mining}
-introduce the process
+% ====================== | Semantic Trajectory Similarity Measure | ======================
+\subsubsection{Semantic Trajectory Similarity Measure}
+\cite{petry_trajminer_2019}
 
 % ====================== | Semantic Trajectory Clustering | ======================
 \subsubsection{Semantic Trajectory Clustering}
 introduce the process
 
+
 why spatial, temporal, and semantic
 
-
-% Semantic Trajectory Clustering
-MSM, MUITAS
-Cite it!
-@misc{petry2019trajminer,
-  title={Trajminer},
-  author={Petry, Lucas May and others},
-  year={2019},
-  howpublished={\url{https://trajminer.github.io}},
-}
 
 Agglomerative Clustering, DBSCAN
 
@@ -888,36 +892,349 @@ Table~\ref{tab:popular_venues_localspop_weekend}
 % ============================= || Spatiotemporal Patterns of Places || =============================
 \subsection{Spatiotemporal Patterns of Places}
 
-
 % ====================== | Place Distribution | ======================
 \subsubsection{Place Distribution}
 
-\underline{Table~\ref{tab:place_category_daytime}}
-
-\begin{table}[!h]
+\begin{table}[h!]
 \centering
-\caption{\label{tab:place_category_daytime}Place category count during the daytime.}
+\caption{\label{tab:place_summary}Summary of places.}
 \begin{tabular}{llll} \hline
-No. & Place Category & No. of Places & No. of Visits \\ \hline
-1 & Transport & 43,051 & xxx \\
-2 & Restaurant & 34,376 & xxx \\
-3 & Professional Place & 22,184 & xxx \\
-4 & Entertainment Place & 20,429 & xxx \\
-5 & Shopping Place & 19,772 & xxx \\
-6 & Art Place & 18,418 & xxx \\
-7 & Green \& Blue Space & 14,285 & xxx \\
-8 & Accommodation Place & 4,692 & xxx \\
-9 & Sports Place & 4,692 & xxx \\
-10 & Others & 4,692 & xxx \\
-11 & Service Place & 4,692 & xxx \\ \hline
+Time & Population group & No. of users & No. of places \\
+\hline
+\multirow{3}{*}{Daytime} 
+& All Users & 6,919 & 2,571 \\
+& Locals & 1,077 & 1,525 \\
+& Tourists & 5,842 & 1,046 \\
+\hline
+\multirow{3}{*}{Nighttime} 
+& All Users & 4,425 & 1,039 \\
+& Locals & 996 & 598 \\
+& Tourists & 3,429 & 441 \\
+\hline
+\multirow{3}{*}{Weekday} 
+& All Users & 2,524 & 684 \\
+& Locals & 1,469 & 464 \\
+& Tourists & 1,055 & 220 \\
+\hline
+\multirow{3}{*}{Weekend} 
+& All Users & 4,886 & 1,435 \\
+& Locals & 1,011 & 855 \\
+& Tourists & 3,875 & 580 \\
+\hline
 \end{tabular}
 \end{table}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_daytime.png} 
+\caption{Daytime.}
+\label{fig:places_daytime}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_nighttime.png}
+\caption{Nighttime.}
+\label{fig:places_nighttime}
+\end{subfigure}
+
+\caption{Distribution of places during the daytime and nighttime.}
+\label{fig:places_distribution_day}
+\end{figure}
+
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_weekday.png}
+\caption{Weekday.}
+\label{fig:places_weekday}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_weekend.png}
+\caption{Weekend.}
+\label{fig:places_weekend}
+\end{subfigure}
+
+\caption{Distribution of places during weekdays and weekends.}
+\label{fig:places_distribution_week}
+\end{figure}
+
+
 
 % ====================== | Place Dimensions | ======================
 \subsubsection{Place Dimensions}
 
-include tables and figures on the visiting frequencies to foursquare check-ins category of locals and tourists, and briefly describe which categories are more frequently visited by locals/tourists
-% https://colab.research.google.com/drive/1xLXGgWscXJIaRYVmw7RzFpymd2js7Kuc#scrollTo=8aQpz87SLvQQ
+
+% ========================= Place dimensions =========================
+\subsubsubsection{Location}
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_location_daytime.png} 
+\caption{Daytime.}
+\label{fig:places_location_daytime}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_location_nighttime.png}
+\caption{Nighttime.}
+\label{fig:places_location_nighttime}
+\end{subfigure}
+
+\caption{Location dimension of places during the daytime and nighttime.}
+\label{fig:places_location_day}
+\end{figure}
+
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_location_weekday.png}
+\caption{Weekday.}
+\label{fig:places_location_weekday}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_location_weekend.png}
+\caption{Weekend.}
+\label{fig:places_location_weekend}
+\end{subfigure}
+
+\caption{Location dimension of places during weekdays and weekends.}
+\label{fig:places_location_week}
+\end{figure}
+
+
+
+\subsubsubsection{Locale}
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_locale_daytime.png} 
+\caption{Daytime.}
+\label{fig:places_locale_daytime}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_locale_nighttime.png}
+\caption{Nighttime.}
+\label{fig:places_locale_nighttime}
+\end{subfigure}
+
+\caption{Locale dimension of places during the daytime and nighttime.}
+\label{fig:places_locale_day}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_locale_weekday.png}
+\caption{Weekday.}
+\label{fig:places_locale_weekday}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_locale_weekend.png}
+\caption{Weekend.}
+\label{fig:places_locale_weekend}
+\end{subfigure}
+
+\caption{Locale dimension of places during weekdays and weekends.}
+\label{fig:places_locale_week}
+\end{figure}
+
+
+\subsubsubsection{Sense of Place}
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_daytime_locals.png} 
+\caption{Daytime.}
+\label{fig:places_sense_daytime_locals}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_nighttime_locals.png}
+\caption{Nighttime.}
+\label{fig:places_sense_nighttime_locals}
+\end{subfigure}
+
+\caption{Sense of place dimension of locals' places during the daytime and nighttime.}
+\label{fig:places_sense_locals_day}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_daytime_tourists.png}
+\caption{Daytime.}
+\label{fig:places_sense_daytime_tourists}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_nighttime_tourists.png}
+\caption{Nighttime.}
+\label{fig:places_sense_nighttime_tourists}
+\end{subfigure}
+
+\caption{Sense of place dimension of tourists' places during the daytime and nighttime.}
+\label{fig:places_sense_tourists_day}
+\end{figure}
+
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_weekday_locals.png} 
+\caption{Weekday.}
+\label{fig:places_sense_weekday_locals}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_weekend_locals.png}
+\caption{Weekend.}
+\label{fig:places_sense_weekend_locals}
+\end{subfigure}
+
+\caption{Sense of place dimension of locals' places during weekdays and weekends.}
+\label{fig:places_sense_locals_week}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_weekday_tourists.png}
+\caption{Weekday.}
+\label{fig:places_sense_weekday_tourists}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/places_sense_weekend_tourists.png}
+\caption{Weekend.}
+\label{fig:places_sense_weekend_tourists}
+\end{subfigure}
+
+\caption{Sense of place dimension of tourists' places during weekdays and weekends.}
+\label{fig:places_sense_tourists_week}
+\end{figure}
+
+
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_daytime_locals.png} 
+\caption{Daytime.}
+\label{fig:topics_daytime_locals}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_nighttime_locals.png}
+\caption{Nighttime.}
+\label{fig:topics_nighttime_locals}
+\end{subfigure}
+
+\caption{Word clouds for topics of locals' places during the daytime and nighttime.}
+\label{fig:topics_locals_day}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_daytime_tourists.png} 
+\caption{Daytime.}
+\label{fig:topics_daytime_tourists}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_nighttime_tourists.png}
+\caption{Nighttime.}
+\label{fig:topics_nighttime_tourists}
+\end{subfigure}
+
+\caption{Word clouds for topics of tourists' places during the daytime and nighttime.}
+\label{fig:topics_tourists_day}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_weekday_locals.png} 
+\caption{Weekday.}
+\label{fig:topics_weekday_locals}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_weekend_locals.png}
+\caption{Weekend.}
+\label{fig:topics_weekend_locals}
+\end{subfigure}
+
+\caption{Word clouds for topics of locals' places during weekdays and weekends.}
+\label{fig:topics_locals_week}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_weekday_tourists.png} 
+\caption{Weekday.}
+\label{fig:topics_weekday_tourists}
+\end{subfigure}
+\begin{subfigure}{0.5\textheight}
+\centering
+\includegraphics[width=0.9\linewidth]{figures/topics_weekend_tourists.png}
+\caption{Weekend.}
+\label{fig:topics_weekend_tourists}
+\end{subfigure}
+
+\caption{Word clouds for topics of tourists' places during weekdays and weekends.}
+\label{fig:topics_tourists_week}
+\end{figure}
 
 % ============================= || Spatiotemporal City Perception through Semantic Trajectory || =============================
 \subsection{Spatiotemporal City Perception through Semantic Trajectory}
@@ -968,7 +1285,7 @@ limitation: foursquare is not for everyone, most users are young people
 
 \appendix
 \section{Appendix} \label{appendix}
-
+% ========================= top 10 popular venues =========================
 \begin{table}[!h]
 \centering
 \caption{\label{tab:popular_venues_touristspop_daytime}Top 10 popular venues within rasters with a difference ratio exceeding 0.01 (indicating a higher number of tourists) during the daytime.}
@@ -1147,6 +1464,64 @@ No. & Venue Name & No. of Check-ins & Description \\ \hline
 \end{threeparttable}
 \end{adjustbox}
 \end{table}
+
+
+% ========================= topic distribution =========================
+% locals_day
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_daytime_locals.png}
+\caption{\label{fig:topics_distribution_daytime_locals}Distribution of locals' topics during the daytime.}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_nighttime_locals.png}
+\caption{\label{fig:topics_distribution_nighttime_locals}Distribution of locals' topics during the nighttime.}
+\end{figure}
+
+% tourists_day
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_daytime_tourists.png}
+\caption{\label{fig:topics_distribution_daytime_tourists}Distribution of tourists' topics during the daytime.}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_nighttime_tourists.png}
+\caption{\label{fig:topics_distribution_nighttime_tourists}Distribution of tourists' topics during the nighttime.}
+\end{figure}
+
+% locals_week
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_weekday_locals.png}
+\caption{\label{fig:topics_distribution_weekday_locals}Distribution of locals' topics during weekdays.}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_weekend_locals.png}
+\caption{\label{fig:topics_distribution_weekend_locals}Distribution of locals' topics during weekends.}
+\end{figure}
+
+% tourists_week
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_weekday_tourists.png}
+\caption{\label{fig:topics_distribution_weekday_tourists}Distribution of tourists' topics during weekdays.}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/topics_distribution_weekend_tourists.png}
+\caption{\label{fig:topics_distribution_weekend_tourists}Distribution of tourists' topics during weekends.}
+\end{figure}
+
+
+
+
 
 
 
