@@ -35,6 +35,8 @@
 \usepackage[export]{adjustbox}
 \usepackage{wrapfig}
 \usepackage{amsthm}
+\usepackage{subcaption}
+
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -993,7 +995,7 @@ Figure~\ref{fig:places_location_day} provides insight into the distribution of p
 \label{fig:places_location_day}
 \end{figure}
 
-
+Figure~\ref{fig:places_location_week} presents the distribution of places in the \textit{Location} dimension throughout the week. Generally, there is a decrease in the number of places across various boroughs during weekends, while the relative relationships among boroughs remain consistent, Westminster and Camden consistently emerge as the most popular boroughs among both locals and tourists throughout the entire week. It is noteworthy that while most boroughs have a higher number of places visited by locals, Westminster, Kensington and Chelsea, and Hillingdon attract tourists to visit an equal or greater number of places. The former two boroughs, located in inner London, boast numerous tourist attractions and iconic architecture, making them appealing to both locals and tourists. On the other hand, Hillingdon, situated on the outskirts of London and home to Heathrow Airport, draws a large number of tourists to visit. The analysis of the \textit{Location} dimension of places provides valuable insights into the spatial patterns of places across different time spans, further highlighting the concentration of places in key boroughs and the varying preferences of locals and tourists across different parts of London.
 
 \begin{figure}[!h]
 
@@ -1016,11 +1018,12 @@ Figure~\ref{fig:places_location_day} provides insight into the distribution of p
 \end{figure}
 
 
-The analysis of the \textit{Location} dimension of places provides valuable insights into the spatial patterns of places visitation during daytime and nighttime hours, further highlighting the concentration of places in key boroughs and the varying preferences of locals and tourists across different parts of London.
 
 
 % ============== Locale ==============
 \subsubsubsection{Locale}
+Figure~\ref{fig:places_locale_day} provides insights into the distribution of places in the \textit{Locale} dimension throughout the day. During the daytime, the most visited categories for both locals and tourists include restaurants, professional places, shopping places, entertainment places, and transport places. Generally, locals visit more places across most categories, but there are a few exceptions. Tourists show a higher preference for places in the accommodation and green \& blue space categories. At nighttime, restaurants, entertainment places, and transport places remain popular categories for both locals and tourists, while there is a noticeable decrease in the number of places in professional places and shopping places compared to daytime hours. The difference between locals and tourists in shopping places diminishes, suggesting that locals tend to explore fewer shopping places during the nighttime. Accommodation and green \& blue space continue to attract more tourists than locals during nighttime hours. Notably, the difference between the number of places visited by locals and tourists in the accommodation category increases, indicating an amplified demand for accommodating among tourists during the nighttime.
+
 
 \begin{figure}[!h]
 
@@ -1041,6 +1044,10 @@ The analysis of the \textit{Location} dimension of places provides valuable insi
 \caption{Locale dimension of places during the daytime and nighttime.}
 \label{fig:places_locale_day}
 \end{figure}
+
+
+
+Figure~\ref{fig:places_locale_week} shows the distribution of places in the \textit{Locale} dimension throughout the week. On weekdays, restaurants, professional places, entertainment places, shopping places, and transport places are the most popular categories for both locals and tourists. Categories such as art places, green \& blue space, others, service places, and sports places have fewer places visited, and locals show a greater inclination to explore these categories compared to tourists. However, when it comes to the accommodation category, tourists tend to visit more places in this category than locals. The popular categories during weekends remain consistent with those of weekdays, with restaurants, entertainment places, shopping places, and transport places retaining their popularity. However, professional places experience a decrease in visitation, along with four other categories. Analyzing the difference between locals and tourists in various categories, it is noticeable that tourists tend to visit a relatively higher number of places than locals in the accommodation category. Conversely, locals exhibit a greater preference for categories like green \& blue space and sports places, visiting more places in these categories compared to tourists.
 
 
 \begin{figure}[!h]
@@ -1066,175 +1073,161 @@ The analysis of the \textit{Location} dimension of places provides valuable insi
 
 % ============== Sense of Place ==============
 \subsubsubsection{Sense of Place}
-
-\begin{figure}[!h]
-
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_daytime_locals.png} 
-\caption{Daytime.}
-\label{fig:places_sense_daytime_locals}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_nighttime_locals.png}
-\caption{Nighttime.}
-\label{fig:places_sense_nighttime_locals}
-\end{subfigure}
-
-\caption{Sense of place dimension of locals' places during the daytime and nighttime.}
-\label{fig:places_sense_locals_day}
-\end{figure}
+refer to figures about the distribution of topics in Appendix
 
 
 \begin{figure}[!h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_daytime_locals.png} 
+        \caption{Frequency of topics during the daytime.}
+        \label{fig:places_sense_daytime_locals}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_daytime_locals.png} 
+        \caption{Word clouds for topics during the daytime.}
+        \label{fig:topics_daytime_locals}
+    \end{subfigure}
 
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_daytime_tourists.png}
-\caption{Daytime.}
-\label{fig:places_sense_daytime_tourists}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_nighttime_tourists.png}
-\caption{Nighttime.}
-\label{fig:places_sense_nighttime_tourists}
-\end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_nighttime_locals.png}
+        \caption{Frequency of topics during the nighttime.}
+        \label{fig:places_sense_nighttime_locals}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_nighttime_locals.png}
+        \caption{Word clouds for topics during the nighttime.}
+        \label{fig:topics_nighttime_locals}
+    \end{subfigure}
 
-\caption{Sense of place dimension of tourists' places during the daytime and nighttime.}
-\label{fig:places_sense_tourists_day}
-\end{figure}
-
-
-
-\begin{figure}[!h]
-
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_weekday_locals.png} 
-\caption{Weekday.}
-\label{fig:places_sense_weekday_locals}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_weekend_locals.png}
-\caption{Weekend.}
-\label{fig:places_sense_weekend_locals}
-\end{subfigure}
-
-\caption{Sense of place dimension of locals' places during weekdays and weekends.}
-\label{fig:places_sense_locals_week}
-\end{figure}
-
-
-\begin{figure}[!h]
-
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_weekday_tourists.png}
-\caption{Weekday.}
-\label{fig:places_sense_weekday_tourists}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/places_sense_weekend_tourists.png}
-\caption{Weekend.}
-\label{fig:places_sense_weekend_tourists}
-\end{subfigure}
-
-\caption{Sense of place dimension of tourists' places during weekdays and weekends.}
-\label{fig:places_sense_tourists_week}
+    \caption{Sense of place dimension of locals' places during the daytime and nighttime.}
+    \label{fig:places_topics_sense_locals_day}
 \end{figure}
 
 
 
 
+
+
+
 \begin{figure}[!h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_daytime_tourists.png} 
+        \caption{Frequency of topics during the daytime.}
+        \label{fig:places_sense_daytime_tourists}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_daytime_tourists.png} 
+        \caption{Word clouds for topics during the daytime.}
+        \label{fig:topics_daytime_tourists}
+    \end{subfigure}
 
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_daytime_locals.png} 
-\caption{Daytime.}
-\label{fig:topics_daytime_locals}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_nighttime_locals.png}
-\caption{Nighttime.}
-\label{fig:topics_nighttime_locals}
-\end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_nighttime_tourists.png}
+        \caption{Frequency of topics during the nighttime.}
+        \label{fig:places_sense_nighttime_tourists}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_nighttime_tourists.png}
+        \caption{Word clouds for topics during the nighttime.}
+        \label{fig:topics_nighttime_tourists}
+    \end{subfigure}
 
-\caption{Word clouds for topics of locals' places during the daytime and nighttime.}
-\label{fig:topics_locals_day}
+    \caption{Sense of place dimension of tourists' places during the daytime and nighttime.}
+    \label{fig:places_topics_sense_tourists_day}
 \end{figure}
 
 
+
+
+
+
+
 \begin{figure}[!h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_weekday_locals.png} 
+        \caption{Frequency of topics during weekdays.}
+        \label{fig:places_sense_weekday_locals}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_weekday_locals.png} 
+        \caption{Word clouds for topics during weekdays.}
+        \label{fig:topics_weekday_locals}
+    \end{subfigure}
 
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_daytime_tourists.png} 
-\caption{Daytime.}
-\label{fig:topics_daytime_tourists}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_nighttime_tourists.png}
-\caption{Nighttime.}
-\label{fig:topics_nighttime_tourists}
-\end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_weekend_locals.png}
+        \caption{Frequency of topics during weekends.}
+        \label{fig:places_sense_weekdend_locals}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_weekend_locals.png}
+        \caption{Word clouds for topics during weekends.}
+        \label{fig:topics_weekend_locals}
+    \end{subfigure}
 
-\caption{Word clouds for topics of tourists' places during the daytime and nighttime.}
-\label{fig:topics_tourists_day}
+    \caption{Sense of place dimension of locals' places during weekdays and weekends.}
+    \label{fig:places_topics_sense_locals_week}
 \end{figure}
 
 
-\begin{figure}[!h]
 
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_weekday_locals.png} 
-\caption{Weekday.}
-\label{fig:topics_weekday_locals}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_weekend_locals.png}
-\caption{Weekend.}
-\label{fig:topics_weekend_locals}
-\end{subfigure}
 
-\caption{Word clouds for topics of locals' places during weekdays and weekends.}
-\label{fig:topics_locals_week}
-\end{figure}
+
 
 
 \begin{figure}[!h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_weekday_tourists.png} 
+        \caption{Frequency of topics during weekdays.}
+        \label{fig:places_sense_weekday_tourists}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_weekday_tourists.png} 
+        \caption{Word clouds for topics during weekdays.}
+        \label{fig:topics_weekday_tourists}
+    \end{subfigure}
 
-\centering
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_weekday_tourists.png} 
-\caption{Weekday.}
-\label{fig:topics_weekday_tourists}
-\end{subfigure}
-\begin{subfigure}{0.5\textheight}
-\centering
-\includegraphics[width=0.9\linewidth]{figures/topics_weekend_tourists.png}
-\caption{Weekend.}
-\label{fig:topics_weekend_tourists}
-\end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/places_sense_weekend_tourists.png}
+        \caption{Frequency of topics during weekends.}
+        \label{fig:places_sense_weekdend_tourists}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/topics_weekend_tourists.png}
+        \caption{Word clouds for topics during weekends.}
+        \label{fig:topics_weekend_tourists}
+    \end{subfigure}
 
-\caption{Word clouds for topics of tourists' places during weekdays and weekends.}
-\label{fig:topics_tourists_week}
+    \caption{Sense of place dimension of tourists' places during weekdays and weekends.}
+    \label{fig:places_topics_sense_tourists_week}
 \end{figure}
 
 % ============================= || Spatiotemporal City Perception through Semantic Trajectory || =============================
