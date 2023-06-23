@@ -66,6 +66,7 @@
 \newacronym{dbscan}{DBSCAN}{Density-Based Spatial Clustering of Applications with Noise}
 \newacronym{hdbscan}{HDBSCAN}{Hierarchical Density-Based Spatial Clustering of Applications with Noise}
 \newacronym{tfidf}{TF-IDF}{Term Frequency-Inverse Document Frequency}
+\newacronym{prefixspan}{PrefixSpan}{\textbf{Prefix}-projected \textbf{S}equential \textbf{p}atter\textbf{n} mining}
 \newacronym{gps}{GPS}{Global Positioning System}
 \newacronym{kde}{KDE}{Kernel Density Estimation}
 
@@ -259,7 +260,7 @@ Trajectories can be clustered using various methods, including density-based, hi
 Classification is a process that groups similar trajectories into predefined classes. In the context of semantic trajectories, \cite{lee_trajectory_2007} initially clustered interesting line segments derived from trajectories. Subsequently, they assigned a class to each cluster and classified other trajectories by placing them into these predefined classes. To delve into the analysis of trajectory data, \cite{giannotti_unveiling_2011} developed M-Atlas, a comprehensive system that facilitates the exploration of both raw and semantic clustering and classification, and discovered human mobility through querying and mining trajectory data. Within their study, trajectories were clustered, and new trajectories were classified by assigning them to the identified clusters. \cite{ferrero_mastermovelets_2020} introduced a new parameter-free method known as MasterMovelets. This approach identifies the most relevant sub-trajectories while considering various combinations of dimensions. By leveraging this method, trajectory classification can be achieved efficiently and effectively. 
 
 % ============== sequential pattern mining ==============
-Clustering and classification techniques are employed to group semantic trajectories that share similar attributes. In addition to these methods, sequential pattern mining serves as a complementary approach to extract frequently occurring mobility patterns within trajectories. Sequential pattern mining allows for the occurrence of frequent points in a specific temporal order, which means that each point can occur multiple times as long as it is visited several times during the same period. One of the pioneering algorithms in sequential pattern mining is the Generalized Sequential Patterns (GSP) algorithm proposed by \cite{srikant_mining_1996}. This algorithm accommodates the specification of (1) time constraints between adjacent elements of the sequential pattern, (2) sliding time windows of the transaction, and (3) user-defined taxonomies. In the study conducted by \cite{hopken_flickr_2020}, the GSP algorithm was applied to identify behavioral patterns of tourists using Flickr data. The authors compared the typical trajectories mined through association rule analysis and sequential pattern mining. \cite{pei_mining_2004} introduced a Prefix-projected Sequential pattern mining (PrefixSpan) algorithm to mine sequential patterns through a pattern-growth approach, which consumes less memory space than GSP. Furthermore, \cite{yin_diversified_2011} applied the PrefixSpan method to discover the trajectory patterns of Flickr users. They also employed various ranking methods to find top-ranked patterns based on different criteria.
+Clustering and classification techniques are employed to group semantic trajectories that share similar attributes. In addition to these methods, sequential pattern mining serves as a complementary approach to extract frequently occurring mobility patterns within trajectories. Sequential pattern mining allows for the occurrence of frequent points in a specific temporal order, which means that each point can occur multiple times as long as it is visited several times during the same period. One of the pioneering algorithms in sequential pattern mining is the Generalized Sequential Patterns (GSP) algorithm proposed by \cite{srikant_mining_1996}. This algorithm accommodates the specification of (1) time constraints between adjacent elements of the sequential pattern, (2) sliding time windows of the transaction, and (3) user-defined taxonomies. In the study conducted by \cite{hopken_flickr_2020}, the GSP algorithm was applied to identify behavioral patterns of tourists using Flickr data. The authors compared the typical trajectories mined through association rule analysis and sequential pattern mining. \cite{pei_mining_2004} introduced a \acrfull{prefixspan} algorithm to mine sequential patterns through a pattern-growth approach, which consumes less memory space than GSP. Furthermore, \cite{yin_diversified_2011} applied the \acrshort{prefixspan} method to discover the trajectory patterns of Flickr users. They also employed various ranking methods to find top-ranked patterns based on different criteria.
 
 % ============================= || Research Gaps || =============================
 \subsection{Research Gaps}
@@ -638,7 +639,7 @@ To determine the beginning and end of each trajectory, it was necessary to consi
 
 
 % ====================== | Semantic Trajectory Similarity Measure | ======================
-\subsubsection{Semantic Trajectory Similarity Measure}
+\subsubsection{Semantic Trajectory Similarity Measure} \label{traj_similarity}
 Prior to clustering semantic trajectories, it is crucial to measure their similarity. Many existing methods focus on similarity measuring of raw trajectories, which only consider spatial or spatiotemporal aspects. This study investigated semantic trajectories enriched with three dimensions, therefore, it is necessary to consider multiple dimensions in the similarity measurement. \acrfull{msm} proposed by \cite{furtado_multidimensional_2016} was employed to measure trajectory similarity in this study. 
 
 \acrshort{msm} is a similarity measure for multidimensional sequences, considering and weighing the similarity across all dimensions. This study considered the spatial position dimension and the three semantic dimensions of places. These dimensions are defined in Definition \ref{def:semantic_dimension}.
@@ -650,7 +651,7 @@ In two semantic trajectories, denoted as $T_{1}$ and $T_{2}$, the general term f
 In the computation of the similarity score, it is possible for $p_{1}$ and $p_{2}$ to be matched in one dimension but not in another. Therefore, the dimensions are considered separately. Furthermore, to account for the relative importance of each dimension, a weight $w_{k}$ is assigned to represent its significance. It should be noted that the sum of the weights of all dimensions should be equal to 1. In this study, the weights were set as follows: $w_{1}=0.4$, $w_{2}=0.1$, $w_{3}=0.3$, $w_{4}=0.2$. The matching score between the two places $p_{1}$ and $p_{2}$ can be defined as the sum of the weighted match scores across all dimensions, as represented in the following equation:
 
 \begin{equation} \label{eq:match_score}
-    score(p_{1},p_{2}) = \sum_{k=1}{4}(match_{k}(p_{1},p_{2})w_{k})
+    score(p_{1},p_{2}) = \sum_{k=1}^{4}(match_{k}(p_{1},p_{2})w_{k})
 \end{equation}
 
 where $match_{k}(p_{1},p_{2})$ determines whether the places are matched or not based on the max distance threshold $maxDist_{k}$, and it is defined as:
@@ -677,7 +678,7 @@ Finally, the multidimensional similarity measure $MSM(T_{1},T_{2})$ is calculate
     \end{cases}
 \end{equation}
 
-To handle the different data types of dimensions in practice, each dimension was assigned a corresponding distance function and a threshold to determine whether $p_{1}$ and $p_{2}$ were matched. For the spatial position dimension $D_{1}$, the Euclidean distance was applied (Equation~\ref{eq:dist_euclidean}), where $x$ and $y$ represented the coordinates of places. The maximum distance threshold $maxDist_{1}$ was set to 1000 meters, meaning that if the distance between $p_{1}$ and $p_{2}$ exceeded 1000 meters, the two points were not considered a match. For the semantic dimensions $D_{2}$, $D_{3}$, and $D_{4}$, which were categorical data, the discrete distance was applied (Equation~\ref{eq:dist_discrete}). In this case, the distance could only be either 0 or 1, and the maximum distance thresholds $maxDist_{2}$, $maxDist_{3}$, and $maxDist_{4}$ for these dimensions were set to 0.5.
+To handle the different data types of dimensions, each dimension was assigned a corresponding distance function and a threshold to determine whether $p_{1}$ and $p_{2}$ were matched. For the spatial position dimension $D_{1}$, the Euclidean distance was applied (Equation~\ref{eq:dist_euclidean}), where $x$ and $y$ represented the coordinates of places. The maximum distance threshold $maxDist_{1}$ was set to 1000 meters, meaning that if the distance between $p_{1}$ and $p_{2}$ exceeded 1000 meters, the two points were not considered a match. For the semantic dimensions $D_{2}$, $D_{3}$, and $D_{4}$, which were categorical data, the discrete distance was applied (Equation~\ref{eq:dist_discrete}). In this case, the distance could only be either 0 or 1, and the maximum distance thresholds $maxDist_{2}$, $maxDist_{3}$, and $maxDist_{4}$ for these dimensions were set to 0.5.
 
 \begin{equation} \label{eq:dist_euclidean}
     dist_{euclidean}(p_{1},p_{2}) = \sqrt{(p_{1}.x-p_{2}.x)^2+(p_{1}.y-p_{2}.y)^2}
@@ -690,35 +691,43 @@ To handle the different data types of dimensions in practice, each dimension was
     \end{cases}
 \end{equation}
 
-Overall, by employing the \acrshort{msm} approach, this study took into account the multiple dimensions of semantic trajectories and computed a similarity matrix that captured the matching scores and weights for each dimension, providing a comprehensive assessment of trajectory similarity.
+In practice, the Python library trajminer developed by \cite{petry_trajminer_2019} was applied to construct the similarity matrix for semantic trajectories. Specifically, the function trajminer.similarity.MSM for \acrfull{msm} was used, with the distance functions, thresholds, and weights specified. Overall, by employing the \acrshort{msm} approach, this study took into account the multiple dimensions of semantic trajectories and computed a similarity matrix that captured the matching scores and weights for each dimension, providing a comprehensive assessment of trajectory similarity.
+
+
 
 % ====================== | Semantic Trajectory Clustering | ======================
 \subsubsection{Semantic Trajectory Clustering}
-introduce the process
+The K-medoids algorithm was employed to cluster semantic trajectories. The term K-medoids was coined by \cite{kaufman_partitioning_1990} with their Partitioning Around Medoids (PAM) algorithm. K-medoids is a classical clustering technique that divides the dataset of $n$ objects into $k (k<n)$ clusters, assuming a predetermined number of clusters $k$. Similar to K-means, K-medoids aims to minimize the distance between data points assigned to a cluster and a designated point as the cluster's center. However, unlike K-means, K-medoids minimizes a sum of pairwise dissimilarities rather than a sum of squared Euclidean distances, and it selects the data point as the center of the cluster.
 
+In the K-medoids algorithm, the dissimilarity between trajectories is measured, which is computed based on the trajectory similarity as described in Section \ref{traj_similarity}. The trajectory dissimilarity between each pair of trajectories is defined as:
 
-why spatial, temporal, and semantic
+\begin{equation} \label{eq:dissimilarity}
+    dissimilarity(T_{1},T_{2}) = 1-MSM(T_{1},T_{2})
+\end{equation}
 
+To perform the clustering for semantic trajectories, the Python library trajminer's function trajminer.clustering.KMedoids was employed. With the precomputed dissimilarity matrix, the initial cluster medoids were determined using the approach introduced by \cite{park_simple_2009}. Simplifying $dissimilarity(T_{i},T_{j})$ as $d_{ij}$ to represent the dissimilarity between trajectory $i$ and trajectory $j$, the value $v_{j}$ for trajectory $j$ is calculated as:
 
-Agglomerative Clustering, DBSCAN
+\begin{equation} \label{eq:vj}
+    v_{j} = \sum_{i=1}^{n}\frac{d_{ij}}{\sum_{l=1}^{n}d_{il}}, j=1,2,...,n
+\end{equation}
 
-since dimensions can have different natures, each dimension needs an appropriate distance function and a threshold to match two elements \cite{furtado_multidimensional_2016}.
+Given the number of clusters $k$, the initial medoids are determined by selecting the $k$ trajectories with the first $k$ smallest $v_{j}$ values. The remaining trajectories are then assigned to their nearest medoids to construct initial clusters. Next, the sum of distances from all trajectories to their medoids is calculated to update the medoids. This process iteratively finds a new medoid for each cluster with a minimum total distance to other trajectories within the cluster, replacing the current medoid with the new one. Subsequently, the assignment of trajectories to the nearest medoids is updated, and this iterative process continues until the sum of distances from all trajectories to their medoids remains unchanged.
+
+The clustering results can be evaluated using the silhouette score, which measures the similarity of trajectory to its own cluster compared to other clusters. The score ranges from -1 to 1, with a score closer to 1 indicating a well-matched trajectory within its own cluster and a poor match to neighboring clusters. In this study, the silhouette score was employed to determine the optimal number of clusters.
 
 % ====================== | Sequential Pattern Mining | ======================
 \subsubsection{Sequential Pattern Mining}
-GSP: \cite{prado_lima_gsp-py_2020}
+Finding typical semantic trajectories in each cluster helps to investigate city perception, as these typical trajectories serve as representatives of their respective clusters. This study applied sequential pattern mining using the \acrfull{prefixspan} algorithm to detect frequently visited sequences. The \acrshort{prefixspan}, proposed by \cite{pei_mining_2004}, is an efficient method for sequential pattern mining. It follows a projection-based and sequential pattern-growth approach, offering ordered growth and reduced projected databases. The fundamental concept of the \acrshort{prefixspan} is to recursively project the sequence databases into smaller projected databases based on the current sequential patterns. Let $I=\{i_{1},i_{2},...,i_{n}\}$ be a set of all items. An itemset is a subset of items. A sequence $s$ is an ordered list of itemsets, which is denoted by $\langle s_{1}s_{2}...s_{l} \rangle$, where $s_{j}$ represents an itemset. $s_{j}$ can also be seen as an element of the sequence, denoted as $(x_{1}x_{2}...x_{m})$, where $x_{k}$ is an item. An $l$-sequence refers to a sequence with a length of $l$. A subsequence $\alpha=\langle a_{1}a_{2}...a_{n} \rangle$ is defined as a sequence that appears inits supersequence $\beta=\langle b_{1}b_{2}...b_{n} \rangle$ $(\alpha \subseteq \beta)$. A sequence database $S$ is a collection of tuples $\langle sid,s \rangle$, where $sid$ represents the sequence id of sequence $s$. Suppose a sequence $\alpha$ is a subsequence of $s$, the support of the sequence $\alpha$ in the sequence database $S$ is the number of tuples in the database containing $\alpha$. The support is defined as:
 
-\underline{Concept talk question: Locals and tourists have very different trajectories, how to compare them?
+\begin{equation} \label{eq:support}
+    support_{S}(\alpha) = |\{\langle sid, s \rangle|(\langle sid, s \rangle \in S) \wedge (\alpha \subseteq s)\}|
+\end{equation}
 
-(1) Describe what the trajectories of locals and tourists look like, and what’s the visiting direction
+In this study, the Python library prefixspan \footnote{\url{https://pypi.org/project/prefixspan/}} was utilized to conduct sequential pattern mining. The input for the mining process was the semantic trajectories within each cluster, treated as the sequence database. Regarding the minimum support threshold, it was generally set to 3 for most trajectory clusters. However, for some time spans with only a few constructed trajectories, such as nighttime, a threshold of 1 was employed to ensure the detection of sequences. For each trajectory cluster, the output consisted of several sets of frequently visited places in sequential order, accompanied by their corresponding support values. To identify the typical trajectories, this study selected the sequences with the maximum support and length, and subsequently investigated the places within these trajectories across three dimensions.
 
-(2) Make histograms about the main place types and topics within the trajectories, and compare them
-
-https://www.tandfonline.com/doi/full/10.1080/15481603.2021.1908927}
 
 
 \clearpage
-
 
 
 % ============================================ ||| Results ||| ============================================
@@ -1304,6 +1313,8 @@ RQ2: How do locals and tourists perceive the city along their semantic trajector
 \subsection{Limitations}
 limitation: foursquare is not for everyone, most users are young people
 
+silhouette scores in trajectory clustering are bad, most of them were negative values
+intra-cluster distance
 
 \clearpage
 
