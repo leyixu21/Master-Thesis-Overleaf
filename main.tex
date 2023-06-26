@@ -44,6 +44,8 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
+\setcounter{tocdepth}{3}
+
 \title{Discovering City Perception by Mining Semantic Trajectory}
 \author{Leyi Xu}
 
@@ -66,7 +68,7 @@
 \newacronym{dbscan}{DBSCAN}{Density-Based Spatial Clustering of Applications with Noise}
 \newacronym{hdbscan}{HDBSCAN}{Hierarchical Density-Based Spatial Clustering of Applications with Noise}
 \newacronym{tfidf}{TF-IDF}{Term Frequency-Inverse Document Frequency}
-\newacronym{prefixspan}{PrefixSpan}{\textbf{Prefix}-projected \textbf{S}equential \textbf{p}atter\textbf{n} mining}
+\newacronym{prefixspan}{PrefixSpan}{\textbf{Prefix}-projected \textbf{S}equential \textbf{pa}tter\textbf{n} mining}
 \newacronym{gps}{GPS}{Global Positioning System}
 \newacronym{kde}{KDE}{Kernel Density Estimation}
 
@@ -106,7 +108,7 @@ The city perception is not static, it varies both spatially and temporally, whic
 \subsection{Research Questions}
 The city perception is typically collected through surveys involving a large number of participants, which can be labor-intensive and time-consuming. With the emergence of social media data, many studies have turned to \acrshort{ugc} to gain insight into how users perceive a city \citep{cranshaw_livehoods_2021,huang_user_2022}. However, while most studies put focus on specific regions of the city, little research has been conducted on city perception based on trajectories. Identifying meaningful places is a prerequisite for constructing trajectories. A place should not be merely a random point, but rather a space where people interact, with attributes based on human consensus. For instance, an area with grass and trees may not necessarily be considered a place, but if it attracts people and offers functionality for leisure purposes, it becomes a place. Using social media data, places can be identified based on users’ frequently visited locations. The Foursquare check-ins are often used to identify popular landmarks in a city \citep{ferreira_beyond_2015,ferreira_uncovering_2020,santos_uncovering_2018}. Foursquare venue names and categories enrich check-ins with attributes, making them more like places. In addition to these objective attributes, subjective attributes are also worth exploring. Flickr allows users to add tags to their photos, which can be a valuable source of data to enrich place attributes.
 
-The trajectory is the chronological representation of people’s movements. Efforts have been made to extract movement patterns from trajectories to reveal the underlying visiting preferences \citep{vu_discovering_2019}. However, the trajectory should not be limited to geometric movements, the semantic information underlying trajectories is also valuable for exploration. When the semantic information of a trajectory is combined with its spatial and temporal data, it is referred to as a semantic trajectory \citep{yan_semantic_2011}. To understand visitor behaviors, most studies on semantic trajectories annotate the trajectories with attributes such as time, weekday, weather, etc. \citep{cai_mining_2018,petry_towards_2019}. However, in existing studies, the enrichment of semantic information for trajectories through place attributes has not been adequately considered. Semantic trajectories can vary across different groups of people, with locals and tourists organizing their trips differently based on local knowledge and online travel reviews. Moreover, different time spans can also result in different semantic trajectories, as people tend to have different visiting behaviors on weekdays and weekends. While existing studies have primarily focused on the visiting behaviors of locals and tourists \citep{domenech_using_2020,straumann_towards_2014}, the city perception of locals and tourists in different scenarios, like different time spans, is still under investigation.
+The trajectory is the chronological representation of people’s movements. Efforts have been made to extract movement patterns from trajectories to reveal the underlying visiting preferences \citep{vu_discovering_2019}. However, the trajectory should not be limited to geometric movements, the semantic information underlying trajectories is also valuable for exploration. When the semantic information of a trajectory is combined with its spatial and temporal data, it is referred to as a semantic trajectory \citep{yan_semantic_2011}. To understand visitor behaviors, most studies on semantic trajectories annotate the trajectories with attributes such as time, weekday, weather, etc. \citep{cai_mining_2018,petry_towards_2019}. However, in existing studies, the enrichment of semantic information for trajectories through place attributes has not been adequately considered. Semantic trajectories can vary across different groups of people, with locals and tourists organizing their trips differently based on local knowledge and online travel reviews. Moreover, different time spans can also result in different semantic trajectories, as people tend to have different visiting behaviors on weekdays and weekends. While existing studies have primarily focused on the visiting behaviors of locals and tourists \citep{domenech_using_2020,straumann_towards_2014}, the city perception of locals and tourists in different scenes, like different time spans, is still under investigation.
 
 To bridge the gap, this study aims to construct the semantic trajectories of locals and tourists in Greater London with Foursquare check-ins and Flickr tags. Greater London is an English-speaking city that attracts numerous tourists every year. Moreover, there are lots of Foursquare and Flickr users sharing check-ins and photos in Greater London, which lays the foundation for semantic trajectory construction. This study examines two research questions:
 
@@ -281,7 +283,7 @@ city, Greater London covers an area of 1,572 \(km^2\) and has a population of 9.
 \end{figure}
 
 \subsection{Data Preprocssing} \label{data_preprocessing}
-Foursquare data and Flickr data in Greater London from April 3, 2012 to September 16, 2013 were collected to investigate how people move around the city and how they perceive it.
+Foursquare check-ins and Flickr tags in Greater London from April 3, 2012 to September 16, 2013 were collected to investigate how people move around the city and how they perceive it.
 
 This study examines the city perceptions of locals and tourists, during the daytime and nighttime, as well as on weekdays and weekends. Therefore, it is crucial to differentiate between these two population groups across different time spans. To distinguish between locals and tourists, a combination of user profiles and time intervals was utilized for identification. The user profile served as the primary criterion, with individuals whose hometown or city of residence listed as London in their profiles categorized as locals. In cases where the user profile was unavailable, the time interval between the user's initial and final Foursquare or Flickr posts in Greater London was employed. Users with a time interval exceeding 30 days were classified as locals. Regarding time spans, daytime is defined as 6 am to 6 pm, while the remaining hours are considered nighttime. Weekdays encompass Monday to Friday, while the weekend comprises Saturday and Sunday.
 
@@ -355,7 +357,7 @@ Time & Population group & No. of users & No. of check-ins \\
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{figures/foursquare_distribution.png}
+\includegraphics[width=0.9\textwidth]{figures/foursquare_distribution.png}
 \caption{\label{fig:foursquare_distribution}Distribution of Foursquare check-ins of locals and tourists.}
 \end{figure}
 
@@ -409,7 +411,7 @@ No. & Modified venue category & No. of check-ins & Foursquare venue category
 
 
 
-\subsubsection{Flickr Data}
+\subsubsection{Flickr Data} \label{preprocess_flickr}
 Flickr is an online photo management and sharing application where users can upload photos. As of 2023, the Flickr community has shared tens of billions of photos. Flickr data was collected via Flickr API with the Python library flickrapi \footnote{\url{https://stuvel.eu/software/flickrapi/}}. To collect Flickr photos, the method flickr.photos.search \footnote{\url{https://www.flickr.com/services/api/flickr.photos.search.html}} was applied to get photos. A total of 954,260 photos with unique 250,254 tags uploaded by 28,633 users in Greater London from April 3, 2012 to September 16, 2013 were collected. The main fields of Flickr data include:
 \begin{itemize}
     \item Photo ID
@@ -480,7 +482,7 @@ Time & Population group & No. of users & No. of photos & No. of tags \\
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{figures/flickr_distribution.png}
+\includegraphics[width=0.9\textwidth]{figures/flickr_distribution.png}
 \caption{\label{fig:flickr_distribution}Distribution of Flickr photos of locals and tourists.}
 \end{figure}
 
@@ -499,7 +501,7 @@ Time & Population group & No. of users & No. of photos & No. of tags \\
 
 % ============================= || Overview || =============================
 \subsection{Overview}
-The methodology employed in this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was tackled by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{place_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories from each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted based on Python 3.10.12.
+The workflow of this study is illustrated in Figure~\ref{fig:workflow}. To explore individuals' perception of the city, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was answered by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists using \acrfull{kde} based on their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{place_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories of each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted with Python 3.10.12 \footnote{\url{https://www.python.org/downloads/release/python-31012/}}.
 
 
 \begin{figure}[h!]
@@ -514,108 +516,76 @@ The methodology employed in this study is illustrated in Figure~\ref{fig:workflo
 
 % ====================== | Kernel Density Estimation | ======================
 \subsubsection{Kernel Density Estimation}
-Differences in visiting preferences between locals and tourists show the importance of investigating the distribution patterns within these distinct population groups. To explore these patterns, the use of a nonparametric model called \acrfull{kde} proves valuable. \acrshort{kde} offers a means of estimating probability distributions without relying on specific assumptions about their form. Unlike parametric approaches, nonparametric density estimation requires a minimum number of parameters to construct a model and estimates these parameters through the likelihood principle. This approach provides flexibility in modeling the distribution of data. To formally define \acrshort{kde}, consider a set of independent and identically distributed random samples, denoted as $X_{1},X_{2},...,X_{n} \in \mathbb{R}$, drawn from an unknown distribution $P$ with density function $p$. In this context, \acrshort{kde} can be expressed as:
+Locals and tourists show distinct visiting preferences, which can be revealed through their distribution patterns. In this study, \acrfull{kde} was employed to explore and identify visiting hotspots of these two groups based on their distribution patterns. \acrshort{kde} is a nonparametric model that estimates probability distributions without relying on specific assumptions about their shape, providing flexibility in modeling data distribution. To formally define \acrshort{kde}, consider a set of independent and identically distributed random samples, denoted as $X_{1}, X_{2}, ..., X_{n} \in R$, drawn from an unknown distribution $P$ with density function $p$. In this context, \acrshort{kde} can be expressed as:
 
 \begin{equation} \label{eq:kde}
 \hat{p}_{n}(x) = \frac{1}{nh^{d}} \sum_{i=1}^n k\bigg(\frac{x-X_i}{h}\bigg)
 \end{equation}
 
-where $h$ is a bandwidth parameter that controls the degree of smoothing in \acrshort{kde}. A large bandwidth might result in an over-smoothed estimate, obscuring meaningful features within the data. Conversely, a small bandwidth might lead to an under-smoothed estimate, failing to reveal the true underlying shape with random noise. The kernel function $K: \mathbb{R^{d}} \rightarrow \mathbb{R}$ is a smooth function employed by \acrshort{kde} to calculate the weighted average of neighboring observed data. This weighting process effectively smooths out the data, with closer points receiving higher weights. The Gaussian kernel (Equation \ref{eq:gaussian_kernel}) and the Spherical kernel (Equation \ref{eq:spherical_kernel}) are the two widely used kernels.
+where $h$ is a bandwidth parameter that controls the degree of smoothing in \acrshort{kde}. Choosing an appropriate bandwidth is crucial as a large bandwidth may over-smooth the estimate, while a small bandwidth may under-smooth it, potentially hiding important features or introducing random noise. The kernel function $k$ is a smooth function used by \acrshort{kde} to calculate the weighted average of neighboring observed data points. This weighting process effectively smooths out the data, with closer points receiving higher weights.
 
-\begin{equation} \label{eq:gaussian_kernel}
-K_{\text{Gaussian}}(x) = \frac{exp\left(-\frac{\|x\|^{2}}{2}\right)}{v_{1,d}}, \quad v_{1,d} = \int exp\left(-\frac{\|x\|^{2}}{2}\right) \, dx 
-\end{equation}
+In this study, the \textit{seaborn.kdeplot} function provided by the Python library seaborn \citep{waskom_seaborn_2021} was used to apply \acrshort{kde} to the Foursquare check-ins of locals and tourists. The coordinates of the check-ins were converted to the EPSG:27700 projected coordinate system for the United Kingdom. The default bandwidth method \textit{scoott}, with a default bandwidth value of 1 was applied. This choice is appropriate considering the smooth distribution of Foursquare check-ins, making the default bandwidth value well-suited for the analysis. Additionally, the Gaussian kernel was used as the kernel smoother.
 
-\begin{equation} \label{eq:spherical_kernel}
-K_{\text{Spherical}}(x) = \frac{I\left(\|x\| \leq 1\right)}{v_{2,d}}, \quad v_{2,d} = \int I\left(\|x\| \leq 1\right) \, dx 
-\end{equation}
+Since the distribution of check-ins of locals and tourists was assumed to differ across various time spans, this study applied \acrshort{kde} to visualize the distribution of check-ins for these two groups during the daytime and nighttime, as well as on weekdays and weekends. Visiting hotspots were determined based on the estimated density value and the contours in the output plot. By comparing the hotspots of locals and tourists across different time spans, along with the difference ratio discusses in the next section, this study aimed to explore which areas were more popular among locals and which areas were more popular among tourists.
 
-In this study, \acrshort{kde} was employed to analyze the distribution of Foursquare check-ins of locals and tourists. To visualize the distribution effectively, the seaborn.kdeplot \footnote{\url{https://seaborn.pydata.org/generated/seaborn.kdeplot.html}} function from the Python library seaborn was utilized. The default bandwidth method \textit{scoott}, with a default bandwidth value of 1 was applied. This choice is appropriate given the smooth distribution of Foursquare check-ins, making the default bandwidth value well-suited for the analysis. Furthermore, the Gaussian kernel was provided by seaborn.kdeplot was used as the kernel smoother.
 
 % ====================== | Calculation of Difference Ratio | ======================
 \subsubsection{Calculation of Difference Ratio}
-The extent to which locals and tourists mix within a given area provides insights into the popularity of that area among these two distinct groups. Representing the mixture of these two groups based solely on the count difference between locals and tourists may introduce bias, as the significant disparity in their numbers can skew the results. To assess the level of integration between locals and tourists, the dissimilarity index $D$ was employed, as previously utilized in a study by \cite{li_analyzing_2018}. The dissimilarity index quantifies the degree of dissimilarity between the two groups and is defined as:
-
-\begin{equation} \label{eq:dissimilarity_index}
-    D = \frac{1}{2}\sum_{i=1}^{N}\bigg|\frac{t_{i}}{T}-\frac{l_{i}}{L}\bigg|
-\end{equation}
-
-where $t_{i}$ represents the number of tourists in the $i_{th}$ given area, and $T$ represents the total number of tourists in the city. Similarly, $l_{i}$ represents the number of locals in the $i_{th}$ given area, and $L$ represents the total number of locals in the city. A higher value of $D$ indicates a greater degree of mixing between locals and tourists across the entire area, and conversely, a lower value suggests a lower level of mixing. However, it's important to note that the $D$ provides only a single value representing the overall mixture degree within the city, lacking information about the distribution of the mixture degree across different areas in the city.
-
-To address this limitation, this study employed a rasterization approach, dividing Greater London into equal-sized cells with a cell size of 1km by 1 km. This allowed for the visualization of the mixture degree within each raster. While both the number of visitors and the number of check-ins in each raster could be used to calculate the mixture degree, the latter is more suitable for reflecting activity density. Consequently, the number of check-ins made by locals and tourists in each raster was counted respectively to calculate the mixture degree. To capture the mixture degree in each raster, the difference ratio $R$ was computed based on the equation of dissimilarity index $D$. This ratio serves as a representative measure of the mixture degree within each raster, and it is defined as:
+Investigating the popularity of an area among locals and tourists can be achieved by examining the degree of their interaction within that area. In this study, the study area was rasterized, and the mixture degree of locals and tourists was investigated through raster analysis to identify popular areas among these two groups. The polygon of Greater London was divided into equal-sized rasters with a size of 1 km by 1 km. When assessing the mixture degree, both the number of visitors and the number of check-ins in each raster could be considered, but the latter better reflected the activity density. To avoid bias caused by significant differences in the number of check-ins between locals and tourists within each raster, this study applied the difference ratio $R$, as previously utilized in a study by \cite{li_analyzing_2018}, to assess the mixture level between locals and tourists. The difference ratio is defined as:
 
 \begin{equation} \label{eq:diff_ratio}
     R = \frac{t_{i}}{T}-\frac{l_{i}}{L}
 \end{equation}
 
-where $t_{i}$ represents the number of tourists' check-ins in the raster $i$, and $T$ represents the total number of tourists' check-ins shared citywide. Similarly, $l_{i}$ represents the number of locals' check-ins in the raster $i$, and $L$ represents the total number of locals' check-ins shared citywide. This ratio provides insights into the relative activity density between locals and tourists within each raster. A larger positive value of $R$ indicates a higher density of check-ins shared by tourists in that particular raster. Conversely, a larger negative value of \(R\) indicates a higher density of check-ins shared by locals in the same raster.
+where $t_{i}$ represents the number of tourists' check-ins in the raster $i$, and $T$ represents the total number of tourists' check-ins shared citywide. Similarly, $l_{i}$ represents the number of locals' check-ins in the raster $i$, and $L$ represents the total number of locals' check-ins across the entire city. This ratio provides insights into the relative activity density between locals and tourists within each raster. A larger positive value of $R$ indicates a higher density of check-ins shared by tourists in that particular raster, while a larger negative value of \(R\) indicates a higher density of check-ins shared by locals in the raster.
+
+Similar to the identification of hotspots using \acrshort{kde}, the mixture degree between locals and tourists was also calculated and visualized across various time spans. To facilitate comparison of the difference ratio across different scenes (e.g. locals during the daytime, tourists during weekdays), the minimum and maximum values for the color mapping were set to -0.3 and 0.3, respectively, based on the extreme values of difference ratio across scenes. This ensured that the variations in the difference ratio were visualized within the same range. The colormap \textit{coolwarm} was applied for visualization, with a deeper red color representing a larger positive value of difference ratio (indicating a higher proportion of tourists), and a deeper blue color representing a larger negative value of difference ratio (indicating a higher proportion of locals). The hotspots identified through \acrshort{kde} were further analyzed using the difference ratio to determine their popularity among locals or tourists.
+
 
 % ============================= || Place Modeling || =============================
 \subsection{Place Modeling} \label{place_modeling}
 
 % ====================== | Place Construction | ======================
 \subsubsection{Place Construction} \label{place_construction}
-A place is a segment of geographical space that holds meaningful attributes, while a check-in is a specific instance or event that represents an individual's interaction with a place. In this study, places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013}. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, reducing user input bias. Prior to \acrshort{hdbscan}, the Gower distance \citep{gower_general_1971} was computed as a distance matrix. The Gower distance is suitable for measuring the dissimilarity between items with mixed numeric and non-numeric data. The Gower similarity matrix is defined as:
+In this study, the concept of place refers to a segment of geographical space that holds meaningful attributes, while check-in is a specific instance that represents an individual's interaction with a place. Places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013} algorithm. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, reducing user input bias. It is important to note that check-ins of locals and tourists were differentiated across various time spans before constructing places, ensuring that each scene had its own distinct set of places.
 
-\begin{equation} \label{gower_similarity}
-S_{Gower}(x_{i},x_{j}) = \frac{\sum_{k=1}^{p}s_{ijk}\delta_{ijk}}{\sum_{k=1}^{p}\delta_{ijk}}
-\end{equation}
+Prior to clustering, a distance matrix among check-ins was computed and the features used for distance calculation included the coordinates and categories of check-ins. The Gower distance \citep{gower_general_1971} was used to measure the dissimilarity between items with mixed numeric and categorical attributes, making it suitable for constructing the distance matrix. The coordinates of check-ins were standardized using the \textit{sklearn.preprocessing.StandardScaler} function provided by the Python library scikit-learn \citep{pedregosa_scikit-learn_2011}. The check-in categories were converted into numerical values using label encoding and treated as categorical data in the distance measure. The importance of features was also considered, with coordinates weighted at 80\% and categories weighted at 20\%.
 
-where $s_{ijk} \in [0,1]$ is the score for each feature $k = 1,2, ...,p$. If $x_{i}$ and $x_{j}$ are close to each other along feature $k$, the score $s_{ijk}$ is close to 1. Conversely, if they are far apart along feature $k$, the score $s_{ijk}$ is close to 0. The Gower similarity matrix was then converted to a distance matrix:
+The Python library HDBSCAN \citep{mcinnes_hdbscan_2017} was used, specifically the \textit{hdbscan} function, to cluster the check-ins. A minimum of three check-ins within a cluster was set as the criterion for defining a place, ensuring that each place encompassed a certain number of check-ins. \acrshort{hdbscan} labeled check-ins with their corresponding clusters, while check-ins labeled as -1 were considered outliers and were excluded from this study. To represent the spatial extent of a place, convex hulls were constructed for the clusters of check-ins, creating polygons that approximate the area covered by each place.
 
-\begin{equation} \label{gower_distance}
-D_{Gower}(x_{i},x_{j}) = \sqrt{1-S_{Gower}(x_{i},x_{j})}
-\end{equation}
-
-The features used for clustering included the coordinates and categories of check-ins. The coordinates of check-ins were converted to EPSG:27700 projected coordinate system for the United Kingdom, and then standardized by the StandardScaler to unit variance. The categories of check-ins were converted into numerical values using label encoding. The feature importance was considered in the distance matrix, with coordinates accounting for 80\% of the weighting and categories accounting for 20\%. 
-
-In the application of \acrshort{hdbscan}, a minimum number of three check-ins within a cluster was set to define a place, ensuring that each place encompassed a certain number of check-ins. Check-ins labeled as -1 were considered outliers and removed from the study. To represent the spatial extent of a place, convex hulls were built around the clusters of check-ins, creating polygons that approximate the area covered by each place.
-
-To enrich the semantic information of places, three dimensions conceptualized by \citep{agnew_space_2011}, namely location, locale, and sense of place, were employed. The location dimension was represented by the borough name, specifically the borough where the majority of check-ins within a place cluster were located. The locale dimension was represented by the most frequently occurring check-in category within the place cluster. The sense of place dimension utilized Flickr tags associated with the place cluster to capture people's perceptions. Topic modeling was applied to generate a set of topics based on these tags, providing a representation of the sense of place associated with each place.
+To enrich the semantic information of places, three dimensions conceptualized by \cite{agnew_space_2011}, namely \textit{Location}, \textit{Locale}, and \textit{Sense of Place}, were annotated. The \textit{Location} dimension was represented by the borough name, specifically the borough where the majority of check-ins within a place cluster were located. The \textit{Locale} dimension was determined by the most frequently occurring check-in category within the place cluster. The \textit{Sense of Place} dimension utilized Flickr tags associated with the place cluster to capture people's perceptions. Topic modeling was applied to generate a set of topics based on these tags, providing a representation of the \textit{Sense of Place} associated with each place. With these three dimensions annotated, places in different scenes were compared based on their distributions and the frequency of the three dimensions. This comparison provided insights into the characteristics of places visited by locals and tourists.
 
 % ====================== | Topic Modeling | ======================
 \subsubsection{Topic Modeling}
-\acrfull{lda} was employed for topic modeling in this study. \acrshort{lda} is a three-level hierarchical Bayesian model in which words (e.g.,, tags) are collected into documents, and each word's presence is attributable to one of the document's topics. The generative process of \acrshort{lda} is illustrated in Figure~\ref{fig:lda}. To generate a document, a K-vector $\theta$ representing the mixture proportion of $k$ topics is sampled from a Dirichlet prior distribution $p(\theta|\alpha)$. The variable $k$ specifies the dimension of the distribution and also the dimension of the topic variable $z$, which defines the total number of topics generated by the model. The Dirichlet variable $\theta$ takes values within the $(k-1)$-simplex and has a probability density on this simplex, defined by the following equation:
+This study applied \acrfull{lda}, a topic modeling technique, to generate topics describing places based on Flickr tags. \acrshort{lda} is a three-level hierarchical Bayesian model that discovers underlying topics from a large collection of words. In this study, after the preprocessing steps outlined in Section \ref{preprocess_flickr}, the Flickr tags within each place, represented by the convex hull, were gathered as words to form a \textit{document}, with each \textit{document} comprising the Flickr tags for a specific place. The input to the \acrshort{lda} model was a \textit{corpus} consisting of \textit{documents}. The \textit{corpus} was structured as a $word \times document$ matrix, with each row representing a vector $w = {w_{1}, w_{2}, ..., w_{v}}$ of length $v$. $v$ is the number of words in the \textit{vocabulary} (all distinct words in a corpus), and $w_{v}$ denoted the frequency of word $v$ in the document. It is important to note that Flickr tags were also separated based on two groups of people in different time spans, thus the corpus in every scene was unique.
 
-\begin{equation} \label{eq:lda}
-    p(\theta|\alpha)\ = \frac{\Gamma(\sum_{i=1}^{k} \alpha_{i})}{\prod_{i=1}^{k}\Gamma(\alpha_{i})}\theta_{1}^{z_{1}-1}...\theta_{k}^{z_{k}-1}
-\end{equation}
+The \acrshort{lda} model generated a set of topics as its primary output, along with topic distribution and topic terms, facilitating the determination and interpretation of topics for each place. The topic distribution for each place consisted of a list of topics and the corresponding probabilities of the place belonging to each topic. The topic terms for each topic comprised a list of tags, accompanied by their probabilities of association with that topic. In this study, each place was assigned the most probable topic, and the interpretation of topics relied on the corresponding tags and probabilities. In practice, the \acrshort{lda} model was implemented using \acrfull{mallet}. \acrshort{mallet} is a Java-based console application, but the Python library gensim \citep{rehurek_software_2010} also provides a wrapper model called LdaMallet for the implementation of \acrshort{mallet}. And this study utilized the \textit{gensim.models.wrappers.LdaMallet} function in gensim to apply the \acrshort{lda} model.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/lda.png}
-\caption{\label{fig:lda}Illustration of the LDA generative process. The outer box M denotes the repeated sampling for each document and the inner box N represents sampling within each document. The box K represents sampling for each topic \citep{vayansky_review_2020}.}
-\end{figure}
-
-where $\alpha$ is the hyperparameter of the Dirichlet distribution, which represents a prior count of the frequency of an individual topic appearing in a document. The parameter $\beta$ is also a Dirichlet prior hyperparameter that determines the smoothing level over word distributions in all topics. The values of $\alpha$ and $\beta$ are selected based on the size of the vocabulary and the number of topics chosen \citep{blei_latent_2003}. To determine the optimal number of topics, the \textit{coherence value} can be used to measure the semantic quality of the generated topics. The \textit{coherence value} is calculated based on the probability of words in a topic co-occurring in the place clusters assigned that topic, and it can be defined as:
+The semantic quality of the generated topics is sensitive to the number of topics. If too many topics are generated, some topics might become similar to each other, making interpretation challenging. The \acrshort{lda} model requires users to define the number of topics as input, thus it is crucial to determine appropriate topic numbers. To measure the semantic quality of topics, the \textit{coherence value} was employed. This value was calculated based on the co-occurrence probability of words within a topic, specifically within the place clusters assigned to that topic. The \textit{coherence value} can be defined as:
 
 \begin{equation} \label{eq:coherence_value}
     coherence = \sum_{i}\sum_{j<1}\log\frac{D(w_{j},w_{i})+\beta}{D(w_{i})}
 \end{equation}
 
-where $\beta$ is to prevent log zero errors, $D(w_{j},w_{i})$ is the number of co-occurrence of two terms in a document, and $D(w_{i}$ is the number of occurrences of the more probable terms. A higher coherence value indicates that the words within a topic are more closely related to each other, making topics more interpretable to humans.
+where $\beta$ is to prevent log zero errors. $D(w_{j},w_{i})$ represents the number of co-occurrence of two words in a document, and $D(w_{i}$ is the number of occurrences of the more probable words. A higher coherence value indicates that the words within a topic are closely related to each other, making topics more interpretable to humans.
 
-In practice, the \acrshort{lda} model was implemented using \acrfull{mallet}. \acrshort{mallet} is a Java-based console application, but the Python library gensim, developed by \cite{rehurek_software_2010}, provides a wrapper model called LdaMallet for \acrshort{mallet}, which was utilized in this study. The input to the \acrshort{lda} model was a corpus consisting of documents, where each document stored the Flickr tags within each place cluster represented by the place convex hull. The corpus was structured as a $word \times document$ matrix, where each row represented a vector $w = {w_{1},w_{2},...,w_{v}}$ of length $V$ corresponding to the number of words in the vocabulary, and $w_{v}$ denoted the frequency of word $v$ in the document. The \acrshort{lda} model generated a set of topics as its main output, along with topic distribution and topic terms, which facilitated the determination and interpretation of topics for each place. The topic distribution for each place consisted of a list of topics and the probabilities of the place belonging to each corresponding topic. The topic terms for each topic comprised a list of tags, accompanied by their probabilities of being associated with that topic. The most probable topic was assigned to each place, and the tags for each topic were visualized using LDAvis to explore the distribution of tags within topics.
-
-In instances where certain places had no tags within their convex hulls, a topic imputation was employed to assign topics to those empty places. This imputation process relied on the topic distribution of nearby places that did contain Flickr tags in a weighted average approach. The imputed topic distribution represented the probability distribution across a predefined set of topics. Based on this imputation topic distribution, the places were assigned the most probable topics. The calculation for imputed topic distribution of the target empty place can be expressed as:
+In cases where certain places had no tags within their convex hulls, a topic imputation technique was employed to assign topics to those empty places. This imputation relied on the topic distribution of nearby places that did contain Flickr tags, utilizing a weighted average approach. The imputed topic distribution represented the probability distribution across a predefined set of topics. Based on this imputed topic distribution, the places were assigned the most probable topics. The calculation for imputed topic distribution of the target empty place can be expressed as:
 
 \begin{equation} \label{eq:topic_imputation}
-    \theta_{imputed} = \frac{1}{W}\sum_{i}{n}w_{i}\theta_{i}
+    P_{imputed} = \frac{1}{W}\sum_{i}{n}w_{i}P_{i}
 \end{equation}
 
-where $\theta_{i}$ represents the topic distribution for place $i$, and $n$ is the number of places in the neighborhood of the target empty place. The weight assigned to each place, $w_{i}$, is determined by the distance between place $i$ and the target empty place, which is defined as:
+where $P_{i}$ represents the topic distribution for place $i$, and $n$ is the number of places in the neighborhood of the target empty place. The weight assigned to each place $w_{i}$ is determined by the distance between place $i$ and the target empty place, which is defined as:
 
 \begin{equation} \label{eq:topic_imputation_w_i}
     w_{i} = \exp(\frac{-d(i,j)^2}{2\sigma^2})
 \end{equation}
 
-where $\sigma$ controls the smoothness of the weighting function. $d(i,t)$ is the distance between place $i$ and place $j$. A larger value of $\sigma$ gives more weight to places that are closer to the target empty place, while a smaller value of $\sigma$ gives more weight to places that are farther away. $W$ ensures that the sum of the weights to 1 so that the imputed topic distribution is a valid probability distribution, which is defined as:
+where $\sigma$ controls the smoothness of the weighting function. $d(i,t)$ is the distance between place $i$ and place $j$. A larger value of $\sigma$ gives more weight to places that are closer to the target empty place, while a smaller value of $\sigma$ gives more weight to places that are farther away. This study set $\sigma$ as 500 for topic imputation in all scenes. $W$ ensures that the sum of the weights to 1 so that the imputed topic distribution is a valid probability distribution, which is defined as:
 
 \begin{equation} \label{eq:topic_imputation_W}
-    W = \sum_{i}{n}w_{i}
+    W = \sum_{i}^{n}w_{i}
 \end{equation}
-
-
 
 
 % ============================= || Typical Semantic Trajectory Mining || =============================
@@ -623,15 +593,15 @@ where $\sigma$ controls the smoothness of the weighting function. $d(i,t)$ is th
 
 % ====================== | Semantic Trajectory Construction | ======================
 \subsubsection{Semantic Trajectory Construction}
-This study investigated city perception by analyzing semantic trajectories. These trajectories were constructed based on the places defined in Section \ref{place_construction}. The concept of semantic trajectories is defined in Definition \ref{def:semantic_trajectory}.
+This study aimed to compare city perceptions of locals and tourists across different time spans by analyzing semantic trajectories under corresponding scenes. Semantic trajectories were constructed based on the places defined in Section \ref{place_construction}. The concept of semantic trajectories is introduced in Definition \ref{def:semantic_trajectory}.
 
 \begin{definition} \label{def:semantic_trajectory}
-A semantic trajectory is a sequence of places $T=\langle p_{1},p_{2},...,p_{n} \rangle$, with $p=(x,y,D_{p})$ being the place $i$ at the position $(x,y)$ annotated by the three dimensions of the place.
+A semantic trajectory is a sequence of places $T = \langle p_{1}, p_{2}, ..., p_{n} \rangle$, with $p = (x,y,D_{p})$ being the place $i$ at the position $(x,y)$ annotated by the three dimensions of the place, including \textit{Location}, \textit{Locale}, and \textit{Sense of Place}.
 \end{definition}
 
-To determine the beginning and end of each trajectory, it was necessary to consider the movement of individuals, as shown in Figure~\ref{fig:trajectory_begin_end}. A time gap of five hours was used as a criterion to determine whether two consecutive places belonged to the same trajectory. Specifically, if the time gap between two consecutive places exceeded five hours, the former place was considered the last position of the current trajectory, while the latter place marked the beginning of the new trajectory. Furthermore, the analysis of city perception focused on long trajectories as they conveyed more information. Therefore, only trajectories consisting of more than five places were considered in this study.
+By connecting places in a visiting order, it becomes possible to track individuals' movements. However, within one's movement, there might be multiple trajectories. Hence, it is necessary to determine the beginning and end of each trajectory, as illustrated in Figure~\ref{fig:trajectory_begin_end}. In this study, a time gap of five hours served as a criterion to determine whether two consecutive places belonged to the same trajectory. Specifically, if the time gap between two consecutive places exceeded five hours, the former place was considered the last position of the current trajectory, while the latter place marked the beginning of the new trajectory. Moreover, the analysis of city perception focused on long trajectories as they conveyed more information. Therefore, only trajectories consisting of more than five places were considered in this study.
 
-\begin{figure}
+\begin{figure} [!h]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/begin_end.png}
 \caption{\label{fig:trajectory_begin_end}Trajectories extracted from a movement track \citep{parent_semantic_2013}.}
@@ -640,21 +610,17 @@ To determine the beginning and end of each trajectory, it was necessary to consi
 
 % ====================== | Semantic Trajectory Similarity Measure | ======================
 \subsubsection{Semantic Trajectory Similarity Measure} \label{traj_similarity}
-Prior to clustering semantic trajectories, it is crucial to measure their similarity. Many existing methods focus on similarity measuring of raw trajectories, which only consider spatial or spatiotemporal aspects. This study investigated semantic trajectories enriched with three dimensions, therefore, it is necessary to consider multiple dimensions in the similarity measurement. \acrfull{msm} proposed by \cite{furtado_multidimensional_2016} was employed to measure trajectory similarity in this study. 
+Before clustering semantic trajectories, it is essential to measure their similarity. Existing methods often focus only on the spatial or spatiotemporal aspects of raw trajectories, neglecting the multiple dimensions present in semantic trajectories. To address this, the \acrfull{msm} proposed by \cite{furtado_multidimensional_2016} was employed in this study to construct the similarity matrix for semantic trajectories. 
 
-\acrshort{msm} is a similarity measure for multidimensional sequences, considering and weighing the similarity across all dimensions. This study considered the spatial position dimension and the three semantic dimensions of places. These dimensions are defined in Definition \ref{def:semantic_dimension}.
+\acrshort{msm} is a similarity measure for multidimensional sequences, considering the similarity across all dimensions. In two semantic trajectories denoted as $T_{1}$ and $T_{2}$, the general term for each dimension $D_{k}$ ($k = 1, 2, 3, 4$) represents the following: $D_{1}$ represents the spatial position of the semantic trajectory, while $D_{2}$, $D_{3}$, and $D_{4}$ correspond to the three semantic dimensions: \textit{Location}, \textit{Locale}, and \textit{Sense of Place}. The distance between two places, $p_{1} \in T_{1}$ and $p_{2} \in T_{2}$, is computed using the distance function $dist_{k}(p_{1},p_{2})$. Additionally, a maximum distance threshold $maxDist_{k}$ is set for each dimension to determine whether a pair of places $(p_{1},p_{2})$ can be considered a match in $D_{k}$.
 
-\begin{definition} \label{def:semantic_dimension}
-In two semantic trajectories, denoted as $T_{1}$ and $T_{2}$, the general term for each dimension $D_{k}$ (where $k=1,2,3,4$) represents the following: $D_{1}$ refers to the spatial position of the semantic trajectory, $D_{2}$, $D_{3}$, and $D_{4}$ represent the three semantic dimensions, namely location, locale, and sense of place. The distance between any two places, $p_{1} \in T_{1}$ and $p_{2} \in T_{2}$, is computed using the distance function $dist_{k}(p_{1},p_{2})$. Additionally, a maximum distance threshold $maxDist_{k}$ is set for each dimension to determine whether a pair of places $(p_{1},p_{2})$ can be considered a match in $D_{k}$.
-\end{definition}
-
-In the computation of the similarity score, it is possible for $p_{1}$ and $p_{2}$ to be matched in one dimension but not in another. Therefore, the dimensions are considered separately. Furthermore, to account for the relative importance of each dimension, a weight $w_{k}$ is assigned to represent its significance. It should be noted that the sum of the weights of all dimensions should be equal to 1. In this study, the weights were set as follows: $w_{1}=0.4$, $w_{2}=0.1$, $w_{3}=0.3$, $w_{4}=0.2$. The matching score between the two places $p_{1}$ and $p_{2}$ can be defined as the sum of the weighted match scores across all dimensions, as represented in the following equation:
+The similarity score was calculated by considering each dimension separately, and the scores in all four dimensions were summed up, taking into account the assigned weights. Each dimension was assumed to have different importance, represented by the weight $w_{k}$ assigned to the corresponding dimension $D_{k}$. It is important to note that the sum of the weights of all dimensions should be equal to 1. In this study, the weights were set as follows: $w_{1}=0.4$, $w_{2}=0.1$, $w_{3}=0.3$, $w_{4}=0.2$. The similarity score between the two places $p_{1}$ and $p_{2}$ is defined as the sum of the weighted match scores across all dimensions, as represented in the following equation:
 
 \begin{equation} \label{eq:match_score}
     score(p_{1},p_{2}) = \sum_{k=1}^{4}(match_{k}(p_{1},p_{2})w_{k})
 \end{equation}
 
-where $match_{k}(p_{1},p_{2})$ determines whether the places are matched or not based on the max distance threshold $maxDist_{k}$, and it is defined as:
+where $match_{k}(p_{1},p_{2})$ determines whether the places are matched or not based on the max distance threshold $maxDist_{k}$, and it is defined in Equation~\ref{eq:match}. In this study, to handle the different data types of dimensions, each dimension was assigned a specific distance function and the threshold to determine whether $p_{1}$ and $p_{2}$ were matched. For the spatial position dimension $D_{1}$, the Euclidean distance was applied, as defined in Equation~\ref{eq:dist_euclidean}, where $x$ and $y$ represent the coordinates of places. A maximum distance threshold $maxDist_{1}$ of 1 km was set, meaning that if the distance between $p_{1}$ and $p_{2}$ exceeded 1 km, the two points were not considered a match. For the semantic dimensions $D_{2}$, $D_{3}$, and $D_{4}$, which were categorical data, the discrete distance was applied, as shown in Equation~\ref{eq:dist_discrete}. In this case, the distance can only be either 0 or 1, and a maximum distance threshold of 0.5 was set for $maxDist_{2}$, $maxDist_{3}$, and $maxDist_{4}$.
 
 \begin{equation} \label{eq:match}
     match_{k}(p_{1},p_{2}) = \begin{cases}
@@ -662,23 +628,6 @@ where $match_{k}(p_{1},p_{2})$ determines whether the places are matched or not 
     0 & \text{otherwise}
     \end{cases}
 \end{equation}
-
-Since a place $p_{1} \in T_{1}$ can be matched with multiple places in $T_{2}$, the aim of \acrshort{msm} is to find the best matching score for each place $p_{1}$ with $T_{2}$. The parity of $T_{1}$ with $T_{2}$, denoted as $parity(T_{1},T_{2})$, is defined as the sum of the highest score of all places $p_{1} \in T_{1}$ with $T_{2}$, and the equation is as follows:
-
-\begin{equation} \label{eq:parity}
-    parity(T_{1},T_{2}) = \sum_{p_{T{1}}\in T_{1}}\max\{score(p_{1},p_{2}) : p_{T{2}} \in T_{2}\}
-\end{equation}
-
-Finally, the multidimensional similarity measure $MSM(T_{1},T_{2})$ is calculated by averaging the parity of $T_{1}$ with $T_{2}$ and and the parity of $T_{2}$ with $T_{1}$, which is defined as:
-
-\begin{equation} \label{eq:msm}
-    MSM(T_{1},T_{2}) = \begin{cases}
-    0 & \text{if } |T_{1}| = 0 \text{or} |T_{2}| = 0 \\
-    \frac{parity(T_{1},T_{2}) + parity(T_{2},T_{1})}{|T_{1}|+|T_{2}|} & \text{otherwise}
-    \end{cases}
-\end{equation}
-
-To handle the different data types of dimensions, each dimension was assigned a corresponding distance function and a threshold to determine whether $p_{1}$ and $p_{2}$ were matched. For the spatial position dimension $D_{1}$, the Euclidean distance was applied (Equation~\ref{eq:dist_euclidean}), where $x$ and $y$ represented the coordinates of places. The maximum distance threshold $maxDist_{1}$ was set to 1000 meters, meaning that if the distance between $p_{1}$ and $p_{2}$ exceeded 1000 meters, the two points were not considered a match. For the semantic dimensions $D_{2}$, $D_{3}$, and $D_{4}$, which were categorical data, the discrete distance was applied (Equation~\ref{eq:dist_discrete}). In this case, the distance could only be either 0 or 1, and the maximum distance thresholds $maxDist_{2}$, $maxDist_{3}$, and $maxDist_{4}$ for these dimensions were set to 0.5.
 
 \begin{equation} \label{eq:dist_euclidean}
     dist_{euclidean}(p_{1},p_{2}) = \sqrt{(p_{1}.x-p_{2}.x)^2+(p_{1}.y-p_{2}.y)^2}
@@ -691,44 +640,49 @@ To handle the different data types of dimensions, each dimension was assigned a 
     \end{cases}
 \end{equation}
 
-In practice, the Python library trajminer developed by \cite{petry_trajminer_2019} was applied to construct the similarity matrix for semantic trajectories. Specifically, the function trajminer.similarity.MSM for \acrfull{msm} was used, with the distance functions, thresholds, and weights specified. Overall, by employing the \acrshort{msm} approach, this study took into account the multiple dimensions of semantic trajectories and computed a similarity matrix that captured the matching scores and weights for each dimension, providing a comprehensive assessment of trajectory similarity.
+Since a place $p_{1} \in T_{1}$ can be matched with multiple places in $T_{2}$, the objective of \acrshort{msm} is to find the best matching score for each place $p_{1}$ with $T_{2}$. The parity of $T_{1}$ with $T_{2}$, denoted as $parity(T_{1},T_{2})$, is defined as the sum of the highest score of all places $p_{1} \in T_{1}$ with $T_{2}$, and the equation is:
 
+\begin{equation} \label{eq:parity}
+    parity(T_{1},T_{2}) = \sum_{p_{1}\in T_{1}}\max\{score(p_{1},p_{2}) : p_{2} \in T_{2}\}
+\end{equation}
+
+Finally, the multidimensional similarity measure $MSM(T_{1},T_{2})$ is calculated by averaging the parity of $T_{1}$ with $T_{2}$ and the parity of $T_{2}$ with $T_{1}$, as defined as:
+
+\begin{equation} \label{eq:msm}
+    MSM(T_{1},T_{2}) = \begin{cases}
+    0 & \text{if } |T_{1}| = 0 \text{ or } |T_{2}| = 0 \\
+    \frac{parity(T_{1},T_{2}) + parity(T_{2},T_{1})}{|T_{1}|+|T_{2}|} & \text{otherwise}
+    \end{cases}
+\end{equation}
+
+In this study, the Python library trajminer developed by \cite{petry_trajminer_2019} was applied to construct the similarity matrix for semantic trajectories. Specifically, the \textit{trajminer.similarity.MSM} function was used, with the distance functions, thresholds, and weights specified. Overall, by employing the \acrshort{msm}, this study considered the multiple dimensions of semantic trajectories and computed a similarity matrix that captured the matching scores and weights for each dimension, providing a comprehensive assessment of trajectory similarity.
 
 
 % ====================== | Semantic Trajectory Clustering | ======================
 \subsubsection{Semantic Trajectory Clustering}
-The K-medoids algorithm was employed to cluster semantic trajectories. The term K-medoids was coined by \cite{kaufman_partitioning_1990} with their Partitioning Around Medoids (PAM) algorithm. K-medoids is a classical clustering technique that divides the dataset of $n$ objects into $k (k<n)$ clusters, assuming a predetermined number of clusters $k$. Similar to K-means, K-medoids aims to minimize the distance between data points assigned to a cluster and a designated point as the cluster's center. However, unlike K-means, K-medoids minimizes a sum of pairwise dissimilarities rather than a sum of squared Euclidean distances, and it selects the data point as the center of the cluster.
+The K-medoids algorithm was employed to cluster semantic trajectories. The term K-medoids was introduced by \cite{kaufman_partitioning_1990} with their Partitioning Around Medoids (PAM) algorithm. K-medoids is a classical clustering technique that divides the dataset of $n$ objects into $k (k<n)$ clusters, with the number of clusters $k$ predefined. Similar to K-means, K-medoids aims to minimize the distance between data points and the center point within a cluster. The reason for applying K-medoids to cluster trajectories is that it selects existing points as the centers of the clusters, resulting in more interpretable cluster centers and increased robustness to outliers.
 
-In the K-medoids algorithm, the dissimilarity between trajectories is measured, which is computed based on the trajectory similarity as described in Section \ref{traj_similarity}. The trajectory dissimilarity between each pair of trajectories is defined as:
+In the K-medoids algorithm, the dissimilarity between trajectories needs to be measured. In this study, the dissimilarity was precomputed based on the trajectory similarity described in Section \ref{traj_similarity}. The trajectory dissimilarity between each pair of trajectories is defined as:
 
 \begin{equation} \label{eq:dissimilarity}
     dissimilarity(T_{1},T_{2}) = 1-MSM(T_{1},T_{2})
 \end{equation}
 
-To perform the clustering for semantic trajectories, the Python library trajminer's function trajminer.clustering.KMedoids was employed. With the precomputed dissimilarity matrix, the initial cluster medoids were determined using the approach introduced by \cite{park_simple_2009}. Simplifying $dissimilarity(T_{i},T_{j})$ as $d_{ij}$ to represent the dissimilarity between trajectory $i$ and trajectory $j$, the value $v_{j}$ for trajectory $j$ is calculated as:
+To perform the clustering for semantic trajectories, the \textit{trajminer.clustering.KMedoids} function from the Python library trajminer was employed. With the precomputed dissimilarity matrix, the initial cluster medoids were determined using the approach introduced by \cite{park_simple_2009}. This approach iteratively updates the medoids and assigns trajectories to each cluster until the sum of distances from all trajectories to their medoids reaches the minimum.
 
-\begin{equation} \label{eq:vj}
-    v_{j} = \sum_{i=1}^{n}\frac{d_{ij}}{\sum_{l=1}^{n}d_{il}}, j=1,2,...,n
-\end{equation}
+The K-medoids algorithm also requires users to define the number of clusters as input. In this study, the optimal number of clusters was determined based on the silhouette score and the intracluster distance. The silhouette score measures the similarity of a trajectory to its own cluster compared to other clusters. The score ranges from -1 to 1, with a score closer to 1 indicating a well-matched trajectory within its own cluster and a poor match to neighboring clusters. The intracluster distance is the average distance between trajectories within a cluster and measures the compactness of the cluster. A larger intracluster distance indicates that the trajectories within the same cluster are less similar.
 
-Given the number of clusters $k$, the initial medoids are determined by selecting the $k$ trajectories with the first $k$ smallest $v_{j}$ values. The remaining trajectories are then assigned to their nearest medoids to construct initial clusters. Next, the sum of distances from all trajectories to their medoids is calculated to update the medoids. This process iteratively finds a new medoid for each cluster with a minimum total distance to other trajectories within the cluster, replacing the current medoid with the new one. Subsequently, the assignment of trajectories to the nearest medoids is updated, and this iterative process continues until the sum of distances from all trajectories to their medoids remains unchanged.
-
-The clustering results can be evaluated using the silhouette score, which measures the similarity of trajectory to its own cluster compared to other clusters. The score ranges from -1 to 1, with a score closer to 1 indicating a well-matched trajectory within its own cluster and a poor match to neighboring clusters. In this study, the silhouette score was employed to determine the optimal number of clusters.
+After clustering all semantic trajectories, an exploratory data analysis was conducted to investigate the distribution of trajectories and the frequency of three semantic dimensions within each cluster. This analysis aimed to uncover the unique characteristics of these clusters, providing additional insights into the investigation of city perception through semantic trajectories.
 
 % ====================== | Sequential Pattern Mining | ======================
 \subsubsection{Sequential Pattern Mining}
-Finding typical semantic trajectories in each cluster helps to investigate city perception, as these typical trajectories serve as representatives of their respective clusters. This study applied sequential pattern mining using the \acrfull{prefixspan} algorithm to detect frequently visited sequences. The \acrshort{prefixspan}, proposed by \cite{pei_mining_2004}, is an efficient method for sequential pattern mining. It follows a projection-based and sequential pattern-growth approach, offering ordered growth and reduced projected databases. The fundamental concept of the \acrshort{prefixspan} is to recursively project the sequence databases into smaller projected databases based on the current sequential patterns. Let $I=\{i_{1},i_{2},...,i_{n}\}$ be a set of all items. An itemset is a subset of items. A sequence $s$ is an ordered list of itemsets, which is denoted by $\langle s_{1}s_{2}...s_{l} \rangle$, where $s_{j}$ represents an itemset. $s_{j}$ can also be seen as an element of the sequence, denoted as $(x_{1}x_{2}...x_{m})$, where $x_{k}$ is an item. An $l$-sequence refers to a sequence with a length of $l$. A subsequence $\alpha=\langle a_{1}a_{2}...a_{n} \rangle$ is defined as a sequence that appears inits supersequence $\beta=\langle b_{1}b_{2}...b_{n} \rangle$ $(\alpha \subseteq \beta)$. A sequence database $S$ is a collection of tuples $\langle sid,s \rangle$, where $sid$ represents the sequence id of sequence $s$. Suppose a sequence $\alpha$ is a subsequence of $s$, the support of the sequence $\alpha$ in the sequence database $S$ is the number of tuples in the database containing $\alpha$. The support is defined as:
+While the trajectories selected as the cluster center by the K-medoids algorithm can serve as representatives of their clusters, it is beneficial to identify typical semantic trajectories within each cluster to enhance the interpretation of clustering results. In this study, the \acrfull{prefixspan} algorithm \citep{pei_mining_2004}, a sequential pattern mining technique, was applied to detect frequently visited sequences under different scenes. The fundamental concept of \acrshort{prefixspan} is to recursively project the sequence databases into smaller projected databases based on current sequential patterns. It utilizes a user-defined support threshold to mine sequential patterns by identifying frequent subsequences in a sequence database. The support represents the number of occurrences of the subsequence in the database, and subsequences with support above the specified threshold are extracted as the sequential patterns of interest.
 
-\begin{equation} \label{eq:support}
-    support_{S}(\alpha) = |\{\langle sid, s \rangle|(\langle sid, s \rangle \in S) \wedge (\alpha \subseteq s)\}|
-\end{equation}
+For the sequential pattern mining process, the Python library prefixspan \footnote{\url{https://pypi.org/project/prefixspan/}} was utilized in this study. The semantic trajectories within each cluster were treated as the sequence database for the mining process. The minimum support threshold was generally set to 3 for most trajectory clusters. However, for time spans with only a few constructed trajectories, such as nighttime, a threshold of 1 was used to ensure the detection of sequences. The output for each trajectory cluster consisted of several sets of frequently visited places in sequential order, along with their corresponding support values. To identify the typical trajectories, this study selected the sequences with the maximum support and length and subsequently investigated the places within these trajectories across three dimensions.
 
-In this study, the Python library prefixspan \footnote{\url{https://pypi.org/project/prefixspan/}} was utilized to conduct sequential pattern mining. The input for the mining process was the semantic trajectories within each cluster, treated as the sequence database. Regarding the minimum support threshold, it was generally set to 3 for most trajectory clusters. However, for some time spans with only a few constructed trajectories, such as nighttime, a threshold of 1 was employed to ensure the detection of sequences. For each trajectory cluster, the output consisted of several sets of frequently visited places in sequential order, accompanied by their corresponding support values. To identify the typical trajectories, this study selected the sequences with the maximum support and length, and subsequently investigated the places within these trajectories across three dimensions.
-
-
+The study of city perceptions in different scenes involved analyzing the typical semantic trajectories extracted from each cluster. A comparison of the distribution of these trajectories was made to explore the different areas visited by locals and tourists across different time spans. The first two semantic dimensions \textit{Location} and \textit{Locale} were utilized to examine the visiting purposes of these popular trajectories. Additionally, the third semantic dimension \textit{Sense of Place} was applied to capture people's descriptions along these trajectories, providing valuable insights into the city perception.
 
 \clearpage
-
 
 % ============================================ ||| Results ||| ============================================
 \section{Results}
@@ -1287,12 +1241,20 @@ During weekends, tourists continue to visit places characterized by architecture
 \subsection{Spatiotemporal City Perception through Semantic Trajectory}
 
 
-% ====================== | Semantic Trajectory Distribution | ======================
-\subsubsection{Semantic Trajectory Distribution}
+% ====================== | Exploratory Data Analysis for Semantic Trajectory | ======================
+\subsubsection{Exploratory Data Analysis for Semantic Trajectory}
+introduce what will be analyzed before subsections
+1. trajectories info in OneNote
+2. the number of trajectories in each cluster
+3. the distribution of trajectories in each cluster
+4. frequency of trajectories dimensions in each cluster
 
 
-% ====================== | Semantic Trajectory Dimensions | ======================
-\subsubsection{Semantic Trajectory Dimensions}
+\subsubsubsection{Daytime vs. Nighttime}
+
+
+\subsubsubsection{Weekday vs. Weekend}
+
 
 
 % ====================== | Typical Semantic Trajectory and City Perception | ======================
