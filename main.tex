@@ -50,8 +50,6 @@
 \author{Leyi Xu}
 
 \makeglossaries
-\newacronym{gcd}{GCD}{Greatest Common Divisor}
-\newacronym{lcm}{LCM}{Least Common Multiple}
 \newacronym{ugc}{UGC}{User-Generated Content}
 \newacronym{nlp}{NLP}{Natural Language Processing}
 \newacronym{msm}{MSM}{Multidimensional Similarity Measure}
@@ -217,7 +215,7 @@ The distribution of locals and tourists can provide valuable insights into the p
 % ====================== | Semantic Trajectory Construction | ======================
 \subsubsection{Trajectory Construction}
 % ============== introduction to the semantic trajectory ==============
-Detecting the movement patterns of visitors from their trajectories helps to understand their visiting behaviors. However, interpreting these patterns can sometimes be challenging due to the lack of contextual information. To address this, attempts have been made to integrate semantic descriptions into raw trajectories to build semantic trajectories. A trajectory can be assumed as a sequence of stops and moves \citep{spaccapietra_conceptual_2008}. Stops represent specific points along the trajectory where the moving object stays for a certain duration, typically denoting locations of interest. For instance, in tourism studies, stops could include sightseeing spots, hotels, airports, etc. \citep{yuan_review_2017}. Moves represent the transitions between stops in a trajectory, indicating the segments from one stop to the next. Unlike raw trajectories that only capture spatial or spatiotemporal properties (Figure~\ref{fig:raw_trajectory_example}), semantic trajectories enrich stops and moves with contextual data such as weather, transport means, and place type (Figure~\ref{fig:semantic_trajectory_example}). The integration of semantic information enables the extraction of meaningful trajectory behaviors. For example, in the context of tourism, a tourist behavior can be identified if the trajectory begins and ends at an accommodation place, with several stops at museums or tourist attractions \citep{parent_semantic_2013}. Constructing a semantic trajectory involves identifying stops, which are the important places of trajectory, based on the trajectory data. Subsequently, stops or moves are annotated with semantic information, and this process is also called semantic enrichment.
+Detecting the movement patterns of visitors from their trajectories helps to understand their visiting behaviors. However, interpreting these patterns can sometimes be challenging due to the lack of contextual information. To address this, attempts have been made to integrate semantic descriptions into raw trajectories to build semantic trajectories. A trajectory can be assumed as a sequence of stops and moves \citep{spaccapietra_conceptual_2008}. Stops represent specific points along the trajectory where the moving object stays for a certain duration, typically denoting locations of interest. For instance, in tourism studies, stops could include sightseeing spots, hotels, airports, etc. \citep{yuan_review_2017}. Moves represent the transitions between stops in a trajectory, indicating the segments from one stop to the next. Unlike raw trajectories that only capture spatial or spatiotemporal properties (Figure~\ref{fig:raw_trajectory_example}), semantic trajectories enrich stops and moves with contextual data such as weather, transportation means, and place type (Figure~\ref{fig:semantic_trajectory_example}). The integration of semantic information enables the extraction of meaningful trajectory behaviors. For example, in the context of tourism, a tourist behavior can be identified if the trajectory begins and ends at an accommodation place, with several stops at museums or tourist attractions \citep{parent_semantic_2013}. Constructing a semantic trajectory involves identifying stops, which are the important places of trajectory, based on the trajectory data. Subsequently, stops or moves are annotated with semantic information, and this process is also called semantic enrichment.
 
 \begin{figure}[!h]
 
@@ -242,7 +240,7 @@ Detecting the movement patterns of visitors from their trajectories helps to und
 
 
 % ============== GPS data ==============
-\acrfull{gps} data is widely used for constructing trajectories. Various approaches exist for identifying stops from \acrshort{gps} data. One method involves detecting stops by examining the absence of \acrshort{gps} signals or when the velocity remains zero during a specific time interval \citep{ashbrook_using_2003}. However, the presence of signal errors decreases the accuracy of identifying actual stops using this technique. Alternatively, other approaches consider both the \acrshort{gps} data and background geographic information to identify stops. \cite{alvares_model_2007} developed an algorithm named SMoT (Stops and Moves of Trajectories) for extracting stops and moves. In their study, a stop is defined as a location where an object remains for a minimal amount of time, and it is annotated with the corresponding place type and timestamp. Density-based clustering algorithms are also employed to identify stops. \cite{palma_clustering-based_2008} treated stops as \acrshort{poi} and utilized various \acrshort{dbscan} algorithms to cluster points as places based on the speed between two points. To enrich trajectories with semantic enrichment, different techniques have been employed, such as semantic regions, semantic lines, and semantic points, to annotate trajectories \citep{yan_semantic_2013}. Semantic regions refer to meaningful geographic areas, such as land use, and stops in trajectories can be annotated with semantic information by considering their topological correlation with these regions. Semantic lines typically represent transport networks, the movements within trajectories can be linked to road segments through map-matching algorithms, helping to infer the transportation mode, such as walking, driving, or using public transportation like metros. Semantic points correspond to \acrshort{poi} with meaningful place types, like restaurants, museums, and train stations. Stops in trajectories can be linked to the closest \acrshort{poi} to annotate semantic information. Furthermore, stops and moves can be annotated with activities, like staying at home, having lunch at a restaurant, or working at a company, by considering the time individuals spend at different \acrshort{poi} and their routines \cite{parent_semantic_2013}.
+\acrfull{gps} data is widely used for constructing trajectories. Various approaches exist for identifying stops from \acrshort{gps} data. One method involves detecting stops by examining the absence of \acrshort{gps} signals or when the velocity remains zero during a specific time interval \citep{ashbrook_using_2003}. However, the presence of signal errors decreases the accuracy of identifying actual stops using this technique. Alternatively, other approaches consider both the \acrshort{gps} data and background geographic information to identify stops. \cite{alvares_model_2007} developed an algorithm named SMoT (Stops and Moves of Trajectories) for extracting stops and moves. In their study, a stop is defined as a location where an object remains for a minimal amount of time, and it is annotated with the corresponding place type and timestamp. Density-based clustering algorithms are also employed to identify stops. \cite{palma_clustering-based_2008} treated stops as \acrshort{poi} and utilized various \acrshort{dbscan} algorithms to cluster points as places based on the speed between two points. To enrich trajectories with semantic enrichment, different techniques have been employed, such as semantic regions, semantic lines, and semantic points, to annotate trajectories \citep{yan_semantic_2013}. Semantic regions refer to meaningful geographic areas, such as land use, and stops in trajectories can be annotated with semantic information by considering their topological correlation with these regions. Semantic lines typically represent transportation networks, the movements within trajectories can be linked to road segments through map-matching algorithms, helping to infer the transportation mode, such as walking, driving, or using public transportation like metros. Semantic points correspond to \acrshort{poi} with meaningful place types, like restaurants, museums, and train stations. Stops in trajectories can be linked to the closest \acrshort{poi} to annotate semantic information. Furthermore, stops and moves can be annotated with activities, like staying at home, having lunch at a restaurant, or working at a company, by considering the time individuals spend at different \acrshort{poi} and their routines \cite{parent_semantic_2013}.
 
 % ============== UGC data ==============
 In addition to utilizing \acrshort{gps} data, the growing utilization of \acrshort{ugc} data shows its potential in semantic trajectory construction by providing more semantic information beyond the spatial location. Trajectories have been built using check-ins gathered from platforms like Foursquare, Gowalla, and Brightkite. In these cases, a stop is defined as a semantic \acrshort{poi} with a minimum of 10 check-ins, and consecutive check-ins within a 10-min threshold are removed as duplicates \citep{petry_towards_2019,ferrero_mastermovelets_2020}. Another approach employed by \cite{nin_tweets_2014} involved aggregating geotagged tweets to create trajectories, associating them with Foursquare categories to construct the Semantic Origin Destination Matrix of Foursquare categories. Geotagged photos from Flickr have also served as a valuable data source for building semantic trajectories. \cite{cai_mining_2018} conducted semantic trajectory clustering using geotagged photos from Flickr to mine mobility patterns. Additionally, they identified semantic regions of interest where a high density of trajectories passed, providing more meaningful descriptions of the trajectories. Similarly, \cite{yang_quantifying_2017} utilized geotagged Flickr photos to extract tourist trajectories, expanding the trajectory dimensions from topological and temporal spaces to semantic spaces. This allowed for a better understanding of travel motifs and the discovery of meaningful patterns of tourist behavior. In terms of semantic enrichment, various attributes have been employed to enrich the semantic information of trajectories, including place type, price tier, rating, day of the week, time of day, and weather information have been used to enrich semantic information for trajectories \cite{cai_mining_2018,petry_towards_2019,liu_stccd_2020,ferrero_mastermovelets_2020}. Place type is a fundamental contextual piece of information associated with semantic trajectories, which can be collected from sources such as \href{http://www.geonames.org/}{GeoNames} or represented by venue categories derived from check-ins. Studies that utilized check-ins to construct trajectories also considered the price tier and rating associated with the check-ins. These attributes, together with place type, provide additional information about the visited places. Day of the week and time of day assist in interpreting mobility patterns with greater time granularity. For instance, it is possible to identify typical trajectories where an individual commutes from home to work at 8 am, has lunch at a restaurant at 12 pm, and so on during weekdayss. The incorporation of weather information helps to capture the influence of weather conditions on individuals' movement patterns.
@@ -361,14 +359,14 @@ Time & Population group & No. of users & No. of check-ins \\
 \caption{\label{fig:foursquare_distribution}Distribution of Foursquare check-ins of locals and tourists.}
 \end{figure}
 
-For venue categories, Foursquare categorizes the place types into ten categories, namely (1) Travel \& Transport, (2) Food, (3) Professional \& Other Places, (4) Outdoors \& Recreation, (5) Shop \& Service, (6) Nightlife Spot, (7) Arts \& Entertainment, (8) College \& University, (9) Event, (10) Residence. Category 9 Event was not contained in the check-ins used in this study, and Category 10 Residence was removed to protect the privacy of users. The number of check-ins for each Foursquare venue category is shown in Table~\ref{tab:foursquare_category}. There are several combined categories in the Foursquare category system, such as Professional \& Other Places and Outdoors \& Recreation, which makes it ambiguous to determine the visiting purposes of individual check-ins. To overcome this limitation and investigate place properties more precisely, this study divided venues into 11 categories by separating the combined categories and defining new ones based on the third-level categories in the Foursquare category system. The number of check-ins for modified venue categories is presented in Table~\ref{tab:modified_category}. In terms of the category distribution among locals and tourists, the categories Transport and Restaurant were the most prevalent among both locals and tourists. However, certain categories showed a higher prevalence among a specific group, for instance, Shopping Place, Art Place, and Accommodation were more welcomed by tourists, whereas Sports Place received a greater number of check-ins from locals (Figure~\ref{fig:foursquare_category}).
+For venue categories, Foursquare categorizes the place types into ten categories, namely (1) Travel \& Transport, (2) Food, (3) Professional \& Other Places, (4) Outdoors \& Recreation, (5) Shop \& Service, (6) Nightlife Spot, (7) Arts \& Entertainment, (8) College \& University, (9) Event, (10) Residence. Category 9 Event was not contained in the check-ins used in this study, and Category 10 Residence was removed to protect the privacy of users. The number of check-ins for each Foursquare venue category is shown in Table~\ref{tab:foursquare_category}. There are several combined categories in the Foursquare category system, such as Professional \& Other Places and Outdoors \& Recreation, which makes it ambiguous to determine the visiting purposes of individual check-ins. To overcome this limitation and investigate place properties more precisely, this study divided venues into 11 categories by separating the combined categories and defining new ones based on the third-level categories in the Foursquare category system. The number of check-ins for modified venue categories is presented in Table~\ref{tab:modified_category}. In terms of the category distribution among locals and tourists, the categories transportation and Restaurant were the most prevalent among both locals and tourists. However, certain categories showed a higher prevalence among a specific group, for instance, Shopping Place, Art Place, and Accommodation were more welcomed by tourists, whereas Sports Place received a greater number of check-ins from locals (Figure~\ref{fig:foursquare_category}).
 
 \begin{table}[h!]
 \centering
 \caption{\label{tab:foursquare_category}Foursquare venue category.}
 \begin{tabular}{lll} \hline
 No. & Foursquare venue category & No. of check-ins \\ \hline
-1 & Travel \& Transport & 43,051 \\
+1 & Travel \& transportation & 43,051 \\
 2 & Food & 34,376 \\
 3 & Professional \& Other Places & 22,184 \\
 4 & Outdoors \& Recreation & 20,429 \\
@@ -387,16 +385,16 @@ No. & Foursquare venue category & No. of check-ins \\ \hline
 \begin{tabular}{lllp{6cm}p{5cm}} \hline
 No. & Modified venue category & No. of check-ins & Foursquare venue category 
 & Example \\ \hline
-1 & Transport & 36,994 & Travel \& Transport & Airport, Train Station, Bus Station, etc. \\
+1 & transportation & 36,994 & Travel \& transportation & Airport, Train Station, Bus Station, etc. \\
 2 & Restaurant & 34,376 & Food & Sandwich Place, Asian Restaurant, Italian Restaurant, etc. \\
 3 & Professional Place & 29,118 & Professional \& Other Places, College \& University & Office, Government Building, Police Station, etc. \\
 4 & Entertainment Place & 22,434 & Arts \& Entertainment, Shop \& Service, Nightlife Spot & Casino, Bowling Alley, Zoo, Bar, Nightclub, etc. \\
 5 & Shopping Place & 18,127 & Shop \& Service & Outlet Mall, Clothing Store, Market, etc. \\
 6 & Art Place & 11,132 & Arts \& Entertainment, Outdoors \& Recreation & Museum, Movie Theater, Art Gallery, Music Venue, etc. \\
 7 & Green \& Blue Space & 8,220 & Outdoors \& Recreation & Park, Plaza, Garden, Lake, etc. \\
-8 & Accommodation Place & 5,902 & Travel \& Transport & Hotel \\
+8 & Accommodation Place & 5,902 & Travel \& transportation & Hotel \\
 9 & Sports Place & 5,852 & Outdoors \& Recreation & Athletics \& Sports, Pool, Playground, etc. \\
-10 & Others & 3,346 & Outdoors \& Recreation, Professional \& Other Places, Travel \& Transport & Building, Bridge, Well, etc. \\
+10 & Others & 3,346 & Outdoors \& Recreation, Professional \& Other Places, Travel \& transportation & Building, Bridge, Well, etc. \\
 11 & Service Place & 1,706 & Travel \& Transport, Shop \& Service & Bank, Drugstore, Car Wash, Laundry Service, etc. \\ \hline
 \end{tabular}
 \end{adjustbox}
@@ -692,6 +690,8 @@ The study of city perceptions in different scenes involved analyzing the typical
 
 To investigate the popularity of different areas among locals and tourists at various times, Foursquare check-ins were utilized to detect spatiotemporal hotspots. Figure~\ref{fig:foursquare_checkins_count} and Figure~\ref{fig:foursquare_checkins_trend} reveal the number and temporal pattern of check-ins. Locals exhibit higher activity levels compared to tourists, generating a greater number of check-ins throughout different time periods. Notably, daytime check-ins outnumber nighttime check-ins. Analyzing the temporal pattern, locals display three prominent spikes in check-ins during the daytime, specifically at 8 am, 12 pm, and 6 pm. Conversely, their activities diminish during the nighttime, particularly at midnight. On the other hand, tourists are more active at 12 pm during the daytime but show reduced activity after 6 pm. Furthermore, weekdays experience a higher number of check-ins compared to weekends. Locals exhibit a consistent sharing pattern from Monday to Thursday, with a notable spike on Fridays. Conversely, during weekends, locals share significantly fewer check-ins. Tourists display a similar pattern from Monday to Thursday but exhibit increased activities on Fridays and Saturdays, followed by fewer check-ins on Sundays.
 
+\underline{add the introduction of the following sections}
+
 \begin{figure}[!h]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/foursquare_checkins_count.png}
@@ -721,7 +721,7 @@ To investigate the popularity of different areas among locals and tourists at va
 % ============== Daytime vs. Nighttime ==============
 \subsubsubsection{Daytime vs. Nighttime}
 % daytime
-Figure~\ref{fig:kde_daytime} illustrates the estimated distribution of Foursquare check-ins during the daytime using \acrshort{kde}. Despite generating fewer check-ins compared to locals, tourists exhibit similar hotspot distribution patterns. The city center, specifically the vicinity surrounding the junction of Westminster, Camden, and the City of London, emerges as a highly popular area among both locals and tourists. These boroughs contain an abundance of cultural and historical landmarks, including the Tower of London, Westminster Abbey, and St. Paul's Cathedral. Moreover, the high transport connectivity of these boroughs enhances their attractiveness. Major train stations, including Waterloo Station and King's Cross St. Pancras, provide convenient access to and from different areas of London. As a result, a significant number of individuals are drawn to these boroughs, leading to a substantial influx of people. Another notable hotspot is situated around Stratford in Newham borough, where the Stratford Shopping Centre is located, which appeals to individuals who enjoy shopping. Additionally, the southern region of Hillingdon, where Heathrow Airport is located, is another hotspot where people share a large number of check-ins. Furthermore, the boundary of Richmond upon Thames and Kingston upon Thames reveals an aggregation of check-ins, and these boroughs contain thriving communities with a blend of history and natural beauty. One notable difference between locals and tourists is the presence of work-related hotspots for locals. The City of London, in particular, serves as a major business hub, with numerous corporate headquarters attracting locals for employment purposes. Similarly, Canary Wharf, located near the Isle of Dogs within the Tower Hamlets borough, represents another hotspot for locals due to its status as part of London's central business district, drawing a large number of professionals. Moreover, boroughs located on the outskirts of London, such as Croydon, Merton, Bromley, Brent, and Harrow, form smaller yet noteworthy hotspots. These areas are characterized by their residential settlement and exhibit a greater concentration of locals compared to tourists.
+Figure~\ref{fig:kde_daytime} illustrates the estimated distribution of Foursquare check-ins during the daytime using \acrshort{kde}. Despite generating fewer check-ins compared to locals, tourists exhibit similar hotspot distribution patterns. The city center, specifically the vicinity surrounding the junction of Westminster, Camden, and the City of London, emerges as a highly popular area among both locals and tourists. These boroughs contain an abundance of cultural and historical landmarks, including the Tower of London, Westminster Abbey, and St. Paul's Cathedral. Moreover, the high transportation connectivity of these boroughs enhances their attractiveness. Major train stations, including Waterloo Station and King's Cross St. Pancras, provide convenient access to and from different areas of London. As a result, a significant number of individuals are drawn to these boroughs, leading to a substantial influx of people. Another notable hotspot is situated around Stratford in Newham borough, where the Stratford Shopping Centre is located, which appeals to individuals who enjoy shopping. Additionally, the southern region of Hillingdon, where Heathrow Airport is located, is another hotspot where people share a large number of check-ins. Furthermore, the boundary of Richmond upon Thames and Kingston upon Thames reveals an aggregation of check-ins, and these boroughs contain thriving communities with a blend of history and natural beauty. One notable difference between locals and tourists is the presence of work-related hotspots for locals. The City of London, in particular, serves as a major business hub, with numerous corporate headquarters attracting locals for employment purposes. Similarly, Canary Wharf, located near the Isle of Dogs within the Tower Hamlets borough, represents another hotspot for locals due to its status as part of London's central business district, drawing a large number of professionals. Moreover, boroughs located on the outskirts of London, such as Croydon, Merton, Bromley, Brent, and Harrow, form smaller yet noteworthy hotspots. These areas are characterized by their residential settlement and exhibit a greater concentration of locals compared to tourists.
 
 
 \begin{figure}[!h]
@@ -741,7 +741,7 @@ Figure~\ref{fig:kde_daytime} illustrates the estimated distribution of Foursquar
 \end{figure}
 
 % nighttime & comparison
-During the nighttime, the city center still serves as the primary hotspot for both locals and tourists, as shown in Figure~\ref{fig:kde_nighttime}. In addition to its cultural and historical attractions, the city center also offers abundant shopping and entertainment options, including renowned areas such as Oxford Street and Regent Street, which provide vibrant nightlife scenes. For locals, the concentration of check-ins in the city center during the nighttime is lower compared to the daytime. Furthermore, the hotspot around Canary Wharf, a bustling business district, diminishes, indicating a reduced number of locals visiting this area during the nighttime. However, the hotspots in Heathrow Airport and boroughs on the outskirts of London, such as Croydon, Bromley, and Harrow, remain prominent. This suggests that these areas are aggregated with a significant number of locals, possibly due to air transport activities ad residential settlements. In terms of locals, although the primary hotspot remains in the city center, the concentration of check-ins in this area decreases during the nighttime. Moreover, there is a reduction or disappearance of hotspots in the suburban areas, indicating a decrease in the number of tourists visiting these regions during the nighttime. However, the hotspot around Heathrow Airport remains stable, suggesting that a certain number of tourists still visit the airport during the nighttime.
+During the nighttime, the city center still serves as the primary hotspot for both locals and tourists, as shown in Figure~\ref{fig:kde_nighttime}. In addition to its cultural and historical attractions, the city center also offers abundant shopping and entertainment options, including renowned areas such as Oxford Street and Regent Street, which provide vibrant nightlife scenes. For locals, the concentration of check-ins in the city center during the nighttime is lower compared to the daytime. Furthermore, the hotspot around Canary Wharf, a bustling business district, diminishes, indicating a reduced number of locals visiting this area during the nighttime. However, the hotspots in Heathrow Airport and boroughs on the outskirts of London, such as Croydon, Bromley, and Harrow, remain prominent. This suggests that these areas are aggregated with a significant number of locals, possibly due to air transportation activities ad residential settlements. In terms of locals, although the primary hotspot remains in the city center, the concentration of check-ins in this area decreases during the nighttime. Moreover, there is a reduction or disappearance of hotspots in the suburban areas, indicating a decrease in the number of tourists visiting these regions during the nighttime. However, the hotspot around Heathrow Airport remains stable, suggesting that a certain number of tourists still visit the airport during the nighttime.
 
 
 \begin{figure}[!h]
@@ -809,10 +809,10 @@ During weekends, Figure~\ref{fig:kde_weekend} also shows the scattered pattern o
 % ============== Daytime vs. Nighttime ==============
 \subsubsubsection{Daytime vs. Nighttime}
 % daytime
-The difference ratio provides a measure of the composition of locals and tourists within each raster. A higher difference ratio indicates a larger proportion of tourists, while a lower difference ratio suggests a higher concentration of locals. Figure~\ref{fig:raster_diff_daytime} illustrates the difference ratios between locals and tourists during the daytime. While most areas receive similar popularity from both groups, the city center exhibits distinct distribution patterns for locals and tourists. Tourists tend to cluster around Westminster, Camden, and the City of London, while locals are more concentrated in the eastern region. These findings align with the observations in Section \ref{hotspots}. Heathrow Airport also emerges as a hotspot with a higher activity density of tourists, as reflected by positive difference ratios in certain rasters. The category distribution of check-ins within rasters with significant difference ratios (greater than 0.01 or less than -0.01) during the daytime is represented in Figure~\ref{fig:diff_pop_category_daytime}. Tourists demonstrate a preference for restaurants, transportation, and shopping places, while locals show a higher inclination towards professional places, restaurants, and entertainment places. For more detailed information, please refer to Table~\ref{tab:popular_venues_touristspop_daytime} and Table~\ref{tab:popular_venues_localspop_daytime} in Appendix \ref{appendix}, which highlight the top 10 popular venues within rasters with notable difference ratios during the daytime. In areas with a higher density of tourists, notable venues include transportation hubs like London King's Cross Railway Station, luxury department stores like Harrods, and prominent public squares such as Picadilly Circus and Trafalgar Square. Conversely, in areas with a higher density of locals, professional venues like Google Campus - London and other companies, as well as restaurants around Shoreditch, are more popular.
+The difference ratio provides a measure of the composition of locals and tourists within each raster. A higher difference ratio indicates a larger proportion of tourists, while a lower difference ratio suggests a higher concentration of locals. Figure~\ref{fig:raster_diff_daytime} illustrates the difference ratios between locals and tourists during the daytime. While most areas receive similar popularity from both groups, the city center exhibits distinct distribution patterns for locals and tourists. Tourists tend to cluster around Westminster, Camden, and the City of London, while locals are more concentrated in the eastern region. These findings align with the observations in Section \ref{hotspots}. Heathrow Airport also emerges as a hotspot with a higher activity density of tourists, as reflected by positive difference ratios in certain rasters. The category distribution of check-ins within rasters with significant difference ratios (greater than 0.01 or less than -0.01) during the daytime is represented in Figure~\ref{fig:diff_pop_category_daytime}. Tourists demonstrate a preference for restaurants, transport, and shopping places, while locals show a higher inclination towards professional places, restaurants, and entertainment places. For more detailed information, please refer to Table~\ref{tab:popular_venues_touristspop_daytime} and Table~\ref{tab:popular_venues_localspop_daytime} in Appendix \ref{appendix}, which highlight the top 10 popular venues within rasters with notable difference ratios during the daytime. In areas with a higher density of tourists, notable venues include transportation hubs like London King's Cross Railway Station, luxury department stores like Harrods, and prominent public squares such as Picadilly Circus and Trafalgar Square. Conversely, in areas with a higher density of locals, professional venues like Google Campus - London and other companies, as well as restaurants around Shoreditch, are more popular.
 
 % nighttime & comparison
-Moving to the nighttime, Figure~\ref{fig:raster_diff_nighttime} displays the difference ratios between locals and tourists. The city center, especially Westminster, becomes increasingly popular among tourists, while the area around the City of London shows a balanced presence of locals and tourists, indicating reduced activities of locals during the nighttime. Table~\ref{tab:diff_pop_category_nighttime} reveals that tourists exhibit a heightened interest in entertainment places during the nighttime while maintaining their preference for restaurants and transportation. Locals, on the other hand, shift their focus from professional places to entertainment places while still showing interest in restaurants. Notably, popular nighttime venues for both locals and tourists include nightclubs and pubs, alongside transportation hubs (Table~\ref{tab:popular_venues_touristspop_nighttime}, Table~\ref{tab:popular_venues_localspop_nighttime}).
+Moving to the nighttime, Figure~\ref{fig:raster_diff_nighttime} displays the difference ratios between locals and tourists. The city center, especially Westminster, becomes increasingly popular among tourists, while the area around the City of London shows a balanced presence of locals and tourists, indicating reduced activities of locals during the nighttime. Table~\ref{tab:diff_pop_category_nighttime} reveals that tourists exhibit a heightened interest in entertainment places during the nighttime while maintaining their preference for restaurants and transport. Locals, on the other hand, shift their focus from professional places to entertainment places while still showing interest in restaurants. Notably, popular nighttime venues for both locals and tourists include nightclubs and pubs, alongside transportation hubs (Table~\ref{tab:popular_venues_touristspop_nighttime}, Table~\ref{tab:popular_venues_localspop_nighttime}).
 
 
 \begin{figure}[!h]
@@ -853,11 +853,11 @@ Moving to the nighttime, Figure~\ref{fig:raster_diff_nighttime} displays the dif
 % ============== Weekday vs. Weekend ==============
 \subsubsubsection{Weekday vs. Weekend}
 % weekday
-In Figure~\ref{fig:raster_diff_weekday}, the difference ratio between locals and tourists during weekdays highlights distinct distribution patterns in the city center. As discussed in previous sections, tourists concentrate their activities in Westminster and Camden, while locals exhibit a higher activity density towards the east, particularly around the City of London, a prominent business district. The category distribution of check-ins in rasters with significant difference ratios, predominantly located in the city center, is depicted in Figure~\ref{fig:diff_pop_category_weekday}. Tourists display a preference for transportation, restaurants, professional places, entertainment places, and shopping places, with transportation hubs, public squares, and luxury department stores ranking among their frequently visited venues (Table~\ref{tab:popular_venues_touristspop_weekday}). Similarly, locals also tend to visit professional places, restaurants, transportation, and entertainment places. Popular venues for locals include transportation hubs, technology and financial companies, as well as coffee shops in the vicinity of Shoreditch (Table~\ref{tab:popular_venues_localspop_weekday}).
+In Figure~\ref{fig:raster_diff_weekday}, the difference ratio between locals and tourists during weekdays highlights distinct distribution patterns in the city center. As discussed in previous sections, tourists concentrate their activities in Westminster and Camden, while locals exhibit a higher activity density towards the east, particularly around the City of London, a prominent business district. The category distribution of check-ins in rasters with significant difference ratios, predominantly located in the city center, is depicted in Figure~\ref{fig:diff_pop_category_weekday}. Tourists display a preference for transport, restaurants, professional places, entertainment places, and shopping places, with transportation hubs, public squares, and luxury department stores ranking among their frequently visited venues (Table~\ref{tab:popular_venues_touristspop_weekday}). Similarly, locals also tend to visit professional places, restaurants, transport, and entertainment places. Popular venues for locals include transportation hubs, technology and financial companies, as well as coffee shops in the vicinity of Shoreditch (Table~\ref{tab:popular_venues_localspop_weekday}).
 
 
 % weekend & comparison
-Moving on to weekends, Figure~\ref{fig:raster_diff_weekend} shows higher difference ratios in the tourist hotspot in the city center, indicating a greater concentration of tourists compared to weekdays. The hotspot of locals in the City of London shows a reduced proportion, suggesting a decrease in local visits to this area during weekends. Figure~\ref{fig:diff_pop_category_weekend} represents the category distribution of check-ins within rasters exhibiting significant difference ratios. Despite a continued presence of tourists in restaurants, transportation, and entertainment places during weekends, their interest in professional places decreases, while interest in shopping places rises. Similarly, locals show reduced visits to professional places but exhibit an inclination towards entertainment places and restaurants in the city center. Regarding popular venues, tourists maintain consistent preferences between weekdays and weekends, while locals shift towards more frequent visits to restaurants, coffee shops, and bars during weekends, rather than company establishments.
+Moving on to weekends, Figure~\ref{fig:raster_diff_weekend} shows higher difference ratios in the tourist hotspot in the city center, indicating a greater concentration of tourists compared to weekdays. The hotspot of locals in the City of London shows a reduced proportion, suggesting a decrease in local visits to this area during weekends. Figure~\ref{fig:diff_pop_category_weekend} represents the category distribution of check-ins within rasters exhibiting significant difference ratios. Despite a continued presence of tourists in restaurants, transport, and entertainment places during weekends, their interest in professional places decreases, while interest in shopping places rises. Similarly, locals show reduced visits to professional places but exhibit an inclination towards entertainment places and restaurants in the city center. Regarding popular venues, tourists maintain consistent preferences between weekdays and weekends, while locals shift towards more frequent visits to restaurants, coffee shops, and bars during weekends, rather than company establishments.
 
 
 
@@ -897,7 +897,7 @@ Moving on to weekends, Figure~\ref{fig:raster_diff_weekend} shows higher differe
 
 % ============================= || Spatiotemporal Patterns of Places || =============================
 \subsection{Spatiotemporal Patterns of Places}
-
+\underline{add an introduction to the structure of the following sections}
 % ====================== | Place Distribution | ======================
 \subsubsection{Place Distribution}
 Places in this study refer to clusters of check-ins. Table~\ref{tab:places_summary} provides an overview of the number of places visited by locals and tourists at different time spans. It is worth noting that the removal of check-in outliers during the clustering process resulted in a reduced number of users compared to the initial value in Table~\ref{tab:foursquare_summary}. Although the number of tourists is considerably greater than that of locals, tourists tend to visit fewer places overall. Figure~\ref{fig:places_distribution_day} displays the distribution of places throughout the day. During daytime hours, a total of 1,525 places are visited by locals, with a scattered distribution across London. While the majority of these places are concentrated in the city center, there are also a certain number of places located in outskirts boroughs such as Hillingdon, Croydon, and Barnet. On the other hand, the 1,046 places visited by tourists exhibit a more concentrated distribution in the inner part of London, with a sparser distribution in the outer areas. During nighttime hours, the distribution of places follows a similar pattern to that of the daytime, but with a lower density. The number of places visited by locals decreases to 598, while tourists visit 441 places, indicating a decrease in overall activity during nighttime hours.
@@ -1033,7 +1033,7 @@ Figure~\ref{fig:places_location_week} presents the distribution of places in the
 
 % ============== Locale ==============
 \subsubsubsection{Locale}
-Figure~\ref{fig:places_locale_day} provides insights into the distribution of places in the \textit{Locale} dimension throughout the day. During the daytime, the most visited categories for both locals and tourists include restaurants, professional places, shopping places, entertainment places, and transport places. Generally, locals visit more places across most categories, but there are a few exceptions. Tourists show a higher preference for places in the accommodation and green \& blue space categories. At nighttime, restaurants, entertainment places, and transport places remain popular categories for both locals and tourists, while there is a noticeable decrease in the number of places in professional places and shopping places compared to daytime hours. The difference between locals and tourists in shopping places diminishes, suggesting that locals tend to explore fewer shopping places during the nighttime. Accommodation and green \& blue space continue to attract more tourists than locals during nighttime hours. Notably, the difference between the number of places visited by locals and tourists in the accommodation category increases, indicating an amplified demand for accommodating among tourists during the nighttime.
+Figure~\ref{fig:places_locale_day} provides insights into the distribution of places in the \textit{Locale} dimension throughout the day. During the daytime, the most visited categories for both locals and tourists include restaurants, professional places, shopping places, entertainment places, and transportation places. Generally, locals visit more places across most categories, but there are a few exceptions. Tourists show a higher preference for places in the accommodation and green \& blue space categories. At nighttime, restaurants, entertainment places, and transportation places remain popular categories for both locals and tourists, while there is a noticeable decrease in the number of places in professional places and shopping places compared to daytime hours. The difference between locals and tourists in shopping places diminishes, suggesting that locals tend to explore fewer shopping places during the nighttime. Accommodation and green \& blue space continue to attract more tourists than locals during nighttime hours. Notably, the difference between the number of places visited by locals and tourists in the accommodation category increases, indicating an amplified demand for accommodating among tourists during the nighttime.
 
 
 \begin{figure}[!h]
@@ -1058,7 +1058,7 @@ Figure~\ref{fig:places_locale_day} provides insights into the distribution of pl
 
 
 
-Figure~\ref{fig:places_locale_week} shows the distribution of places in the \textit{Locale} dimension throughout the week. On weekdays, restaurants, professional places, entertainment places, shopping places, and transport places are the most popular categories for both locals and tourists. Categories such as art places, green \& blue space, others, service places, and sports places have fewer places visited, and locals show a greater inclination to explore these categories compared to tourists. However, when it comes to the accommodation category, tourists tend to visit more places in this category than locals. The popular categories during weekends remain consistent with those of weekdays, with restaurants, entertainment places, shopping places, and transport places retaining their popularity. However, professional places experience a decrease in visitation, along with four other categories. Analyzing the difference between locals and tourists in various categories, it is noticeable that tourists tend to visit a relatively higher number of places than locals in the accommodation category. Conversely, locals exhibit a greater preference for categories like green \& blue space and sports places, visiting more places in these categories compared to tourists.
+Figure~\ref{fig:places_locale_week} shows the distribution of places in the \textit{Locale} dimension throughout the week. On weekdays, restaurants, professional places, entertainment places, shopping places, and transportation places are the most popular categories for both locals and tourists. Categories such as art places, green \& blue space, others, service places, and sports places have fewer places visited, and locals show a greater inclination to explore these categories compared to tourists. However, when it comes to the accommodation category, tourists tend to visit more places in this category than locals. The popular categories during weekends remain consistent with those of weekdays, with restaurants, entertainment places, shopping places, and transportation places retaining their popularity. However, professional places experience a decrease in visitation, along with four other categories. Analyzing the difference between locals and tourists in various categories, it is noticeable that tourists tend to visit a relatively higher number of places than locals in the accommodation category. Conversely, locals exhibit a greater preference for categories like green \& blue space and sports places, visiting more places in these categories compared to tourists.
 
 
 \begin{figure}[!h]
@@ -1084,7 +1084,7 @@ Figure~\ref{fig:places_locale_week} shows the distribution of places in the \tex
 
 % ============== Sense of Place ==============
 \subsubsubsection{Sense of Place}
-Figure~\ref{fig:places_topics_sense_locals_day} shows the distribution of locals' places in the \textit{Sense of Place} dimension, along with the corresponding word clouds for topics generated from Flickr tags throughout the day. During the daytime, Topic 0 and Topic 4 are prominent, with over 700 places associated with air and rail transport (e.g., lhr\footnote{The airport London Heathrow.}, airbus, bus, railway in Figure~\ref{fig:topics_daytime_locals}). However, there are also some topics difficult to interpret, such as Topic 5, which contains fewer than 50 places. This topic is characterized by popular tags like people and candid, making it difficult to understand how people describe these particular places. Figure~\ref{fig:topics_distribution_daytime_locals} in Appendix \ref{appendix} shows the distribution of locals' places across various topics during the daytime. Generally, the distribution aligns with the topic content. For instance, Topic 1 (e.g., park, museum, spring) and Topic 2 (e.g., june, party, summer) mainly encompass entertainment, and areas like Westminster and Camden exhibit a high concentration of places associated with these topics. Nevertheless, some inconsistencies exist between the topic distribution and content. Topic 0, primarily related to air transport, displays places both around Heathrow Airport and in the city center due to its coverage of other city activities (e.g., ship, regentscanal, market). Topic 4, linked to rail transport, has its places distributed across the city center and outskirts boroughs. Topic 6, centered around the Olympics, exhibits a concentration of places near London Stadium in Stratford, Newham (built for the 2012 Olympics), but also includes locations unrelated to the topic.
+Figure~\ref{fig:places_topics_sense_locals_day} shows the distribution of locals' places in the \textit{Sense of Place} dimension, along with the corresponding word clouds for topics generated from Flickr tags throughout the day. During the daytime, Topic 0 and Topic 4 are prominent, with over 700 places associated with air and rail transportation (e.g., lhr\footnote{The airport London Heathrow.}, airbus, bus, railway in Figure~\ref{fig:topics_daytime_locals}). However, there are also some topics difficult to interpret, such as Topic 5, which contains fewer than 50 places. This topic is characterized by popular tags like people and candid, making it difficult to understand how people describe these particular places. Figure~\ref{fig:topics_distribution_daytime_locals} in Appendix \ref{appendix} shows the distribution of locals' places across various topics during the daytime. Generally, the distribution aligns with the topic content. For instance, Topic 1 (e.g., park, museum, spring) and Topic 2 (e.g., june, party, summer) mainly encompass entertainment, and areas like Westminster and Camden exhibit a high concentration of places associated with these topics. Nevertheless, some inconsistencies exist between the topic distribution and content. Topic 0, primarily related to air transport, displays places both around Heathrow Airport and in the city center due to its coverage of other city activities (e.g., ship, regentscanal, market). Topic 4, linked to rail transport, has its places distributed across the city center and outskirts boroughs. Topic 6, centered around the Olympics, exhibits a concentration of places near London Stadium in Stratford, Newham (built for the 2012 Olympics), but also includes locations unrelated to the topic.
 
 During the nighttime, Topic 0 (paralympics, crowd, cycling, performance) emerges as the most popular topic, with approximately 300 associated places. The remaining five topics are less frequently mentioned, each comprising fewer than 100 places. However, these topics also reveal locals' activities during nighttime hours. Contrary to the daytime, nighttime has locals discuss live, music, gig, and concert, indicating a shift towards more leisurely activities. Analyzing the distribution of places within each topic (Figure~\ref{fig:topics_distribution_nighttime_locals}), Topic 0 has more places than others and exhibits a scattered distribution pattern throughout London, primarily concentrated in the city center. Topic 1 has its places mainly distributed in Westminster, known for its vibrant gig and live music venues in the evening. Topic 2 concentrates its places on the boundary of the City of London, Hackney, and Tower Hamlets, encompassing areas like Shoreditch renowned for its nightlife venues like bars and clubs. Topic 3 encompasses tags related to the city, architecture, and Southbank, indicating a connection to art and culture. Places associated with Topic 3 are along the River Thames in the City of London, Westminster, Lambeth, and Southwark. Topic 4 and Topic 5 also contain tags related to nighttime activities but display a more dispersed distribution of places.
 
@@ -1122,9 +1122,9 @@ During the nighttime, Topic 0 (paralympics, crowd, cycling, performance) emerges
     \label{fig:places_topics_sense_locals_day}
 \end{figure}
 
-Compared to locals, tourists demonstrate a preference for urban-related places and the Olympics during the daytime (Figure~\ref{fig:places_sense_daytime_tourists} and Figure~\ref{fig:topics_daytime_tourists}). Among places visited by tourists, over 350 places are associated with Topic 4 (e.g., street, bus, city), and over 250 places are associated with Topic 0 (e.g., olympics, paralympics). However, places related to air transport are less popular among tourists, as Topic 1 (e.g., lhr, aircraft, airbus) only contains about 10 places of tourists. Analyzing the distribution of tourists' places across various topics (Figure~\ref{fig:topics_distribution_daytime_tourists}), places associated with the Olympics (Topic) 0 cover not only areas around London Stadium but also the city center like Westminster, Camden. Topic 1 predominantly includes places near Heathrow Airport, aligning with the topic content. Topic 2 describes places with tags like tower, city, bridge, and river, and the associated places are located along the bustling part of the River Thames with many bridges. Places linked to Topic 3 (e.g., marathon, city, urban) exhibit a distribution pattern along the River Thames, concentrated in the City of London, similar to the route of the London 2012 Olympic Marathon. Boroughs such as the City of London, Westminster, and Kensington and Chelsea are representative of urban life and boast art venues like museums and sculpture, thus, places in these boroughs are described by Topic 4 and Topic 5.
+Compared to locals, tourists demonstrate a preference for urban-related places and the Olympics during the daytime (Figure~\ref{fig:places_sense_daytime_tourists} and Figure~\ref{fig:topics_daytime_tourists}). Among places visited by tourists, over 350 places are associated with Topic 4 (e.g., street, bus, city), and over 250 places are associated with Topic 0 (e.g., olympics, paralympics). However, places related to air transportation are less popular among tourists, as Topic 1 (e.g., lhr, aircraft, airbus) only contains about 10 places of tourists. Analyzing the distribution of tourists' places across various topics (Figure~\ref{fig:topics_distribution_daytime_tourists}), places associated with the Olympics (Topic) 0 cover not only areas around London Stadium but also the city center like Westminster, Camden. Topic 1 predominantly includes places near Heathrow Airport, aligning with the topic content. Topic 2 describes places with tags like tower, city, bridge, and river, and the associated places are located along the bustling part of the River Thames with many bridges. Places linked to Topic 3 (e.g., marathon, city, urban) exhibit a distribution pattern along the River Thames, concentrated in the City of London, similar to the route of the London 2012 Olympic Marathon. Boroughs such as the City of London, Westminster, and Kensington and Chelsea are representative of urban life and boast art venues like museums and sculpture, thus, places in these boroughs are described by Topic 4 and Topic 5.
 
-Regarding the topics of places during nighttime hours, although the total number of places visited by tourists decreases, there is relatively increased interest in places related to museums and transport compared to the daytime, as evidenced by the prominence of Topic 0 (e.g., museum, lhr, station, railway). Similar to locals, tourists during the nighttime also show interest in places related to nighttime activities, reflected by the emergence of Topic 1 (e.g., concert, live, gig, music) and Topic 4 (nighttime, city). Figure~\ref{fig:topics_distribution_nighttime_tourists} displays the distribution of tourists' places across various topics during the nighttime. While both locals and tourists visit places related to gigs and live music, tourists tend to prefer places around Shoreditch rather than Westminster, as indicated by the distribution of places in Topic 1. Similar to locals, tourists also enjoy visiting places near bridges along the River Thames, which are described by Topic 2.
+Regarding the topics of places during nighttime hours, although the total number of places visited by tourists decreases, there is relatively increased interest in places related to museums and transportation compared to the daytime, as evidenced by the prominence of Topic 0 (e.g., museum, lhr, station, railway). Similar to locals, tourists during the nighttime also show interest in places related to nighttime activities, reflected by the emergence of Topic 1 (e.g., concert, live, gig, music) and Topic 4 (nighttime, city). Figure~\ref{fig:topics_distribution_nighttime_tourists} displays the distribution of tourists' places across various topics during the nighttime. While both locals and tourists visit places related to gigs and live music, tourists tend to prefer places around Shoreditch rather than Westminster, as indicated by the distribution of places in Topic 1. Similar to locals, tourists also enjoy visiting places near bridges along the River Thames, which are described by Topic 2.
 
 
 \begin{figure}[!h]
@@ -1161,7 +1161,7 @@ Regarding the topics of places during nighttime hours, although the total number
     \label{fig:places_topics_sense_tourists_day}
 \end{figure}
 
-Figure~\ref{fig:places_topics_sense_locals_week} illustrates the distribution of locals' places in the \textit{Sense of Place} dimension throughout the week. On weekdays, locals visit places that can be categorized into five topics with three themes: transport-related (Topic 0), entertainment-related (Topic 1), and cityscape-related (Topic 2, Topic 3, Topic 4). Topic 0 stands out with nearly 700 associated places, while the other four topics contain around 200 places each. The distribution of places reveals that Topic 0 covers various areas of London, with a higher concentration in the city center due to the accessibility of transport facilities. Places linked to Topic 1 can be found in Lambeth, Kensington and Chelsea, Westminster, Camden, and the City of London, described by tags like live, gig, and southbank. Places linked to Topic 2 and Topic 4 display a distribution pattern primarily within the inner part of London, whereas Topic 3 also includes a significant number of places in the outer regions of the city (Figure~\ref{fig:topics_distribution_weekday_locals}).
+Figure~\ref{fig:places_topics_sense_locals_week} illustrates the distribution of locals' places in the \textit{Sense of Place} dimension throughout the week. On weekdays, locals visit places that can be categorized into five topics with three themes: transport-related (Topic 0), entertainment-related (Topic 1), and cityscape-related (Topic 2, Topic 3, Topic 4). Topic 0 stands out with nearly 700 associated places, while the other four topics contain around 200 places each. The distribution of places reveals that Topic 0 covers various areas of London, with a higher concentration in the city center due to the accessibility of transportation facilities. Places linked to Topic 1 can be found in Lambeth, Kensington and Chelsea, Westminster, Camden, and the City of London, described by tags like live, gig, and southbank. Places linked to Topic 2 and Topic 4 display a distribution pattern primarily within the inner part of London, whereas Topic 3 also includes a significant number of places in the outer regions of the city (Figure~\ref{fig:topics_distribution_weekday_locals}).
 
 During weekends, locals show a shift in their preferences towards more relaxing places, as indicated by the popularity of Topic 0 (e.g., park, garden) and Topic 1 (e.g., graffiti, streetart, station), each comprising over 250 places. Additionally, locals explore sports-related places represented by Topic 4 (e.g., city, gbr, football, race) and Topic 5 (e.g., paralympics, olympics). The distribution of places in these topics demonstrates dispersion, as parks and graffiti can be found throughout the city. Places associated with Topic 3 concentrate in the city center where architectural wonders are abundant. Topic 4 shows a similar trend with its places located around sports venues like Emirates Stadium, which is a football stadium. Topic 5 encompasses places related to the Olympics, bridges, and the Shard, distributed around London Stadium in Stratford and along the River Thames (Figure~\ref{fig:topics_distribution_weekend_locals}).
 
@@ -1237,30 +1237,343 @@ During weekends, tourists continue to visit places characterized by architecture
     \label{fig:places_topics_sense_tourists_week}
 \end{figure}
 
-% ============================= || Spatiotemporal City Perception through Semantic Trajectory || =============================
-\subsection{Spatiotemporal City Perception through Semantic Trajectory}
+% ============================= || Spatiotemporal Patterns of Semantic Trajectory || =============================
+\subsection{Spatiotemporal Patterns of Semantic Trajectory}
+To gain insights into how locals and tourists perceive the city along their trajectories at different time spans, semantic trajectories were constructed for various scenes, such as locals during the daytime and tourists during weekdays. The number of trajectories for each scene is summarized in Table~\ref{tab:trajectories_summary}. While the number of locals is lower than that of tourists, both groups generate a similar number of trajectories. A total of 1,460 trajectories are generated by locals and tourists during the daytime, significantly more than the 121 trajectories during the nighttime. Similarly, the number of trajectories during weekdays (1,240) surpasses those during weekends (490). In order to delve into a more precise understanding of city perception through semantic trajectories, Section \ref{perception_through_traj} will analyze the trajectory distribution and the frequency of semantic dimensions across different time spans. Furthermore, Section \ref{comparison_perception} will conduct a comparative analysis of semantic trajectories, enabling exploration of the dynamic nature of city perception.
 
+\begin{table}[h!]
+\centering
+\caption{\label{tab:trajectories_summary}Summary of trajectories.}
+\begin{tabular}{llll} \hline
+Time & Population group & No. of users & No. of trajectories \\
+\hline
+\multirow{3}{*}{Daytime} 
+& All Users & 6,919 & 1,460 \\
+& Locals & 1,077 & 784 \\
+& Tourists & 5,842 & 676 \\
+\hline
+\multirow{3}{*}{Nighttime} 
+& All Users & 4,425 & 121 \\
+& Locals & 996 & 63 \\
+& Tourists & 3,429 & 58 \\
+\hline
+\multirow{3}{*}{Weekday} 
+& All Users & 6,497 & 1,240 \\
+& Locals & 1,069 & 659 \\
+& Tourists & 5,428 & 581 \\
+\hline
+\multirow{3}{*}{Weekend} 
+& All Users & 4,886 & 490 \\
+& Locals & 1,011 & 213 \\
+& Tourists & 3,875 & 277 \\
+\hline
+\end{tabular}
+\end{table}
 
-% ====================== | Exploratory Data Analysis for Semantic Trajectory | ======================
-\subsubsection{Exploratory Data Analysis for Semantic Trajectory}
-introduce what will be analyzed before subsections
+% ====================== | City Perception through Semantic Trajectory | ======================
+\subsubsection{City Perception through Semantic Trajectory} \label{perception_through_traj}
+
 1. trajectories info in OneNote
 2. the number of trajectories in each cluster
 3. the distribution of trajectories in each cluster
 4. frequency of trajectories dimensions in each cluster
+5. pick some clusters to analyze their typical trajectories
+6. conclude the themes and city perceptions of these typical trajectories, focus on Sense of Place dimension
 
+\subsubsubsection{Daytime}
+Figure~\ref{fig:traj_distribution_daytime_locals} shows the clustered trajectories of locals during the daytime, with their typical trajectories highlighted in dark red. The majority of locals tend to move within the city center, as evidenced by the high visitation frequency of Westminster, Camden, and the City of London in the \textit{Location} dimension, as shown in Figure~\ref{fig:traj_location_daytime_locals}. Some locals also visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Another noteworthy trajectory pattern is observed between central London and the outskirts boroughs, although the frequency of these outer boroughs is significantly lower compared to the inner ones. In terms of the \textit{Locale} dimension, trajectories in most clusters predominantly pass through places related to transportation, shopping, restaurants, and professional activities. Notably, entertainment places and green \& blue spaces are also frequently visited by trajectories in cluster 0 and cluster 4 (Figure~\ref{fig:traj_locale_daytime_locals}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_locals} provides insights into how locals describe the city along their trajectories during the daytime. Trajectories in cluster 0 and cluster 4 often encompass tags associated with transportation and nature, such as parks and rivers (Topic 1, and Topic 4), indicating that these clusters revolve around nature sightseeing. Cluster 1 and cluster 2 can be described as air transport-oriented, as trajectories associated with these clusters are primarily characterized by Topic 0, with typical trajectories connecting central London and the vicinity of Heathrow Airport, particularly in Islington and Hounslow. Cluster 3 is characterized by trajectories primarily focused on work-related purposes, as they frequently visit professional places and restaurants. Moreover, the typical trajectories in this cluster predominantly link the city center with Merton and Wandsworth, which are residential districts. 
+
+
+% daytime locals
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_daytime_locals.png}
+\caption{\label{fig:traj_distribution_daytime_locals}Distribution of locals' trajectories during the daytime (typical trajectories are represented by the dark red color).}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_daytime_locals.png}
+\caption{Location.}
+\label{fig:traj_location_daytime_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_daytime_locals.png}
+\caption{Locale.}
+\label{fig:traj_locale_daytime_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_daytime_locals.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_daytime_locals}
+\end{subfigure}
+
+\caption{Trajectory dimensions of locals during the daytime.}
+\label{fig:traj_dimension_daytime_locas}
+\end{figure}
+
+
+% daytime tourists
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_daytime_tourists.png}
+\caption{\label{fig:traj_distribution_daytime_tourists}Distribution of tourists' trajectories during the daytime.}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_daytime_tourists.png}
+\caption{Location.}
+\label{fig:traj_location_daytime_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_daytime_tourists.png}
+\caption{Locale.}
+\label{fig:traj_locale_daytime_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_daytime_tourists.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_daytime_tourists}
+\end{subfigure}
+
+\caption{Trajectory dimensions of tourists during the daytime.}
+\label{fig:traj_dimension_daytime_tourists}
+\end{figure}
+
+\subsubsubsection{Nighttime}
+
+% nighttime locals
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_nighttime_locals.png}
+\caption{\label{fig:traj_distribution_nighttime_locals}Distribution of locals' trajectories during the nighttime.}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_nighttime_locals.png}
+\caption{Location.}
+\label{fig:traj_location_nighttime_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_nighttime_locals.png}
+\caption{Locale.}
+\label{fig:traj_locale_nighttime_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_nighttime_locals.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_nighttime_locals}
+\end{subfigure}
+
+\caption{Trajectory dimensions of locals during the nighttime.}
+\label{fig:traj_dimension_nighttime_locas}
+\end{figure}
+
+
+% nighttime tourists
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_nighttime_tourists.png}
+\caption{\label{fig:traj_distribution_nighttime_tourists}Distribution of tourists' trajectories during the nighttime.}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_nighttime_tourists.png}
+\caption{Location.}
+\label{fig:traj_location_nighttime_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_nighttime_tourists.png}
+\caption{Locale.}
+\label{fig:traj_locale_nighttime_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_nighttime_tourists.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_nighttime_tourists}
+\end{subfigure}
+
+\caption{Trajectory dimensions of tourists during the nighttime.}
+\label{fig:traj_dimension_nighttime_tourists}
+\end{figure}
+
+
+\subsubsubsection{Weekday}
+
+% weekday locals
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_weekday_locals.png}
+\caption{\label{fig:traj_distribution_weekday_locals}Distribution of locals' trajectories during weekdays.}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_weekday_locals.png}
+\caption{Location.}
+\label{fig:traj_location_weekday_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_weekday_locals.png}
+\caption{Locale.}
+\label{fig:traj_locale_weekday_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_weekday_locals.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_weekday_locals}
+\end{subfigure}
+
+\caption{Trajectory dimensions of locals during weekdays.}
+\label{fig:traj_dimension_weekday_locas}
+\end{figure}
+
+
+% weekday tourists
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_weekday_tourists.png}
+\caption{\label{fig:traj_distribution_weekday_tourists}Distribution of tourists' trajectories during weekdays.}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_weekday_tourists.png}
+\caption{Location.}
+\label{fig:traj_location_weekday_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_weekday_tourists.png}
+\caption{Locale.}
+\label{fig:traj_locale_weekday_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_weekday_tourists.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_weekday_tourists}
+\end{subfigure}
+
+\caption{Trajectory dimensions of tourists during weekdays.}
+\label{fig:traj_dimension_weekday_tourists}
+\end{figure}
+
+
+\subsubsubsection{Weekend}
+
+% weekend locals
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_weekend_locals.png}
+\caption{\label{fig:traj_distribution_weekend_locals}Distribution of locals' trajectories during weekends.}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_weekend_locals.png}
+\caption{Location.}
+\label{fig:traj_location_weekend_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_weekend_locals.png}
+\caption{Locale.}
+\label{fig:traj_locale_weekend_locals}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_weekend_locals.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_weekend_locals}
+\end{subfigure}
+
+\caption{Trajectory dimensions of locals during weekends.}
+\label{fig:traj_dimension_weekend_locas}
+\end{figure}
+
+
+% weekend tourists
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_weekend_tourists.png}
+\caption{\label{fig:traj_distribution_weekend_tourists}Distribution of tourists' trajectories during weekends.}
+\end{figure}
+
+
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_location_weekend_tourists.png}
+\caption{Location.}
+\label{fig:traj_location_weekend_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_locale_weekend_tourists.png}
+\caption{Locale.}
+\label{fig:traj_locale_weekend_tourists}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=1\linewidth]{figures/traj_sense_weekend_tourists.png}
+\caption{Sense of Place.}
+\label{fig:traj_sense_weekend_tourists}
+\end{subfigure}
+
+\caption{Trajectory dimensions of tourists during weekends.}
+\label{fig:traj_dimension_weekend_tourists}
+\end{figure}
+
+% ====================== | Comparison of City Perception across Various Time Spans | ======================
+\subsubsection{Comparison of City Perception across Various Time Spans} \label{comparison_perception}
 
 \subsubsubsection{Daytime vs. Nighttime}
 
-
 \subsubsubsection{Weekday vs. Weekend}
-
-
-
-% ====================== | Typical Semantic Trajectory and City Perception | ======================
-\subsubsection{Typical Semantic Trajectory and City Perception}
-
-RQ2: How do locals and tourists perceive the city along their semantic trajectories at different time spans
 
 
 
@@ -1269,6 +1582,7 @@ RQ2: How do locals and tourists perceive the city along their semantic trajector
 
 \section{Discussion}
 \subsection{Research Question 1}
+the selection of min and max value of difference ratio in the plot (-0.3 - 0.3), also the selection of the difference ratio value that determines whether the raster is popular or not
 
 \subsection{Research Question 2}
 
@@ -1277,6 +1591,10 @@ limitation: foursquare is not for everyone, most users are young people
 
 silhouette scores in trajectory clustering are bad, most of them were negative values
 intra-cluster distance
+
+check-ins are clustered as places, and the place dimensions are selected based on the frequency. the definition of places might not be accurate and hide the characteristics of places, particularly for the locale and sense of place dimension. for example, places around the airport hotel/Coldharbour leisure center/... are annotated as restaurants, shopping place, ..., which cannot completely stand for the place. In other words, these two dimensions are not corresponding to each other, also the truth
+
+typical trajectories are not corresponding to the frequency of semantic dimensions
 
 \clearpage
 
