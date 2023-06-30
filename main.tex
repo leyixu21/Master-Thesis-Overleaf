@@ -676,7 +676,7 @@ After clustering all semantic trajectories, an exploratory data analysis was con
 \subsubsection{Sequential Pattern Mining}
 While the trajectories selected as the cluster center by the K-medoids algorithm can serve as representatives of their clusters, it is beneficial to identify typical semantic trajectories within each cluster to enhance the interpretation of clustering results. In this study, the \acrfull{prefixspan} algorithm \citep{pei_mining_2004}, a sequential pattern mining technique, was applied to detect frequently visited sequences under different scenes. The fundamental concept of \acrshort{prefixspan} is to recursively project the sequence databases into smaller projected databases based on current sequential patterns. It utilizes a user-defined support threshold to mine sequential patterns by identifying frequent subsequences in a sequence database. The support represents the number of occurrences of the subsequence in the database, and subsequences with support above the specified threshold are extracted as the sequential patterns of interest.
 
-For the sequential pattern mining process, the Python library prefixspan \footnote{\url{https://pypi.org/project/prefixspan/}} was utilized in this study. The semantic trajectories within each cluster were treated as the sequence database for the mining process. The minimum support threshold was generally set to 3 for most trajectory clusters. However, for time spans with only a few constructed trajectories, such as nighttime, a threshold of 1 was used to ensure the detection of sequences. The output for each trajectory cluster consisted of several sets of frequently visited places in sequential order, along with their corresponding support values. To identify the typical trajectories, this study selected the sequences with the maximum support and length and subsequently investigated the places within these trajectories across three dimensions.
+For the sequential pattern mining process, the Python library prefixspan \footnote{\url{https://pypi.org/project/prefixspan/}} was utilized in this study. The semantic trajectories within each cluster were treated as the sequence database for the mining process. \underline{The minimum support threshold was generally set to 3 for most trajectory clusters. However, for time spans with only a few constructed trajectories, such as nighttime, a threshold of 1 was used to ensure the detection of sequences.} The output for each trajectory cluster consisted of several sets of frequently visited places in sequential order, along with their corresponding support values. To identify the typical trajectories, this study selected the sequences with the maximum support and length and subsequently investigated the places within these trajectories across three dimensions.
 
 The study of city perceptions in different scenes involved analyzing the typical semantic trajectories extracted from each cluster. A comparison of the distribution of these trajectories was made to explore the different areas visited by locals and tourists across different time spans. The first two semantic dimensions \textit{Location} and \textit{Locale} were utilized to examine the visiting purposes of these popular trajectories. Additionally, the third semantic dimension \textit{Sense of Place} was applied to capture people's descriptions along these trajectories, providing valuable insights into the city perception.
 
@@ -1281,7 +1281,7 @@ Time & Population group & No. of users & No. of trajectories \\
 6. conclude the themes and city perceptions of these typical trajectories, focus on Sense of Place dimension
 
 \subsubsubsection{Daytime}
-Figure~\ref{fig:traj_distribution_daytime_locals} shows the clustered trajectories of locals during the daytime, with their typical trajectories highlighted in dark red. The majority of locals tend to move within the city center, as evidenced by the high visitation frequency of Westminster, Camden, and the City of London in the \textit{Location} dimension, as shown in Figure~\ref{fig:traj_location_daytime_locals}. Some locals also visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Another noteworthy trajectory pattern is observed between central London and the outskirts boroughs, although the frequency of these outer boroughs is significantly lower compared to the inner ones. In terms of the \textit{Locale} dimension, trajectories in most clusters predominantly pass through places related to transportation, shopping, restaurants, and professional activities. Notably, entertainment places and green \& blue spaces are also frequently visited by trajectories in cluster 0 and cluster 4 (Figure~\ref{fig:traj_locale_daytime_locals}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_locals} provides insights into how locals describe the city along their trajectories during the daytime. Trajectories in cluster 0 and cluster 4 often encompass tags associated with transportation and nature, such as parks and rivers (Topic 1, and Topic 4), indicating that these clusters revolve around nature sightseeing. Cluster 1 and cluster 2 can be described as air transport-oriented, as trajectories associated with these clusters are primarily characterized by Topic 0, with typical trajectories connecting central London and the vicinity of Heathrow Airport, particularly in Islington and Hounslow. Cluster 3 is characterized by trajectories primarily focused on work-related purposes, as they frequently visit professional places and restaurants. Moreover, the typical trajectories in this cluster predominantly link the city center with Merton and Wandsworth, which are residential districts. 
+Figure~\ref{fig:traj_distribution_daytime_locals} shows the clustered trajectories of locals during the daytime, with their typical trajectories highlighted in dark red. The majority of locals tend to move within the city center, as evidenced by the high visitation frequency of Westminster, Camden, and the City of London in the \textit{Location} dimension, as shown in Figure~\ref{fig:traj_location_daytime_locals}. Some locals also visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Another noteworthy trajectory pattern is observed between central London and the outskirts boroughs, although the frequency of these outer boroughs is significantly lower compared to the inner ones. In terms of the \textit{Locale} dimension, trajectories in most clusters predominantly pass through places related to transportation, shopping, restaurants, and professional activities. Notably, entertainment places and green \& blue spaces are also frequently visited by trajectories in Cluster 0 and Cluster 4 (Figure~\ref{fig:traj_locale_daytime_locals}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_locals} provides insights into how locals describe the city along their trajectories during the daytime, and the word clouds of topics are displayed in Figure~\ref{fig:topics_daytime_locals}. Trajectories in Cluster 0 and Cluster 4 often encompass tags associated with transportation and nature, such as parks and rivers (Topic 1, and Topic 4), indicating that these clusters revolve around nature sightseeing. Cluster 1 and Cluster 2 can be described as air transport-oriented, as trajectories associated with these clusters are primarily characterized by Topic 0 (e.g., lhr, airbus), with typical trajectories connecting central London and the vicinity of Heathrow Airport, particularly in Islington and Hounslow. Cluster 3 is characterized by trajectories primarily focused on work-related purposes, as they frequently visit professional places and restaurants. Moreover, the typical trajectories in this cluster predominantly link the city center with Merton and Wandsworth, which are residential districts.
 
 
 % daytime locals
@@ -1317,6 +1317,8 @@ Figure~\ref{fig:traj_distribution_daytime_locals} shows the clustered trajectori
 \caption{Trajectory dimensions of locals during the daytime.}
 \label{fig:traj_dimension_daytime_locas}
 \end{figure}
+
+Compared with locals, tourists also exhibit a similar movement pattern within the city center during the daytime, with additional trajectories that connect the outer and inner parts of London, as illustrated in Figure~\ref{fig:traj_distribution_daytime_tourists}. Figure~\ref{traj_dimension_daytime_tourists} shows the frequency of dimensions in the semantic trajectories of tourists during the daytime. In terms of the \textit{Location} dimension, inner boroughs are popular among tourists, such as Westminster and Camden, and Kensington and Chelsea. In the \textit{Locale} dimension, in addition to the categories that attract both locals and tourists, such as transportation, professional places, restaurants, and shopping places, tourists also demonstrate an interest in art places and entertainment places, particularly those generating trajectories in Cluster 3. As for the \textit{Sense of Place} dimension, both locals and tourists use similar words to describe the places they visit, with a focus on transportation and cityscapes, such as bus and street. Tourists also frequently mention places associated with the Olympics (word clouds of topics are displayed in Figure~\ref{fig:topics_daytime_tourists}). The typical trajectories of each cluster are represented in dark red in Figure~\ref{fig:traj_distribution_daytime_tourists}, for more detailed distributions, please refer to Figure~\ref{fig:sequences_daytime_tourists} in Appendix \ref{appendix}. Cluster 0 and Cluster 1 are transportation-related as their typical trajectories primarily link the transportation hubs in central London, such as Stratford Station, King's Cross, and Waterloo Station. Cluster 1 also exhibits typical trajectories connecting the city center and outer boroughs like Croydon and Merton. Cluster 2 is associated with shopping as it demonstrates a high frequency of shopping places in the \textit{Locale} dimension, and its typical trajectories extend along Oxford Street, a renowned shopping street in London. Trajectories in Cluster 3 feature a substantial number of art and entertainment places, and the typical trajectories passing through various tourist attractions and museums in Westminster, such as Trafalgar Square, Big Ben, and Victoria and Albert Museum. Thus, this cluster can be interpreted as representing the sightseeing routes for tourists.
 
 
 % daytime tourists
@@ -1572,9 +1574,10 @@ Figure~\ref{fig:traj_distribution_daytime_locals} shows the clustered trajectori
 \subsubsection{Comparison of City Perception across Various Time Spans} \label{comparison_perception}
 
 \subsubsubsection{Daytime vs. Nighttime}
+also compare locals and tourists
 
 \subsubsubsection{Weekday vs. Weekend}
-
+also compare locals and tourists
 
 
 \clearpage
@@ -1596,6 +1599,7 @@ check-ins are clustered as places, and the place dimensions are selected based o
 
 typical trajectories are not corresponding to the frequency of semantic dimensions
 
+the positions of some places are not accurate because the position is represented by the center of the convex hull, thus some places might be in areas that do not make sense
 \clearpage
 
 
@@ -1849,10 +1853,107 @@ No. & Venue Name & No. of Check-ins & Description \\ \hline
 \end{figure}
 
 
+% ========================= typical trajectories =========================
+% daytime locals
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_locals_c0.png}
+\caption{Cluster 0.}
+\label{fig:daytime_locals_c0}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_locals_c1.png}
+\caption{Cluster 1.}
+\label{fig:daytime_locals_c1}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_locals_c2.png}
+\caption{Cluster 2.}
+\label{fig:daytime_locals_c2}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_locals_c3.png}
+\caption{Cluster 3.}
+\label{fig:daytime_locals_c3}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_locals_c4.png}
+\caption{Cluster 4.}
+\label{fig:daytime_locals_c4}
+\end{subfigure}
+
+\caption{Typical trajectories of locals during the daytime (The larger point represents the starting point of the trajectory).}
+\label{fig:sequences_daytime_locals}
+\end{figure}
 
 
+% daytime tourists
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_tourists_c0.png}
+\caption{Cluster 0.}
+\label{fig:daytime_tourists_c0}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_tourists_c1.png}
+\caption{Cluster 1.}
+\label{fig:daytime_tourists_c1}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_tourists_c2.png}
+\caption{Cluster 2.}
+\label{fig:daytime_tourists_c2}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/daytime_tourists_c3.png}
+\caption{Cluster 3.}
+\label{fig:daytime_tourists_c3}
+\end{subfigure}
+
+\caption{Typical trajectories of tourists during the daytime (The larger point represents the starting point of the trajectory).}
+\label{fig:sequences_daytime_tourists}
+\end{figure}
 
 
+% nighttime locals
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/nighttime_locals_c0.png}
+\caption{Cluster 0.}
+\label{fig:nighttime_locals_c0}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/nighttime_locals_c1.png}
+\caption{Cluster 1.}
+\label{fig:nighttime_locals_c1}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/nighttime_locals_c2.png}
+\caption{Cluster 2.}
+\label{fig:nighttime_locals_c2}
+\end{subfigure}
+
+\caption{Typical trajectories of locals during the nighttime (The larger point represents the starting point of the trajectory).}
+\label{fig:sequences_daytime_locals}
+\end{figure}
 
 boxplot of category
 
