@@ -522,7 +522,7 @@ Locals and tourists show distinct visiting preferences, which can be revealed th
 
 where $h$ is a bandwidth parameter that controls the degree of smoothing in \acrshort{kde}. Choosing an appropriate bandwidth is crucial as a large bandwidth may over-smooth the estimate, while a small bandwidth may under-smooth it, potentially hiding important features or introducing random noise. The kernel function $k$ is a smooth function to calculate the weighted average of neighboring observed data points. This weighting process effectively smooths out the data, with closer points receiving higher weights.
 
-In this study, the seaborn.kdeplot function provided by the Python library seaborn \citep{waskom_seaborn_2021} was used to apply \acrshort{kde} to the Foursquare check-ins of locals and tourists. The coordinates of the check-ins were converted to the EPSG:27700 projected coordinate system for the United Kingdom. The default bandwidth method scoott, with a default bandwidth value of 1 was applied. This choice is appropriate considering the smooth distribution of Foursquare check-ins, making the default bandwidth value well-suited for the analysis. Additionally, the Gaussian kernel was used as the kernel smoother.
+In this study, the seaborn.kdeplot function provided by the Python library seaborn \citep{waskom_seaborn_2021} was used to apply \acrshort{kde} to the Foursquare check-ins of locals and tourists. The coordinates of the check-ins were converted to the EPSG:27700 projected coordinate system for the United Kingdom. The default bandwidth method scoott, with a default bandwidth value of 1 was applied. This choice was appropriate considering the smooth distribution of Foursquare check-ins, making the default bandwidth value well-suited for the analysis. Additionally, the Gaussian kernel was used as the kernel smoother.
 
 Since the distribution of check-ins of locals and tourists was assumed to differ across various time spans, this study applied \acrshort{kde} to visualize the distribution of check-ins for these two groups during the daytime and nighttime, as well as on weekdays and weekends. Visiting hotspots were determined based on the estimated density value in the output plot. By comparing the hotspots across different scenes (e.g., locals during the daytime, tourists during weekdays), along with the difference ratio discussed in the next section, this study aimed to explore which areas were more popular among locals and which areas were more popular among tourists.
 
@@ -547,39 +547,39 @@ Similar to the identification of hotspots using \acrshort{kde}, the mixture degr
 \subsubsection{Place Construction} \label{place_construction}
 In this study, the concept of place refers to a segment of geographical space that holds meaningful attributes, while check-in is a specific instance that represents an individual's interaction with a place. Places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013} algorithm. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, reducing user input bias. It is important to note that check-ins of locals and tourists were differentiated across various time spans before constructing places, ensuring that each scene had its own distinct set of places.
 
-Prior to clustering, a distance matrix among check-ins was computed and the features used for distance calculation included the coordinates and categories of check-ins. The Gower distance \citep{gower_general_1971} was used to measure the dissimilarity between items with mixed numeric and categorical attributes, making it suitable for constructing the distance matrix in this study. The coordinates of check-ins were standardized using the sklearn.preprocessing.StandardScaler function provided by the Python library scikit-learn \citep{pedregosa_scikit-learn_2011}. The check-in categories were converted into numerical values using label encoding and treated as categorical data in the distance measure. The importance of features was also considered, with coordinates weighted at 80\% and categories weighted at 20\%.
+Prior to clustering, a distance matrix among check-ins was computed and the features used for distance calculation included the coordinates and categories of check-ins. The Gower distance \citep{gower_general_1971} was used to construct the distance matrix as it could measure the dissimilarity between items with mixed numeric and categorical attributes. The coordinates of check-ins were standardized. And the check-in categories were converted into numerical values using label encoding and treated as categorical data in the distance measure. The importance of features was also considered, with coordinates weighted at 80\% and categories weighted at 20\%.
 
-The Python library HDBSCAN \citep{mcinnes_hdbscan_2017} was used, specifically the hdbscan function, to cluster the check-ins. A minimum of three check-ins within a cluster was set as the criterion for defining a place, ensuring that each place encompassed a certain number of check-ins. \acrshort{hdbscan} labeled check-ins with their corresponding clusters, while check-ins labeled as -1 were considered outliers and were excluded from this study. To represent the spatial extent of a place, convex hulls were constructed for the clusters of check-ins, creating polygons that approximate the area covered by each place.
+The hdbscan function provided by the Python library HDBSCAN \citep{mcinnes_hdbscan_2017} was used to cluster the check-ins. A minimum of three check-ins within a cluster was set as the criterion for defining a place, ensuring that each place encompassed a certain number of check-ins. \acrshort{hdbscan} labeled check-ins with their corresponding clusters, while check-ins labeled as -1 were considered outliers and were removed. To represent the spatial extent of a place, convex hulls were constructed for the clusters of check-ins, creating polygons that approximated the areas covered by places.
 
-To enrich the semantic information of places, three dimensions conceptualized by \cite{agnew_space_2011}, namely \textit{Location}, \textit{Locale}, and \textit{Sense of Place}, were annotated. The \textit{Location} dimension was represented by the borough name, specifically, the borough where the majority of check-ins within a place cluster were located. The \textit{Locale} dimension was determined by the most frequently occurring check-in category within the place cluster. The \textit{Sense of Place} dimension utilized Flickr tags associated with the place cluster to capture people's perceptions. Topic modeling was applied to generate a set of topics based on these tags, providing a representation of the \textit{Sense of Place}. The process of topic modeling is introduced in the next section. With these three dimensions annotated, places in different scenes were compared based on their distributions and the frequency of the three dimensions. This comparison provided insights into the characteristics of places visited by locals and tourists.
+To enrich the semantic information of places, three dimensions conceptualized by \cite{agnew_space_2011}, namely \textit{Location}, \textit{Locale}, and \textit{Sense of Place}, were annotated. The \textit{Location} dimension was represented by the borough name, specifically the borough where the majority of check-ins within a place cluster were located. The \textit{Locale} dimension was determined by the most frequently occurring check-in category within the place cluster. The \textit{Sense of Place} dimension utilized Flickr tags associated with the place cluster to capture people's perceptions. Topic modeling was applied to generate a set of topics based on these tags, providing a representation of the \textit{Sense of Place}. The process of topic modeling is introduced in the next section. With these three dimensions annotated, places in different scenes were compared based on their distributions and the frequency of the three dimensions. This comparison provided insights into the characteristics of places visited by locals and tourists.
 
 % ====================== | Topic Modeling | ======================
 \subsubsection{Topic Modeling}
-This study applied \acrfull{lda}, a topic modeling technique, to generate topics describing places based on Flickr tags. \acrshort{lda} is a three-level hierarchical Bayesian model that discovers underlying topics from a large collection of words. In this study, after the preprocessing steps outlined in Section \ref{preprocess_flickr}, the Flickr tags within each place, represented by the convex hull, were gathered as words to form a \textit{document}, with each \textit{document} comprising the Flickr tags for a specific place. The input to the \acrshort{lda} model was a \textit{corpus} consisting of \textit{documents}. The \textit{corpus} was structured as a $word \times document$ matrix, with each row representing a vector $w = {w_{1}, w_{2}, ..., w_{v}}$ of length $v$. $v$ is the number of words in the \textit{vocabulary} (all distinct words in a corpus), and $w_{v}$ denoted the frequency of word $v$ in the document. It is important to note that Flickr tags were also separated based on two groups of people in different time spans, thus the corpus in every scene was unique.
+This study applied \acrfull{lda}, a topic modeling technique, to generate topics describing places based on Flickr tags. \acrshort{lda} is a three-level hierarchical Bayesian model that discovers underlying topics from a large collection of words. In this study, after the preprocessing steps outlined in Section \ref{preprocess_flickr}, the Flickr tags within each place, represented by the convex hull, were gathered as words to form a \textit{document}, with each \textit{document} comprising the Flickr tags for a specific place. The input to the \acrshort{lda} model is a \textit{corpus} consisting of \textit{documents}. The \textit{corpus} is structured as a $word \times document$ matrix, with each row representing a vector $w = {w_{1}, w_{2}, ..., w_{v}}$ of length $v$. $v$ is the number of words in the \textit{vocabulary} (all distinct words in a corpus), and $w_{v}$ denotes the frequency of word $v$ in the document. It is important to note that Flickr tags were also separated based on two groups of people in different time spans, thus the corpus in every scene was unique.
 
 The \acrshort{lda} model generated a set of topics as its primary output, along with topic distribution and topic terms, facilitating the determination and interpretation of topics for each place. The topic distribution for each place consisted of a list of topics and the corresponding probabilities of the place belonging to each topic. The topic terms for each topic comprised a list of tags, accompanied by their probabilities of association with that topic. In this study, each place was assigned the most probable topic, and the interpretation of topics relied on the corresponding tags and probabilities. In practice, the \acrshort{lda} model was implemented using \acrfull{mallet}. \acrshort{mallet} is a Java-based console application, but the Python library gensim \citep{rehurek_software_2010} also provides a wrapper model called LdaMallet for the implementation of \acrshort{mallet}. And this study utilized the gensim.models.wrappers.LdaMallet function in gensim to apply the \acrshort{lda} model.
 
-The semantic quality of the generated topics is sensitive to the number of topics. If too many topics are generated, some topics might become similar to each other, making interpretation challenging. The \acrshort{lda} model requires users to define the number of topics as input, thus it is crucial to determine appropriate topic numbers. To measure the semantic quality of topics, the \textit{coherence value} was employed. This value was calculated based on the co-occurrence probability of words within a topic, specifically within the place clusters assigned to that topic. The \textit{coherence value} can be defined as:
+The semantic quality of the generated topics is sensitive to the number of topics. If too many topics are generated, some topics might become similar to each other, making it difficult to interpret topics. The \acrshort{lda} model requires users to define the number of topics as input, thus it is crucial to determine appropriate topic numbers. The \textit{coherence value} was employed to measure the semantic quality of topics. This value was calculated based on the co-occurrence probability of words within a topic, specifically within the place clusters assigned to that topic. The \textit{coherence value} can be defined as:
 
 \begin{equation} \label{eq:coherence_value}
     coherence = \sum_{i}\sum_{j<1}\log\frac{D(w_{j},w_{i})+\beta}{D(w_{i})}
 \end{equation}
 
-where $\beta$ is to prevent log zero errors. $D(w_{j},w_{i})$ represents the number of co-occurrence of two words in a document, and $D(w_{i}$ is the number of occurrences of the more probable words. A higher coherence value indicates that the words within a topic are closely related to each other, making topics more interpretable to humans.
+where $\beta$ is to prevent log zero errors. $D(w_{j},w_{i})$ represents the number of co-occurrence of two words in a document, and $D(w_{i})$ is the number of occurrences of the more probable words. A higher coherence value indicates that the words within a topic are closely related to each other and the topic is more interpretable to humans.
 
-In cases where certain places had no tags within their convex hulls, a topic imputation technique was employed to assign topics to those empty places. This imputation relied on the topic distribution of nearby places that did contain Flickr tags, utilizing a weighted average approach. The imputed topic distribution represented the probability distribution across a predefined set of topics. Based on this imputed topic distribution, the places were assigned the most probable topics. The calculation for imputed topic distribution of the target empty place can be expressed as:
+In cases where certain places had no tags within their convex hulls, a topic imputation was employed to assign topics to those empty places. This imputation relied on the topic distribution of nearby places that did contain Flickr tags in a weighted average approach. The imputed topic distribution represented the probability distribution across a predefined set of topics. Based on this imputed topic distribution, the places were assigned the most probable topics. The calculation for imputed topic distribution of the target empty place can be expressed as:
 
 \begin{equation} \label{eq:topic_imputation}
     P_{imputed} = \frac{1}{W}\sum_{i}{n}w_{i}P_{i}
 \end{equation}
 
-where $P_{i}$ represents the topic distribution for place $i$, and $n$ is the number of places in the neighborhood of the target empty place. The weight assigned to each place $w_{i}$ is determined by the distance between place $i$ and the target empty place, which is defined as:
+where $P_{i}$ represents the topic distribution for place $i$, and $n$ is the number of places in the neighborhood of the target empty place. The weight assigned to each place $w_{i}$ is determined by the distance between place $i$ and the target empty place, and it is defined as:
 
 \begin{equation} \label{eq:topic_imputation_w_i}
     w_{i} = \exp(\frac{-d(i,j)^2}{2\sigma^2})
 \end{equation}
 
-where $\sigma$ controls the smoothness of the weighting function. $d(i,t)$ is the distance between place $i$ and place $j$. A larger value of $\sigma$ gives more weight to places that are closer to the target empty place, while a smaller value of $\sigma$ gives more weight to places that are farther away. This study set $\sigma$ as 500 for topic imputation in all scenes. $W$ ensures that the sum of the weights to 1 so that the imputed topic distribution is a valid probability distribution, which is defined as:
+where $\sigma$ controls the smoothness of the weighting function. $d(i,j)$ is the distance between place $i$ and place $j$. A larger value of $\sigma$ gives more weight to places that are closer to the target empty place, while a smaller value of $\sigma$ gives more weight to places that are farther away. This study set $\sigma$ as 500 for topic imputation in all scenes. $W$ ensures that the sum of the weights to 1 so that the imputed topic distribution is a valid probability distribution, and it is defined as:
 
 \begin{equation} \label{eq:topic_imputation_W}
     W = \sum_{i}^{n}w_{i}
@@ -591,11 +591,7 @@ where $\sigma$ controls the smoothness of the weighting function. $d(i,t)$ is th
 
 % ====================== | Semantic Trajectory Construction | ======================
 \subsubsection{Semantic Trajectory Construction}
-This study aimed to compare city perceptions of locals and tourists across different time spans by analyzing semantic trajectories under corresponding scenes. Semantic trajectories were constructed based on the places defined in Section \ref{place_construction}. The concept of semantic trajectories is introduced in Definition \ref{def:semantic_trajectory}.
-
-\begin{definition} \label{def:semantic_trajectory}
-A semantic trajectory is a sequence of places $T = \langle p_{1}, p_{2}, ..., p_{n} \rangle$, with $p = (x,y,D_{p})$ being the place $i$ at the position $(x,y)$ annotated by the three dimensions of the place, including \textit{Location}, \textit{Locale}, and \textit{Sense of Place}.
-\end{definition}
+This study aimed to compare city perceptions under different scenes by analyzing semantic trajectories. Semantic trajectories were constructed based on the places defined in Section \ref{place_construction}. The semantic trajectories can be defined as a sequence of places $T = \langle p_{1}, p_{2}, ..., p_{n} \rangle$, with $p = (x,y,D_{p})$ being the place $i$ at the position $(x,y)$ annotated by the three dimensions of the place $D_{p}$, including \textit{Location}, \textit{Locale}, and \textit{Sense of Place}.
 
 By connecting places in a visiting order, it becomes possible to track individuals' movements. However, within one's movement, there might be multiple trajectories. Hence, it is necessary to determine the beginning and end of each trajectory, as illustrated in Figure~\ref{fig:trajectory_begin_end}. In this study, a time gap of five hours served as a criterion to determine whether two consecutive places belonged to the same trajectory. Specifically, if the time gap between two consecutive places exceeded five hours, the former place was considered the last position of the current trajectory, while the latter place marked the beginning of the new trajectory. Moreover, the analysis of city perception focused on long trajectories as they conveyed more information. Therefore, only trajectories consisting of more than five places were considered in this study.
 
@@ -608,17 +604,17 @@ By connecting places in a visiting order, it becomes possible to track individua
 
 % ====================== | Semantic Trajectory Similarity Measure | ======================
 \subsubsection{Semantic Trajectory Similarity Measure} \label{traj_similarity}
-Before clustering semantic trajectories, it is essential to measure their similarity. Existing methods often focus only on the spatial or spatiotemporal aspects of raw trajectories, neglecting the multiple dimensions present in semantic trajectories. To address this, the \acrfull{msm} proposed by \cite{furtado_multidimensional_2016} was employed in this study to construct the similarity matrix for semantic trajectories. 
+Before clustering semantic trajectories, it is essential to measure their similarity. Existing methods often focus on the spatial or spatiotemporal aspects of raw trajectories, neglecting the multiple dimensions present in semantic trajectories. To address this, the \acrfull{msm} proposed by \cite{furtado_multidimensional_2016} was employed in this study to construct the similarity matrix for semantic trajectories. 
 
 \acrshort{msm} is a similarity measure for multidimensional sequences, considering the similarity across all dimensions. In two semantic trajectories denoted as $T_{1}$ and $T_{2}$, the general term for each dimension $D_{k}$ ($k = 1, 2, 3, 4$) represents the following: $D_{1}$ represents the spatial position of the semantic trajectory, while $D_{2}$, $D_{3}$, and $D_{4}$ correspond to the three semantic dimensions: \textit{Location}, \textit{Locale}, and \textit{Sense of Place}. The distance between two places, $p_{1} \in T_{1}$ and $p_{2} \in T_{2}$, is computed using the distance function $dist_{k}(p_{1},p_{2})$. Additionally, a maximum distance threshold $maxDist_{k}$ is set for each dimension to determine whether a pair of places $(p_{1},p_{2})$ can be considered a match in $D_{k}$.
 
-The similarity score was calculated by considering each dimension separately, and the scores in all four dimensions were summed up, taking into account the assigned weights. Each dimension was assumed to have different importance, represented by the weight $w_{k}$ assigned to the corresponding dimension $D_{k}$. It is important to note that the sum of the weights of all dimensions should be equal to 1. In this study, the weights were set as follows: $w_{1}=0.4$, $w_{2}=0.1$, $w_{3}=0.3$, $w_{4}=0.2$. The similarity score between the two places $p_{1}$ and $p_{2}$ is defined as the sum of the weighted match scores across all dimensions, as represented in the following equation:
+The similarity score was calculated by considering each dimension separately, and the scores in all four dimensions were summed up. Each dimension was assumed to have different importance, represented by the weight $w_{k}$ assigned to the corresponding dimension $D_{k}$. It is important to note that the sum of the weights of all dimensions should be equal to 1. In this study, the weights were set as follows: $w_{1}=0.4$, $w_{2}=0.1$, $w_{3}=0.3$, $w_{4}=0.2$. $D_{1}$ (spatial distance) was assumed to be more important in the similarity measure for trajectories, thus it weighted 0.4. $D_{2}$ (\textit{Location}) weighted only 0.1 as it was represented by borough names in the space, which was correlated with $D_{1}$. $D_{3}$ (\textit{Locale}) and $D_{4}$ (\textit{Sense of Place}) weighted 0.5 in total so that the non-spatial dimensions could also be equally considered. The similarity score between the two places $p_{1}$ and $p_{2}$ is defined as the sum of the weighted match scores across all dimensions, as represented in the following equation:
 
 \begin{equation} \label{eq:match_score}
     score(p_{1},p_{2}) = \sum_{k=1}^{4}(match_{k}(p_{1},p_{2})w_{k})
 \end{equation}
 
-where $match_{k}(p_{1},p_{2})$ determines whether the places are matched or not based on the max distance threshold $maxDist_{k}$, and it is defined in Equation~\ref{eq:match}. In this study, to handle the different data types of dimensions, each dimension was assigned a specific distance function and the threshold to determine whether $p_{1}$ and $p_{2}$ were matched. For the spatial position dimension $D_{1}$, the Euclidean distance was applied, as defined in Equation~\ref{eq:dist_euclidean}, where $x$ and $y$ represent the coordinates of places. A maximum distance threshold $maxDist_{1}$ of 1 km was set, meaning that if the distance between $p_{1}$ and $p_{2}$ exceeded 1 km, the two points were not considered a match. For the semantic dimensions $D_{2}$, $D_{3}$, and $D_{4}$, which were categorical data, the discrete distance was applied, as shown in Equation~\ref{eq:dist_discrete}. In this case, the distance can only be either 0 or 1, and a maximum distance threshold of 0.5 was set for $maxDist_{2}$, $maxDist_{3}$, and $maxDist_{4}$.
+where $match_{k}(p_{1},p_{2})$ determines whether the places are matched or not based on the max distance threshold $maxDist_{k}$, and it is defined in Equation~\ref{eq:match}. In this study, to handle the different data types of dimensions, each dimension was assigned a specific distance function and a threshold to determine whether $p_{1}$ and $p_{2}$ were matched. For the spatial position dimension $D_{1}$, the Euclidean distance was applied, as defined in Equation~\ref{eq:dist_euclidean}, where $x$ and $y$ represent the coordinates of places. A maximum distance threshold $maxDist_{1}$ of 1 km was set, meaning that if the distance between $p_{1}$ and $p_{2}$ exceeded 1 km, the match score of these two points was 0. For the semantic dimensions $D_{2}$, $D_{3}$, and $D_{4}$, which were categorical data, the discrete distance was applied, as shown in Equation~\ref{eq:dist_discrete}. In this case, the distance can only be either 0 or 1, thus a maximum distance threshold of 0.5 was set for $maxDist_{2}$, $maxDist_{3}$, and $maxDist_{4}$.
 
 \begin{equation} \label{eq:match}
     match_{k}(p_{1},p_{2}) = \begin{cases}
@@ -674,13 +670,11 @@ After clustering all semantic trajectories, an exploratory data analysis was con
 
 % ====================== | Sequential Pattern Mining | ======================
 \subsubsection{Sequential Pattern Mining}
-While the trajectories selected as the cluster center by the K-medoids algorithm can serve as representatives of their clusters, it is beneficial to identify typical semantic trajectories within each cluster to enhance the interpretation of clustering results. In this study, the \acrfull{prefixspan} algorithm \citep{pei_mining_2004}, a sequential pattern mining technique, was applied to detect frequently visited sequences under different scenes. The fundamental concept of \acrshort{prefixspan} is to recursively project the sequence databases into smaller projected databases based on current sequential patterns. It utilizes a user-defined support threshold to mine sequential patterns by identifying frequent subsequences in a sequence database. The support represents the number of occurrences of the subsequence in the database, and subsequences with support above the specified threshold are extracted as the sequential patterns of interest.
+While the trajectories selected as the cluster centers by the K-medoids algorithm can serve as representatives of their clusters, it is beneficial to identify typical semantic trajectories within each cluster to enhance the interpretation of clustering results. In this study, the \acrfull{prefixspan} algorithm \citep{pei_mining_2004}, a sequential pattern mining technique, was applied to detect frequently visited sequences under different scenes. The fundamental concept of \acrshort{prefixspan} is to recursively project the sequence databases into smaller projected databases based on current sequential patterns. It utilizes a user-defined support threshold to mine sequential patterns by identifying frequent subsequences in a sequence database. The support represents the number of occurrences of the subsequence in the database, and subsequences with support above the specified threshold are extracted as the sequential patterns of interest.
 
-\underline{mention the min support for each scene}
+For the sequential pattern mining process, the Python library prefixspan \footnote{\url{https://pypi.org/project/prefixspan/}} was utilized in this study. The semantic trajectories within each cluster were treated as the sequence database for the mining process. Considering the number of trajectories at different time spans, the minimum support was set in a range from 2 to 5 to ensure that the typical trajectories could be mined. The output for each trajectory cluster consisted of several sets of frequently visited places in sequential order, along with their corresponding support values.
 
-For the sequential pattern mining process, the Python library prefixspan \footnote{\url{https://pypi.org/project/prefixspan/}} was utilized in this study. The semantic trajectories within each cluster were treated as the sequence database for the mining process. \underline{The minimum support threshold was generally set to 3 for most trajectory clusters. However, for time spans with only a few constructed trajectories, such as nighttime, a threshold of 1 was used to ensure the detection of sequences.} The output for each trajectory cluster consisted of several sets of frequently visited places in sequential order, along with their corresponding support values. To identify the typical trajectories, this study selected the sequences with the maximum support and length and subsequently investigated the places within these trajectories across three dimensions.
-
-The study of city perceptions in different scenes involved analyzing the typical semantic trajectories extracted from each cluster. A comparison of the distribution of these trajectories was made to explore the different areas visited by locals and tourists across different time spans. The first two semantic dimensions \textit{Location} and \textit{Locale} were utilized to examine the visiting purposes of these popular trajectories. Additionally, the third semantic dimension \textit{Sense of Place} was applied to capture people's descriptions along these trajectories, providing valuable insights into the city perception.
+The study of city perceptions in different scenes involved analyzing the typical semantic trajectories extracted from each cluster. A comparison of the distribution of these trajectories was made to explore the different areas visited by locals and tourists across different time spans. The first two semantic dimensions \textit{Location} and \textit{Locale} were utilized to examine the visiting purposes of these popular trajectories. Additionally, the third semantic dimension \textit{Sense of Place} was applied to capture people's descriptions along these trajectories.
 
 \clearpage
 
@@ -1277,7 +1271,7 @@ Time & Population group & No. of users & No. of trajectories \\
 
 
 \subsubsubsection{Daytime}
-Figure~\ref{fig:traj_distribution_daytime_locals} shows the five trajectory clusters of locals during the daytime, with their typical trajectories highlighted in dark red. The majority of locals tend to move within the city center, as evidenced by the high visitation frequency of Westminster, Camden, and the City of London in the \textit{Location} dimension, as shown in Figure~\ref{fig:traj_location_daytime_locals}. \underline{Some locals also visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities.} Another noteworthy trajectory pattern is observed between central London and the outskirts boroughs, although the frequency of these outer boroughs is significantly lower compared to the inner ones. In terms of the \textit{Locale} dimension, trajectories in most clusters predominantly pass through places related to transportation, shopping, restaurants, and professional activities. Notably, entertainment places and green \& blue spaces are also frequently visited by trajectories in Cluster 0 and Cluster 4 (Figure~\ref{fig:traj_locale_daytime_locals}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_locals} provides insights into how locals describe the city along their trajectories during the daytime, and the word clouds of topics are displayed in Figure~\ref{fig:topics_daytime_locals}. Trajectories in Cluster 0 and Cluster 4 often encompass tags associated with transportation and nature, such as parks and rivers (Topic 1, and Topic 4), indicating that these clusters revolve around nature sightseeing. Cluster 0 and Cluster 1 suggest that locals tend to visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Cluster 1 and Cluster 2 have some typical trajectories that are air transport-oriented, as these trajectories associated with these clusters are primarily characterized by Topic 0 (e.g., lhr, airbus), with typical trajectories connecting central London and the vicinity of Heathrow Airport, particularly in Islington and Hounslow. Cluster 3 is characterized by trajectories primarily focused on work-related purposes, as they frequently visit professional places and restaurants. Moreover, the typical trajectories in this cluster predominantly link the city center with Merton and Wandsworth, which are residential districts.
+Figure~\ref{fig:traj_distribution_daytime_locals} shows the five trajectory clusters of locals during the daytime, with their typical trajectories highlighted in dark red. The majority of locals tend to move within the city center, as evidenced by the high visitation frequency of Westminster, Camden, and the City of London in the \textit{Location} dimension, as shown in Figure~\ref{fig:traj_location_daytime_locals}. Some locals also visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Another noteworthy trajectory pattern is observed between central London and the outskirts boroughs, although the frequency of these outer boroughs is significantly lower compared to the inner ones. In terms of the \textit{Locale} dimension, trajectories in most clusters predominantly pass through places related to transportation, shopping, restaurants, and professional activities. Notably, entertainment places and green \& blue spaces are also frequently visited by trajectories in Cluster 0 and Cluster 4 (Figure~\ref{fig:traj_locale_daytime_locals}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_locals} provides insights into how locals describe the city along their trajectories during the daytime, and the word clouds of topics are displayed in Figure~\ref{fig:topics_daytime_locals}. Trajectories in Cluster 0 and Cluster 4 often encompass tags associated with transportation and nature, such as parks and rivers (Topic 1, and Topic 4), indicating that these clusters revolve around nature sightseeing. Cluster 0 and Cluster 1 suggest that locals tend to visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Cluster 1 and Cluster 2 have some typical trajectories that are air transport-oriented, as these trajectories associated with these clusters are primarily characterized by Topic 0 (e.g., lhr, airbus), with typical trajectories connecting central London and the vicinity of Heathrow Airport, particularly in Islington and Hounslow. Cluster 3 is characterized by trajectories primarily focused on work-related purposes, as they frequently visit professional places and restaurants. Moreover, the typical trajectories in this cluster predominantly link the city center with Merton and Wandsworth, which are residential districts.
 
 
 % daytime locals
@@ -1390,13 +1384,13 @@ When it comes to nighttime, locals generate a smaller number of trajectories, wh
 \end{figure}
 
 
-In comparison to locals, tourists during the nighttime tend to concentrate their movement within the city center, with fewer trajectories visiting outskirts boroughs (Figure~\ref{fig:traj_distribution_nighttime_tourists}). In addition to Westminster and Camden, tourists also exhibit interest in Tower Hamlets and Hackney in the \textit{Location} dimension (Figure~\ref{fig:traj_location_nighttime_tourists}). While both locals and tourists frequently visit transportation-related places, shopping places, restaurants, and professional places during the nighttime, tourists display a higher inclination towards art places and entertainment places rather than green \& blue spaces (Figure~\ref{fig:traj_locale_nighttime_tourists}). Regarding the \textit{Sense of Place} dimension, tourists tend to use more general words to describe London during the nighttime, such as city, street, and night. Additionally, words associated with art and transportation, such as museum, station, and railway, are also frequently mentioned. This is reflected in the high frequency of Topic 0 and Topic 4 (Figure~\ref{fig:traj_sense_nighttime_tourists}, Figure~\ref{fig:topics_nighttime_tourists}). The typical trajectories of tourists during the nighttime exhibit distinct patterns compared to those of locals. These trajectories primarily connect shopping and entertainment places in the inner part of London. Specifically, they encompass places such as the Stratford Shopping Center in Newham, Shoreditch in Hackney, and renowned squares and streets in Westminster, including Piccadilly Circus, Leicester Square, and Oxford Street (Figure~\ref{fig:sequences_nighttime_tourists}). In summary, tourists display lower nighttime activity levels with fewer trajectories but maintain a consistent interest in vibrant areas for shopping and entertainment throughout the day.
+Trajectories of tourists during the nighttime are clustered into two groups. In comparison to locals, tourists during the nighttime tend to concentrate their movement within the city center, with fewer trajectories visiting outskirts boroughs (Figure~\ref{fig:traj_distribution_nighttime_tourists}). In addition to Westminster and Camden, tourists also exhibit interest in Tower Hamlets and Hackney in the \textit{Location} dimension (Figure~\ref{fig:traj_location_nighttime_tourists}). While both locals and tourists frequently visit transportation-related places, shopping places, restaurants, and professional places during the nighttime, tourists display a higher inclination towards art places and entertainment places rather than green \& blue spaces (Figure~\ref{fig:traj_locale_nighttime_tourists}). Regarding the \textit{Sense of Place} dimension, tourists tend to use more general words to describe London during the nighttime, such as city, street, and night. Additionally, words associated with art and transportation, such as museum, station, and railway, are also frequently mentioned. This is reflected in the high frequency of Topic 0 and Topic 4 (Figure~\ref{fig:traj_sense_nighttime_tourists}, Figure~\ref{fig:topics_nighttime_tourists}). The typical trajectories of tourists during the nighttime exhibit distinct patterns compared to those of locals. These trajectories primarily connect shopping and entertainment places in the inner part of London. Specifically, they encompass places such as the Stratford Shopping Center in Newham, Shoreditch in Hackney, and renowned squares and streets in Westminster, including Piccadilly Circus, Leicester Square, and Oxford Street (Figure~\ref{fig:sequences_nighttime_tourists}). In summary, tourists display lower nighttime activity levels with fewer trajectories but maintain a consistent interest in vibrant areas for shopping and entertainment throughout the day.
 
 % nighttime tourists
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1\textwidth]{figures/traj_distribution_nighttime_tourists.png}
-\caption{\label{fig:traj_distribution_nighttime_tourists}Distribution of tourists' trajectories during the nighttime.}
+\caption{\label{fig:traj_distribution_nighttime_tourists}Distribution of tourists' trajectories during the nighttime (typical trajectories are represented by the dark red color).}
 \end{figure}
 
 
@@ -1428,12 +1422,16 @@ In comparison to locals, tourists during the nighttime tend to concentrate their
 
 
 \subsubsubsection{Weekday}
+Trajectories of locals on weekdays are divided into five clusters and these clusters cover both the inner and outer parts of London  (Figure~\ref{fig:traj_distribution_weekday_locals}). The frequency of trajectories in the \textit{Location} dimension is illustrated in Figure~\ref{fig:traj_location_weekday_locals}. Cluster 0, Cluster 3, and Cluster 4 have trajectories more concentrated in the city center, encompassing boroughs such as Westminster, Camden, and the City of London. Cluster 1 gravitates towards Southwest London, particularly Hillingdon and Hounslow. Cluster 2 is concentrated in Southeast London, with Greenwich being visited at a high frequency. Regarding the \textit{Locale} dimension, transportation-related places remain the most frequently visited by locals on weekdays, accompanied by shopping places, restaurants, and professional places across all clusters (Figure~\ref{fig:traj_locale_weekday_locals}). In terms of the \textit{Sense of Place} dimension, locals tend to use general words to describe the city. Topic 1 is assigned to a large number of trajectories in all five clusters, and it is about the cityscape like architecture, buildings, and railways. Notably, Cluster 1 contains trajectories with a higher occurrence of Topic 2 (e.g., lhr, airbus), which aligns with its distribution around Heathrow Airport. Furthermore, Cluster 3 has a high frequency in Topic 1 (e.g., live, gig, southbank) and visits more entertainment places compared to other clusters, suggesting a more leisure-oriented focus (Figure~\ref{fig:traj_sense_weekday_locals}, Figure~\ref{fig:topics_weekday_locals}). The typical trajectories of Cluster 0 and Cluster 4 are likely generated by local commuters as they connect outer boroughs with the main transportation hubs in the city center, which are similar to some movement patterns observed among locals during the daytime. Cluster 1 exhibits typical trajectories concentrated around Heathrow Airport and the nearby borough of Hounslow, reflecting a perception of airport-related areas. Cluster 2 displays typical trajectories covering the southern region of Greenwich, indicating its suitability for sports activities due to the presence of numerous sports facilities (Figure~\ref{fig:sequences_weekday_locals}).
+
+
+
 
 % weekday locals
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1\textwidth]{figures/traj_distribution_weekday_locals.png}
-\caption{\label{fig:traj_distribution_weekday_locals}Distribution of locals' trajectories during weekdays.}
+\caption{\label{fig:traj_distribution_weekday_locals}Distribution of locals' trajectories during weekdays (typical trajectories are represented by the dark red color).}
 \end{figure}
 
 
@@ -1464,11 +1462,16 @@ In comparison to locals, tourists during the nighttime tend to concentrate their
 \end{figure}
 
 
+\underline{screenshot for cluster 4!!!!}
+
+On weekdays, tourists also explore the outer part of London, but unlike locals who tend to gravitate towards particular boroughs, tourists mainly concentrate their movements in central London. Their trajectories are divided into four clusters (Figure~\ref{fig:traj_distribution_weekday_tourists}). The distribution of the \textit{Location} dimension in Figure~\ref{traj_location_weekday_tourists} confirms this finding. Westminster is the most frequently visited borough, followed by Camden and Kensington and Chelsea, all of which are in the city center. In contrast to locals who often visit outskirts boroughs, tourists rarely visit these areas. Tourists also exhibit different preferences in place categories, as revealed by the \textit{Locale} dimension in Figure~\ref{traj_locale_weekday_tourists}. While transportation remains popular in general, trajectories in certain clusters are not primarily comprised of this category but are also characterized by other categories like professional places, shopping places, and restaurants, particularly in Cluster 0 and Cluster 2. In terms of the \textit{Sense of Place} dimension, tourists, similar to locals, also tend to use general words to describe the city, such as street, architecture, and city. However, tourists display a greater interest in art and the Olympics, as indicated by the frequent mention of words like museum, art, and olympics (Figure~\ref{fig:traj_sense_weekday_tourists}, Figure~\ref{fig:topics_weekday_tourists}). Typical trajectories of tourists on weekdays have many similarities to those observed during other time periods. Sightseeing and shopping remain one of the primary activities within the city center throughout the day, with tourists visiting various attractions, museums, and shopping streets. This pattern persists on weekdays, with tourists also visiting similar places around Stratford Shopping Center, Shoreditch, and Leicester Square ((Figure~\ref{fig:sequences_weekday_tourists})).
+
+
 % weekday tourists
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1\textwidth]{figures/traj_distribution_weekday_tourists.png}
-\caption{\label{fig:traj_distribution_weekday_tourists}Distribution of tourists' trajectories during weekdays.}
+\caption{\label{fig:traj_distribution_weekday_tourists}Distribution of tourists' trajectories during weekdays (typical trajectories are represented by the dark red color).}
 \end{figure}
 
 
@@ -1505,7 +1508,7 @@ In comparison to locals, tourists during the nighttime tend to concentrate their
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1\textwidth]{figures/traj_distribution_weekend_locals.png}
-\caption{\label{fig:traj_distribution_weekend_locals}Distribution of locals' trajectories during weekends.}
+\caption{\label{fig:traj_distribution_weekend_locals}Distribution of locals' trajectories during weekends (typical trajectories are represented by the dark red color).}
 \end{figure}
 
 
@@ -1540,7 +1543,7 @@ In comparison to locals, tourists during the nighttime tend to concentrate their
 \begin{figure}[!h]
 \centering
 \includegraphics[width=1\textwidth]{figures/traj_distribution_weekend_tourists.png}
-\caption{\label{fig:traj_distribution_weekend_tourists}Distribution of tourists' trajectories during weekends.}
+\caption{\label{fig:traj_distribution_weekend_tourists}Distribution of tourists' trajectories during weekends (typical trajectories are represented by the dark red color).}
 \end{figure}
 
 
@@ -1957,7 +1960,7 @@ No. & Venue Name & No. of Check-ins & Description \\ \hline
 \end{figure}
 
 
-% nighttime locals
+% nighttime tourists
 \begin{figure}[!h]
 
 \centering
@@ -1976,6 +1979,80 @@ No. & Venue Name & No. of Check-ins & Description \\ \hline
 
 \caption{Typical trajectories of tourists during the nighttime (The larger point represents the starting point of the trajectory).}
 \label{fig:sequences_nighttime_tourists}
+\end{figure}
+
+
+% weekday locals
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_locals_c0.png}
+\caption{Cluster 0.}
+\label{fig:weekday_locals_c0}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_locals_c1.png}
+\caption{Cluster 1.}
+\label{fig:weekday_locals_c1}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_locals_c2.png}
+\caption{Cluster 2.}
+\label{fig:weekday_locals_c2}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_locals_c3.png}
+\caption{Cluster 3.}
+\label{fig:weekday_locals_c3}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_locals_c4.png}
+\caption{Cluster 4.}
+\label{fig:weekday_locals_c4}
+\end{subfigure}
+
+\caption{Typical trajectories of locals during the weekday (The larger point represents the starting point of the trajectory).}
+\label{fig:sequences_weekday_locals}
+\end{figure}
+
+
+% weekday tourists
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_tourists_c0.png}
+\caption{Cluster 0.}
+\label{fig:weekday_tourists_c0}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_tourists_c1.png}
+\caption{Cluster 1.}
+\label{fig:weekday_tourists_c1}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_tourists_c2.png}
+\caption{Cluster 2.}
+\label{fig:weekday_tourists_c2}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekday_tourists_c3.png}
+\caption{Cluster 3.}
+\label{fig:weekday_tourists_c3}
+\end{subfigure}
+
+\caption{Typical trajectories of tourists during the weekday (The larger point represents the starting point of the trajectory).}
+\label{fig:sequences_weekday_tourists}
 \end{figure}
 
 
