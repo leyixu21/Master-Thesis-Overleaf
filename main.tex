@@ -1462,8 +1462,6 @@ Trajectories of locals on weekdays are divided into five clusters and these clus
 \end{figure}
 
 
-\underline{screenshot for cluster 4!!!!}
-
 On weekdays, tourists also explore the outer part of London, but unlike locals who tend to gravitate towards particular boroughs, tourists mainly concentrate their movements in central London. Their trajectories are divided into four clusters (Figure~\ref{fig:traj_distribution_weekday_tourists}). The distribution of the \textit{Location} dimension in Figure~\ref{traj_location_weekday_tourists} confirms this finding. Westminster is the most frequently visited borough, followed by Camden and Kensington and Chelsea, all of which are in the city center. In contrast to locals who often visit outskirts boroughs, tourists rarely visit these areas. Tourists also exhibit different preferences in place categories, as revealed by the \textit{Locale} dimension in Figure~\ref{traj_locale_weekday_tourists}. While transportation remains popular in general, trajectories in certain clusters are not primarily comprised of this category but are also characterized by other categories like professional places, shopping places, and restaurants, particularly in Cluster 0 and Cluster 2. In terms of the \textit{Sense of Place} dimension, tourists, similar to locals, also tend to use general words to describe the city, such as street, architecture, and city. However, tourists display a greater interest in art and the Olympics, as indicated by the frequent mention of words like museum, art, and olympics (Figure~\ref{fig:traj_sense_weekday_tourists}, Figure~\ref{fig:topics_weekday_tourists}). Typical trajectories of tourists on weekdays have many similarities to those observed during other time periods. Sightseeing and shopping remain one of the primary activities within the city center throughout the day, with tourists visiting various attractions, museums, and shopping streets. This pattern persists on weekdays, with tourists also visiting similar places around Stratford Shopping Center, Shoreditch, and Leicester Square ((Figure~\ref{fig:sequences_weekday_tourists})).
 
 
@@ -1503,6 +1501,8 @@ On weekdays, tourists also explore the outer part of London, but unlike locals w
 
 
 \subsubsubsection{Weekend}
+When it comes to weekends, locals are less active, generating a smaller number of trajectories compared to weekdays, although they concentrate their activities in central London, their trajectories become sparser (Figure~\ref{fig:traj_distribution_weekend_locals}). The frequency of the \textit{Location} dimension in Figure~\ref{fig:traj_location_weekend_locals} also suggests that trajectories of tourists are more evenly distributed in inner and outer boroughs. It is noteworthy that Greenwich attracts a significant number of locals to visit on weekends, particularly those who generate trajectories in Cluster 1. Locals on weekends have similar preferences for place categories to other time periods, like transportation-related places, shopping places, and restaurants, but show a decreased interest in professional places and an increased interest in entertainment places. Notably, Cluster 4 has its trajectories connecting various outer boroughs to the city center, and it has a high frequency of transport in this dimension (Figure~\ref{fig:traj_locale_weekend_locals}). In terms of the \textit{Sense of Place} dimension, locals also use words like architecture, city, street, and graffiti to describe the places along their trajectories, but words related to nature like park, garden, green, and flower (Topic 0) also emerge in their descriptions towards the city on weekends (Figure~\ref{fig:traj_sense_weekend_locals}, Figure~\ref{fig:topics_weekend_locals}). Compared to weekdays, locals do not have obvious movement patterns on weekends, but it is still noticeable that locals have more leisure weekend activities around Shoreditch, and also go to church in Islington (Cluster 0). Furthermore, locals remain interested in visiting sports facilities in Greenwich (Cluster 1).
+
 
 % weekend locals
 \begin{figure}[!h]
@@ -2055,6 +2055,73 @@ No. & Venue Name & No. of Check-ins & Description \\ \hline
 \label{fig:sequences_weekday_tourists}
 \end{figure}
 
+
+% weekend locals
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_locals_c0.png}
+\caption{Cluster 0.}
+\label{fig:weekend_locals_c0}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_locals_c1.png}
+\caption{Cluster 1.}
+\label{fig:weekend_locals_c1}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_locals_c2.png}
+\caption{Cluster 2.}
+\label{fig:weekend_locals_c2}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_locals_c3.png}
+\caption{Cluster 3.}
+\label{fig:weekend_locals_c3}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_locals_c4.png}
+\caption{Cluster 4.}
+\label{fig:weekend_locals_c4}
+\end{subfigure}
+
+\caption{Typical trajectories of locals during the weekend (The larger point represents the starting point of the trajectory).}
+\label{fig:sequences_weekend_locals}
+\end{figure}
+
+
+% weekend tourists
+\begin{figure}[!h]
+
+\centering
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_tourists_c0.png}
+\caption{Cluster 0.}
+\label{fig:weekend_tourists_c0}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_tourists_c1.png}
+\caption{Cluster 1.}
+\label{fig:weekend_tourists_c1}
+\end{subfigure}
+\begin{subfigure}{0.6\textheight}
+\centering
+\includegraphics[width=0.4\linewidth]{figures/weekend_tourists_c2.png}
+\caption{Cluster 2.}
+\label{fig:weekend_tourists_c2}
+\end{subfigure}
+
+\caption{Typical trajectories of tourists during the weekend (The larger point represents the starting point of the trajectory).}
+\label{fig:sequences_weekend_tourists}
+\end{figure}
 
 % Figure \ref{fig:flickr_day_count_pie}
 % \begin{figure}[!h]
