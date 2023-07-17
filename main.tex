@@ -38,9 +38,6 @@
 \usepackage{subcaption}
 
 
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
@@ -517,15 +514,15 @@ The workflow of this study is illustrated in Figure~\ref{fig:workflow}. To explo
 
 % ====================== | Kernel Density Estimation | ======================
 \subsubsection{Kernel Density Estimation}
-Locals and tourists show distinct visiting preferences, which can be revealed through their distribution patterns. In this study, \acrfull{kde} was employed to identify visiting hotspots of these two groups based on the distribution of their check-ins. \acrshort{kde} is a nonparametric model that estimates probability distributions without relying on specific assumptions about their shape, providing flexibility in modeling data distribution. To formally define \acrshort{kde}, consider a set of independent and identically distributed random samples, denoted as $X_{1}, X_{2}, ..., X_{n} \in R$, drawn from an unknown distribution $P$ with density function $p$. In this context, \acrshort{kde} can be expressed as:
+Locals and tourists show distinct visiting preferences, which can be revealed through their distribution patterns. In this study, \acrfull{kde} was employed to identify visiting hotspots of these two groups based on the distribution of their check-ins. \acrshort{kde} estimates the probability density of data points with the kernel function, which helps to visualize the continuous distribution of discrete data points. Specifically, the estimated distribution is based on the distribution of existing data points in the neighborhood, and the more neighboring data points, the greater the estimated density is. To formally define \acrshort{kde}, consider a set of independent distributed random points, denoted as $x_{1}, x_{2}, ..., x_{n}$, the unknown density $f$ at any given point $x$ can be expressed as:
 
 \begin{equation} \label{eq:kde}
-\hat{p}_{n}(x) = \frac{1}{nh^{d}} \sum_{i=1}^n k\bigg(\frac{x-X_i}{h}\bigg)
+\hat{f}_{h}(x) = \frac{1}{nh \sum_{i=1}^n k\bigg(\frac{x-x_i}{h}\bigg)}
 \end{equation}
 
 where $h$ is a bandwidth parameter that controls the degree of smoothing in \acrshort{kde}. Choosing an appropriate bandwidth is crucial as a large bandwidth may over-smooth the estimate, while a small bandwidth may under-smooth it, potentially hiding important features or introducing random noise. The kernel function $k$ is a smooth function to calculate the weighted average of neighboring observed data points. This weighting process effectively smooths out the data, with closer points receiving higher weights.
 
-In this study, the seaborn.kdeplot function provided by the Python library seaborn \citep{waskom_seaborn_2021} was used to apply \acrshort{kde} to the Foursquare check-ins of locals and tourists. The coordinates of the check-ins were converted to the EPSG:27700 projected coordinate system for the United Kingdom. The default bandwidth method scoott, with a default bandwidth value of 1 was applied. This choice was appropriate considering the smooth distribution of Foursquare check-ins, making the default bandwidth value well-suited for the analysis. Additionally, the Gaussian kernel was used as the kernel smoother.
+In this study, the seaborn.kdeplot function provided by the Python library seaborn \citep{waskom_seaborn_2021} was used to apply \acrshort{kde} to the Foursquare check-ins of locals and tourists and visualize the estimated distribution of these check-ins. The coordinates of the check-ins were converted to the EPSG:27700 projected coordinate system for the United Kingdom. The bandwidth method scott was applied to calculate the estimator bandwidth as the rule of scott allows fast computation for bandwidth selection. Additionally, the Gaussian kernel was used as the kernel smoother.
 
 Since the distribution of check-ins of locals and tourists was assumed to differ across various time spans, this study applied \acrshort{kde} to visualize the distribution of check-ins for these two groups during the daytime and nighttime, as well as on weekdays and weekends. Visiting hotspots were determined based on the estimated density value in the output plot. By comparing the hotspots across different scenes (e.g., locals during the daytime, tourists on weekdays), along with the difference ratio discussed in the next section, this study aimed to explore which areas were more popular among locals and which areas were more popular among tourists.
 
@@ -548,7 +545,7 @@ Similar to the identification of hotspots using \acrshort{kde}, the mixture degr
 
 % ====================== | Place Construction | ======================
 \subsubsection{Place Construction} \label{place_construction}
-In this study, the concept of place refers to a segment of geographical space that holds meaningful attributes, while check-in is a specific instance that represents an individual's interaction with a place. Places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013} algorithm. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, reducing user input bias. It is important to note that check-ins of locals and tourists were differentiated across various time spans before constructing places, ensuring that each scene had its own distinct set of places.
+In this study, the concept of place refers to a part of geographical space that holds meaningful attributes, while check-in is a specific instance that represents an individual's interaction with a place. Places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013} algorithm. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, which helps to reduce user input bias. It is important to note that check-ins of locals and tourists were differentiated across various time spans before constructing places, ensuring that each scene had its own distinct set of places.
 
 Prior to clustering, a distance matrix among check-ins was computed and the features used for distance calculation included the coordinates and categories of check-ins. The Gower distance \citep{gower_general_1971} was used to construct the distance matrix as it could measure the dissimilarity between items with mixed numeric and categorical attributes. The coordinates of check-ins were standardized. And the check-in categories were converted into numerical values using label encoding and treated as categorical data in the distance measure. The importance of features was also considered, with coordinates weighted at 80\% and categories weighted at 20\%.
 
@@ -556,13 +553,19 @@ The hdbscan function provided by the Python library HDBSCAN \citep{mcinnes_hdbsc
 
 To enrich the semantic information of places, three dimensions conceptualized by \cite{agnew_space_2011}, namely \textit{Location}, \textit{Locale}, and \textit{Sense of Place}, were annotated. The \textit{Location} dimension was represented by the borough name, specifically the borough where the majority of check-ins within a place cluster were located. The \textit{Locale} dimension was determined by the most frequently occurring check-in category within the place cluster. The \textit{Sense of Place} dimension utilized Flickr tags associated with the place cluster to capture people's perceptions. Topic modeling was applied to generate a set of topics based on these tags, providing a representation of the \textit{Sense of Place}. The process of topic modeling is introduced in the next section. With these three dimensions annotated, places in different scenes were compared based on their distributions and the frequency of the three dimensions. This comparison provided insights into the characteristics of places visited by locals and tourists.
 
+\begin{figure} [!h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/place_construction_methodology.png}
+\caption{\label{fig:place_construction_methodology}Place Construction.}
+\end{figure}
+
 % ====================== | Topic Modeling | ======================
 \subsubsection{Topic Modeling}
 This study applied \acrfull{lda}, a topic modeling technique, to generate topics describing places based on Flickr tags. \acrshort{lda} is a three-level hierarchical Bayesian model that discovers underlying topics from a large collection of words. In this study, after the preprocessing steps outlined in Section \ref{preprocess_flickr}, the Flickr tags within each place, represented by the convex hull, were gathered as words to form a \textit{document}, with each \textit{document} comprising the Flickr tags for a specific place. The input to the \acrshort{lda} model is a \textit{corpus} consisting of \textit{documents}. The \textit{corpus} is structured as a $word \times document$ matrix, with each row representing a vector $w = {w_{1}, w_{2}, ..., w_{v}}$ of length $v$. $v$ is the number of words in the \textit{vocabulary} (all distinct words in a corpus), and $w_{v}$ denotes the frequency of word $v$ in the document. It is important to note that Flickr tags were also separated based on two groups of people in different time spans, thus the corpus in every scene was unique.
 
 The \acrshort{lda} model generated a set of topics as its primary output, along with topic distribution and topic terms, facilitating the determination and interpretation of topics for each place. The topic distribution for each place consisted of a list of topics and the corresponding probabilities of the place belonging to each topic. The topic terms for each topic comprised a list of tags, accompanied by their probabilities of association with that topic. In this study, each place was assigned the most probable topic, and the interpretation of topics relied on the corresponding tags and probabilities. In practice, the \acrshort{lda} model was implemented using \acrfull{mallet}. \acrshort{mallet} is a Java-based console application, but the Python library gensim \citep{rehurek_software_2010} also provides a wrapper model called LdaMallet for the implementation of \acrshort{mallet}. And this study utilized the gensim.models.wrappers.LdaMallet function in gensim to apply the \acrshort{lda} model.
 
-The semantic quality of the generated topics is sensitive to the number of topics. If too many topics are generated, some topics might become similar to each other, making it difficult to interpret topics. The \acrshort{lda} model requires users to define the number of topics as input, thus it is crucial to determine appropriate topic numbers. The \textit{coherence value} was employed to measure the semantic quality of topics. This value was calculated based on the co-occurrence probability of words within a topic, specifically within the place clusters assigned to that topic. The \textit{coherence value} can be defined as:
+The semantic quality of the generated topics is sensitive to the number of topics. If too many topics are generated, some topics might become similar to each other, making it difficult to interpret topics. The \acrshort{lda} model requires users to determine the number of topics as input, thus it is crucial to choose appropriate topic numbers. The \textit{coherence value} was employed to measure the semantic quality of topics. This value was calculated based on the co-occurrence probability of words within a topic, specifically within the place clusters assigned to that topic. The \textit{coherence value} can be defined as:
 
 \begin{equation} \label{eq:coherence_value}
     coherence = \sum_{i}\sum_{j<1}\log\frac{D(w_{j},w_{i})+\beta}{D(w_{i})}
@@ -1310,7 +1313,7 @@ In addition to the places known for graffiti and street art in Topic 1, which ar
 \end{figure}
 
 % weekend tourist
-on weekends, tourists continue to visit places characterized by architecture, street art, rail and air transport, the Olympics, and bridges, similar to their choices on weekdays. Topic 0 (e.g., marathon, city, architecture) encompasses the largest number of tourist destinations, exceeding 250 places, while places associated with Topic 2 (e.g., lhr, airbus, aircraft) are comparatively less popular among tourists, with fewer than 50 places. Concerning the distribution of places across various topics, except for places linked to Topic 0 which are distributed throughout London with a concentration in the city center, Topic 1, Topic 3, and Topic 5 predominantly feature places located around the city center. Topic 2 exhibits a concentration at Heathrow Airport, while Topic 4 is scattered in the northern part of the River Thames.
+Tourists' descriptions of the city on weekends are generalized with six topics (Figure~\ref{fig:places_topics_sense_tourists_weekend}). Tourists continue to visit places characterized by architecture, street art, and transport at this time span, which is similar to their choices on weekdays. Over 250 places visited by tourists are described with Topic 0 (e.g., marathon, city, architecture). And similar to locals' descriptions on weekdays, tourists also tend to visit places featured with graffiti and street art, as indicated by the popularity of Topic 1 (Figure~\ref{fig:places_sense_weekend_tourists}, Figure~\ref{fig:topics_weekend_tourists}). Concerning the distribution of places across various topics, except for places linked to Topic 0 which are distributed throughout London with a concentration in the city center, Topic 1, Topic 3 (e.g., olympics, gbr, park), and Topic 5 (e.g., city, architecture, bridge) are predominantly located in the inner part of London Figure~\ref{fig:places_topics_sense_tourists_weekend}).
 
 \begin{figure}[!h]
     \centering
@@ -1375,7 +1378,6 @@ Time & Population group & No. of users & No. of trajectories \\
 
 % ====================== | City Perception through Semantic Trajectory | ======================
 \subsubsection{City Perception through Semantic Trajectory} \label{perception_through_traj}
-
 
 \subsubsubsection{Daytime}
 
