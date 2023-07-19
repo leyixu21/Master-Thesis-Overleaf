@@ -501,6 +501,7 @@ Time & Population group & No. of users & No. of photos & No. of tags \\
 \subsection{Overview}
 The workflow of this study is illustrated in Figure~\ref{fig:workflow}. To explore the city perception, Foursquare check-ins and Flickr tags were utilized, and the process of data preprocessing is elaborated in Section \ref{data_preprocessing}. This workflow is designed to address two research questions. The first research question was answered by employing the methods discussed in Section \ref{hotspots_detection}, which involved identifying hotspots of locals and tourists by applying \acrfull{kde} to their Foursquare check-ins. To investigate the popularity of specific areas among locals or tourists, the difference ratio between these two groups of people was calculated and visualized in rasters. For the second research question, the construction of semantic trajectories was necessary. Prior to the trajectory construction, the Place was modeled and enriched with semantic information based on its dimensions (Section \ref{place_modeling}). Subsequently, semantic trajectories were clustered, and typical semantic trajectories of each cluster were extracted through sequential pattern mining (Section \ref{typical_semantic_trajectory_mining}). This study was conducted with Python 3.10.12 \footnote{\url{https://www.python.org/downloads/release/python-31012/}}.
 
+Figure~\ref{fig:scene}
 
 \begin{figure}[h!]
 \centering
@@ -508,6 +509,12 @@ The workflow of this study is illustrated in Figure~\ref{fig:workflow}. To explo
 \caption{\label{fig:workflow}Workflow.}
 \end{figure}
 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/scene.png}
+\caption{\label{fig:scene}Scenes.}
+\end{figure}
 
 % ============================= || Hotspots Detection || =============================
 \subsection{Hotspots Detection}\label{hotspots_detection}
@@ -545,6 +552,9 @@ Similar to the identification of hotspots using \acrshort{kde}, the mixture degr
 
 % ====================== | Place Construction | ======================
 \subsubsection{Place Construction} \label{place_construction}
+
+Figure~\ref{fig:place_construction_methodology}
+
 In this study, the concept of place refers to a part of geographical space that holds meaningful attributes, while check-in is a specific instance that represents an individual's interaction with a place. Places were constructed by clustering check-ins using the \acrfull{hdbscan} \citep{campello_density-based_2013} algorithm. \acrshort{hdbscan} is a hierarchical extension of \acrshort{dbscan} that automatically determines the optimal number of clusters and can handle clusters of varying densities, which helps to reduce user input bias. It is important to note that check-ins of locals and tourists were differentiated across various time spans before constructing places, ensuring that each scene had its own distinct set of places.
 
 Prior to clustering, a distance matrix among check-ins was computed and the features used for distance calculation included the coordinates and categories of check-ins. The Gower distance \citep{gower_general_1971} was used to construct the distance matrix as it could measure the dissimilarity between items with mixed numeric and categorical attributes. The coordinates of check-ins were standardized. And the check-in categories were converted into numerical values using label encoding and treated as categorical data in the distance measure. The importance of features was also considered, with coordinates weighted at 80\% and categories weighted at 20\%.
@@ -555,12 +565,15 @@ To enrich the semantic information of places, three dimensions conceptualized by
 
 \begin{figure} [!h]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/place_construction_methodology.png}
+\includegraphics[width=0.8\textwidth]{figures/place_construction_methodology.png}
 \caption{\label{fig:place_construction_methodology}Place Construction.}
 \end{figure}
 
 % ====================== | Topic Modeling | ======================
 \subsubsection{Topic Modeling}
+
+Figure~\ref{fig:topic_modeling_methodology}
+
 This study applied \acrfull{lda}, a topic modeling technique, to generate topics describing places based on Flickr tags. \acrshort{lda} is a three-level hierarchical Bayesian model that discovers underlying topics from a large collection of words. In this study, after the preprocessing steps outlined in Section \ref{preprocess_flickr}, the Flickr tags within each place, represented by the convex hull, were gathered as words to form a \textit{document}, with each \textit{document} comprising the Flickr tags for a specific place. The input to the \acrshort{lda} model is a \textit{corpus} consisting of \textit{documents}. The \textit{corpus} is structured as a $word \times document$ matrix, with each row representing a vector $w = {w_{1}, w_{2}, ..., w_{v}}$ of length $v$. $v$ is the number of words in the \textit{vocabulary} (all distinct words in a corpus), and $w_{v}$ denotes the frequency of word $v$ in the document. It is important to note that Flickr tags were also separated based on two groups of people in different time spans, thus the corpus in every scene was unique.
 
 The \acrshort{lda} model generated a set of topics as its primary output, along with topic distribution and topic terms, facilitating the determination and interpretation of topics for each place. The topic distribution for each place consisted of a list of topics and the corresponding probabilities of the place belonging to each topic. The topic terms for each topic comprised a list of tags, accompanied by their probabilities of association with that topic. In this study, each place was assigned the most probable topic, and the interpretation of topics relied on the corresponding tags and probabilities. In practice, the \acrshort{lda} model was implemented using \acrfull{mallet}. \acrshort{mallet} is a Java-based console application, but the Python library gensim \citep{rehurek_software_2010} also provides a wrapper model called LdaMallet for the implementation of \acrshort{mallet}. And this study utilized the gensim.models.wrappers.LdaMallet function in gensim to apply the \acrshort{lda} model.
@@ -591,6 +604,11 @@ where $\sigma$ controls the smoothness of the weighting function. $d(i,j)$ is th
     W = \sum_{i}^{n}w_{i}
 \end{equation}
 
+\begin{figure} [!h]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/topic_modeling_methodology.png}
+\caption{\label{fig:topic_modeling_methodology}Tags filtering and topic modeling.}
+\end{figure}
 
 % ============================= || Typical Semantic Trajectory Mining || =============================
 \subsection{Typical Semantic Trajectory Mining} \label{typical_semantic_trajectory_mining}
