@@ -707,7 +707,7 @@ To investigate the popularity of different areas among locals and tourists at va
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/foursquare_checkins_count.png}
+\includegraphics[width=0.8\textwidth]{figures/foursquare_checkins_count.png}
 \caption{\label{fig:foursquare_checkins_count}Number of Foursquare check-ins of locals and tourists across time spans.}
 \end{figure}
 
@@ -728,8 +728,8 @@ To investigate the popularity of different areas among locals and tourists at va
 \end{figure}
 
 
-% ====================== | Hotspots of Locals and Tourists | ======================
-\subsubsection{Hotspots of Locals and Tourists} \label{hotspots}
+% ====================== | Hotspots Distribution | ======================
+\subsubsection{Hotspots Distribution} \label{hotspots}
 
 % ============== Daytime vs. Nighttime ==============
 \subsubsubsection{Daytime vs. Nighttime}
@@ -1175,6 +1175,8 @@ Five topics are generated for tourists in the \textit{Sense of Place} dimension 
     \label{fig:places_topics_sense_tourists_nighttime}
 \end{figure}
 
+\clearpage
+
 % ============== Weekday vs. Weekend ==============
 \subsubsubsection{Weekday vs. Weekend}
 
@@ -1229,11 +1231,10 @@ The distribution of the \textit{Locale} dimension throughout the week is display
 \end{figure}
 
 
-
 \textbf{Sense of Place}
 
 % weekday locals
-The distribution of \textit{Sense of Place} dimension of locals on weekdays is illustrated in Figure~\ref{fig:places_topics_sense_locals_weekday}. The places visited by locals can be categorized into five topics with three themes: urban life (Topic 0), entertainment (Topic 1), and cityscape (Topic 2, Topic 3, Topic 4). Topic 0 stands out with nearly 700 associated places, while the other four topics contain around 200 places each (Figure~\ref{fig:places_sense_weekday_locals}, Figure~\ref{fig:topics_weekday_locals}). The distribution of topics on weekends in Figure~\ref{fig:topics_distribution_weekday_locals} reveals that words like architecture and buildings (Topic 0) are frequently used to describe various areas in London, which also aligns with patterns observed in other time spans. In addition, central boroughs, such as Lambeth, Kensington and Chelsea, Westminster, Camden, and the City of London, can be described by words like live, gig, and southbank, as illustrated in Topic 1. In terms of topics related to the cityscape, the inner part of London can be characterized by graffiti, street art, river, and city (Topic 2, Topic 4), whereas Topic 3 (e.g., bus, people) contains more general words, which also covers outer London.
+The distribution of \textit{Sense of Place} dimension of locals on weekdays is illustrated in Figure~\ref{fig:places_topics_sense_locals_weekday}. The places visited by locals can be categorized into five topics with three themes: urban life (Topic 0), entertainment (Topic 1), and cityscapes (Topic 2, Topic 3, Topic 4). Topic 0 stands out with nearly 700 associated places, while the other four topics contain around 200 places each (Figure~\ref{fig:places_sense_weekday_locals}, Figure~\ref{fig:topics_weekday_locals}). The distribution of topics on weekends in Figure~\ref{fig:topics_distribution_weekday_locals} reveals that words like architecture and buildings (Topic 0) are frequently used to describe various areas in London, which also aligns with patterns observed in other time spans. In addition, central boroughs, such as Lambeth, Kensington and Chelsea, Westminster, Camden, and the City of London, can be described by words like live, gig, and southbank, as illustrated in Topic 1. In terms of topics related to the cityscape, the inner part of London can be characterized by graffiti, street art, river, and city (Topic 2, Topic 4), whereas Topic 3 (e.g., bus, people) contains more general words, which also covers outer London.
 
 \begin{figure}[!h]
     \centering
@@ -1263,7 +1264,7 @@ The distribution of \textit{Sense of Place} dimension of locals on weekdays is i
 \end{figure}
 
 % weekday tourist
-The weekday distribution of tourists' places in the \textit{Sense of Place} dimension is displayed in Figure~\ref{fig:places_topics_sense_tourists_weekday}. Tourists tend to visit places associated with the Olympics (Topic 0) and cityscape (Topic 5), with each topic comprising approximately 250 places. Tourists also like to visit places related to transport, art, and tourist attractions, as evidenced by the high occurrence of Topic 1 (e.g., museum, victoria, station, art) and Topic 3 (e.g., architecture, bridge, shard), both featuring over 150 associated places (Figure~\ref{fig:places_sense_weekday_tourists}, Figure~\ref{fig:topics_weekday_tourists}). The distribution of topics on weekdays in Figure~\ref{fig:topics_distribution_weekday_locals} suggests that the inner part of London attracts the most descriptions from tourists, including topics related to the Olympics, cityscape, transportation, and art. Furthermore, the area surrounding Heathrow Airport leaves a strong impression on tourists, as indicated by a concentration of places in Topic 4 (e.g., lhr, airbus, boeing) in that region.
+The weekday distribution of tourists' places in the \textit{Sense of Place} dimension is displayed in Figure~\ref{fig:places_topics_sense_tourists_weekday}. Tourists tend to visit places associated with the Olympics (Topic 0) and cityscapes (Topic 5), with each topic comprising approximately 250 places. Tourists also like to visit places related to transport, art, and tourist attractions, as evidenced by the high occurrence of Topic 1 (e.g., museum, victoria, station, art) and Topic 3 (e.g., architecture, bridge, shard), both featuring over 150 associated places (Figure~\ref{fig:places_sense_weekday_tourists}, Figure~\ref{fig:topics_weekday_tourists}). The distribution of topics on weekdays in Figure~\ref{fig:topics_distribution_weekday_locals} suggests that the inner part of London attracts the most descriptions from tourists, including topics related to the Olympics, cityscape, transportation, and art. Furthermore, the area surrounding Heathrow Airport leaves a strong impression on tourists, as indicated by a concentration of places in Topic 4 (e.g., lhr, airbus, boeing) in that region.
 
 \begin{figure}[!h]
     \centering
@@ -1353,10 +1354,12 @@ Tourists' descriptions of the city on weekends are generalized with six topics (
     \label{fig:places_topics_sense_tourists_weekend}
 \end{figure}
 
+\clearpage
 
 % ============================= || Spatiotemporal Patterns of Semantic Trajectory || =============================
 \subsection{Spatiotemporal Patterns of Semantic Trajectory} \label{patterns_traj}
-To gain insights into how locals and tourists perceive the city along their trajectories at different time spans, semantic trajectories were constructed for various scenes, such as locals during the daytime and tourists on weekdays. The number of trajectories for each scene is summarized in Table~\ref{tab:trajectories_summary}. While the number of locals is lower than that of tourists, both groups generate a similar number of trajectories. A total of 1,460 trajectories are generated by locals and tourists during the daytime, significantly more than the 121 trajectories during the nighttime. Similarly, the number of trajectories on weekdays (1,240) surpasses those on weekends (490). In order to delve into a more precise understanding of city perception through semantic trajectories, Section \ref{perception_through_traj} will analyze the trajectory distribution and the frequency of semantic dimensions across different time spans. Furthermore, Section \ref{comparison_perception} will conduct a comparative analysis of semantic trajectories, enabling exploration of the dynamic nature of city perception.
+To gain insights into the temporally dynamic city perceptions among locals and tourists along their trajectories, semantic trajectories were constructed for these two groups of people at different time spans, and the number of trajectories is summarized in Table~\ref{tab:trajectories_summary}. While the number of locals is smaller than that of tourists, both groups generate a similar number of trajectories. A total of 1,460 trajectories are generated by locals and tourists during the daytime, significantly more than the 121 trajectories during the nighttime. Similarly, the number of trajectories on weekdays (1,240) surpasses those on weekends (490). In order to delve into a more precise understanding of city perception through semantic trajectories, Section \ref{traj_distribution} will show the distribution of clustered trajectories as well as corresponding typical trajectories, and compare the visiting patterns of locals and tourists at different time spans. Furthermore, Section \ref{perception_through_traj} will combine the distribution of trajectories to analyze the frequency of semantic dimensions across different time spans, enabling the exploration of the dynamic nature of city perception.
+
 
 \begin{table}[h!]
 \centering
@@ -1386,14 +1389,14 @@ Time & Population group & No. of users & No. of trajectories \\
 \hline
 \end{tabular}
 \end{table}
+% ====================== | Trajectory Distribution | ======================
 
-% ====================== | City Perception through Semantic Trajectory | ======================
-\subsubsection{City Perception through Semantic Trajectory} \label{perception_through_traj}
+\subsubsection{Trajectory Distribution} \label{traj_distribution}
 
 \subsubsubsection{Daytime}
 
 % daytime locals
-Figure~\ref{fig:traj_distribution_daytime_locals} shows the five trajectory clusters of locals during the daytime, with their typical trajectories highlighted in dark red. The majority of locals tend to move within the city center, as evidenced by the high visitation frequency of Westminster, Camden, and the City of London in the \textit{Location} dimension, as shown in Figure~\ref{fig:traj_location_daytime_locals}. Some locals also visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Another noteworthy trajectory pattern is observed between central London and the outskirts boroughs, although the frequency of these outer boroughs is significantly lower compared to the inner ones. In terms of the \textit{Locale} dimension, trajectories in most clusters predominantly pass through places related to transportation, shopping, restaurants, and professional activities. Notably, entertainment places and green \& blue spaces are also frequently visited by trajectories in Cluster 0 and Cluster 4 (Figure~\ref{fig:traj_locale_daytime_locals}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_locals} provides insights into how locals describe the city along their trajectories during the daytime, and the word clouds of topics are displayed in Figure~\ref{fig:topics_daytime_locals}. Trajectories in Cluster 0 and Cluster 4 often encompass tags associated with transportation and nature, such as parks and rivers (Topic 1, and Topic 4), indicating that these clusters revolve around nature sightseeing. Cluster 0 and Cluster 1 suggest that locals tend to visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Cluster 1 and Cluster 2 have some typical trajectories that are air transport-oriented, as these trajectories associated with these clusters are primarily characterized by Topic 0 (e.g., lhr, airbus), with typical trajectories connecting central London and the vicinity of Heathrow Airport, particularly in Islington and Hounslow. Cluster 3 is characterized by trajectories primarily focused on work-related purposes, as they frequently visit professional places and restaurants. Moreover, the typical trajectories in this cluster predominantly link the city center with Merton and Wandsworth, which are residential districts.
+Figure~\ref{fig:traj_distribution_daytime_locals} shows the five trajectory clusters of locals during the daytime, with their typical trajectories highlighted in dark red. The majority of locals tend to move within the city center, especially in Westminster, Camden, and the City of London. Some locals also visit the south of Greenwich from the city center, particularly around the Coldharbour Leisure Center, which offers a range of sports facilities. Another noteworthy trajectory pattern is observed between central London and the outskirts boroughs, like Hillingdon, Merton, and Croydon. Looking into the typical trajectories, locals have a certain number of air transport-oriented trajectories in Cluster 1 and Cluster 2, as these trajectories mainly connect central London and the vicinity of Heathrow Airport, particularly in Islington and Hounslow. Moreover, these trajectories are primarily characterized by Topic 0 (e.g., lhr, airbus) (Figure~\ref{fig:topics_daytime_locals}). Typical trajectories in Cluster 3 are primarily focused on locals' work purposes, as they frequently visit professional places and restaurants. Furthermore, these trajectories in this cluster predominantly link the city center with Merton and Wandsworth, which are residential districts. For more detailed distributions of typical trajectories, please refer to Figure~\ref{fig:sequences_daytime_locals} in Appendix \ref{appendix}
 
 \begin{figure}[!h]
 \centering
@@ -1401,6 +1404,59 @@ Figure~\ref{fig:traj_distribution_daytime_locals} shows the five trajectory clus
 \caption{\label{fig:traj_distribution_daytime_locals}Distribution of locals' trajectories during the daytime (typical trajectories are represented by the dark red color).}
 \end{figure}
 
+% daytime tourists
+Trajectories of tourists during the nighttime are clustered into four groups based on their semantic dimensions. Compared with locals, tourists also exhibit a similar movement pattern within the city center during the daytime, but with fewer trajectories connecting the outer and inner parts of London, as illustrated in Figure~\ref{fig:traj_distribution_daytime_tourists}. The typical trajectories are represented in dark red. Cluster 0 and Cluster 1 are transportation-related as their typical trajectories primarily link the transportation hubs in central London, such as Stratford Station, King's Cross, and Waterloo Station. Cluster 1 also has typical trajectories connecting the city center and outer boroughs like Croydon and Merton. Cluster 2 is associated with shopping as its typical trajectories extend along Oxford Street, a renowned shopping street in London. Trajectories in Cluster 3 feature a substantial number of art places and entertainment places, and the typical trajectories passing through various tourist attractions and museums in Westminster, such as Trafalgar Square, Big Ben, and Victoria and Albert Museum (Figure~\ref{fig:sequences_daytime_tourists} in Appendix \ref{appendix}). Thus, this cluster represents the sightseeing routes for tourists.
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_daytime_tourists.png}
+\caption{\label{fig:traj_distribution_daytime_tourists}Distribution of tourists' trajectories during the daytime (typical trajectories are represented by the dark red color).}
+\end{figure}
+
+
+
+\subsubsubsection{Nighttime}
+
+% nighttime locals
+When it comes to nighttime, locals are less active compared to daytime, generating fewer trajectories. These trajectories are clustered into three groups (Figure~\ref{fig:traj_distribution_nighttime_locals}). Locals have lower activity density in the city center during this period but display stronger connections with outskirts boroughs where large residential districts are located, such as Merton, and Croydon. Similar to the daytime, locals also have their trajectories mainly connecting transportation hubs at night. This is evidenced by the typical trajectories in cluster 0 that link between Ealing Broadway Station in Ealing and King's Cross in Islington. It is important to highlight that the typical trajectories of all three clusters pass through the southern part of Greenwich during the nighttime. This area is home to the Coldharbour Leisure Center and Mottingham Sports Ground/Foxes Fields, which offer numerous sports facilities (Figure~\ref{fig:sequences_nighttime_locals}). It can be concluded that locals during the nighttime are not concentrated in the city center, instead, they tend to commute back to the outskirts boroughs for rest or visit Greenwich for fitness exercises.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_nighttime_locals.png}
+\caption{\label{fig:traj_distribution_nighttime_locals}Distribution of locals' trajectories during the nighttime (typical trajectories are represented by the dark red color).}
+\end{figure}
+
+
+% nighttime tourists
+The trajectories of tourists are divided into two distinct clusters (Figure~\ref{fig:traj_distribution_nighttime_tourists}). There are significantly more tourists than locals during the nighttime. However, both groups generate a comparable number of trajectories. This is because many tourists' trajectories are disregarded as they fall short of the minimum length threshold of five. Contrary to locals, tourists during the nighttime tend to concentrate their movement within the city center, with fewer trajectories visiting outskirts boroughs. The typical trajectories of tourists at night exhibit distinct patterns compared to those of locals. These trajectories primarily connect shopping and entertainment places in the inner part of London. Specifically, they encompass places such as the Stratford Shopping Center in Newham, Shoreditch in Hackney, and renowned squares and streets in Westminster, including Piccadilly Circus, Leicester Square, and Oxford Street (Figure~\ref{fig:sequences_nighttime_tourists}). In summary, tourists display lower nighttime activity levels with fewer trajectories but maintain a consistent interest in vibrant areas for shopping and entertainment throughout the day.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_nighttime_tourists.png}
+\caption{\label{fig:traj_distribution_nighttime_tourists}Distribution of tourists' trajectories during the nighttime (typical trajectories are represented by the dark red color).}
+\end{figure}
+
+
+\subsubsubsection{Weekday}
+
+% weekday locals
+Trajectories of locals on weekdays are divided into five clusters and these clusters cover both the inner and outer parts of London (Figure~\ref{fig:traj_distribution_weekday_locals}). Some clusters have trajectories that connect the city center with various boroughs in the outskirts, while others show trajectories gravitating towards specific boroughs. For instance, Cluster 0, Cluster 3, and Cluster 4 have connections between the city center and many different boroughs like Enfield, Barnet, Croydon, and Merton. While Cluster 1 tends to primarily move between Hillingdon, Kingston upon Thames, and the inner London. And Cluster 2 shows an obvious visiting tendency to Greenwich and Merton. In terms of the typical trajectories, Cluster 0 and Cluster 4 might have their typical trajectories generated by local commuters as they connect outer boroughs with the main transportation hubs in the city center, which are similar to some movement patterns observed among locals during the daytime. Cluster 1 exhibits typical trajectories concentrated around Heathrow Airport and the nearby borough of Hounslow, reflecting a perception of airport-related areas. Cluster 2 displays typical trajectories covering the southern region of Greenwich, indicating its suitability for sports activities due to the presence of numerous sports facilities (Figure~\ref{fig:sequences_weekday_locals}).
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1\textwidth]{figures/traj_distribution_weekday_locals.png}
+\caption{\label{fig:traj_distribution_weekday_locals}Distribution of locals' trajectories on weekdays (typical trajectories are represented by the dark red color).}
+\end{figure}
+
+% ====================== | City Perception through Semantic Trajectory | ======================
+
+\subsubsection{City Perception through Semantic Trajectory} \label{perception_through_traj}
+
+\subsubsubsection{Daytime}
+
+% daytime locals
+Figure~\ref{fig:traj_dimension_daytime_locas} shows the frequency of locals' trajectories in three dimensions during the daytime. The popular boroughs in \textit{Location} dimension align with the visiting patterns of typical trajectories shown in Figure~\ref{fig:traj_distribution_daytime_locals}. Inner boroughs like Westminster, Camden, the City of London, and Lambeth are significantly more popular among locals than other boroughs. But some outer boroughs like Hillingdon, Hounslow, and Greenwich are also frequently visited by locals (Figure~\ref{fig:traj_location_daytime_locals}). In terms of the \textit{Locale} dimension, trajectories in most clusters predominantly pass through places related to transportation, shopping, restaurants, and professional activities. Notably, entertainment places and green \& blue spaces are also frequently visited by trajectories in Cluster 0 and Cluster 4 (Figure~\ref{fig:traj_locale_daytime_locals}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_locals} provides insights into how locals describe the city along their trajectories during the daytime. The word clouds of topics are displayed in Figure~\ref{fig:topics_daytime_locals}. Cluster 1 is characterized by air transport and nature, as indicated by the high frequency of Topic 0 (e.g., lhr, airbus, boeing) and Topic 1 (park, museum, spring, garden). This also validates the frequent visits of typical trajectories in Cluster 0 around Heathrow Airport and the green space in Hillingdon. Cluster 4 has a large number of trajectories for outdoor leisures, with more visits to green \& blue spaces than other clusters in the \textit{Locale} dimension. These trajectories are described by words associated with nature, cityscape, and transport, evidenced by the high frequency in Topic 1, Topic 3 (e.g., city, graffiti, street), and Topic 4 (e.g., bus, railway, station).
 
 \begin{figure}[!h]
 
@@ -1430,14 +1486,7 @@ Figure~\ref{fig:traj_distribution_daytime_locals} shows the five trajectory clus
 
 
 % daytime tourists
-Trajectories of tourists during the nighttime are clustered into four groups based on their semantic dimensions, and compared with locals, tourists also exhibit a similar movement pattern within the city center during the daytime, with additional trajectories that connect the outer and inner parts of London, as illustrated in Figure~\ref{fig:traj_distribution_daytime_tourists}. Figure~\ref{fig:traj_dimension_daytime_tourists} shows the frequency of dimensions in the semantic trajectories of tourists during the daytime. In terms of the \textit{Location} dimension, inner boroughs are popular among tourists, such as Westminster and Camden, and Kensington and Chelsea. In the \textit{Locale} dimension, in addition to the categories that attract both locals and tourists, such as transportation, professional places, restaurants, and shopping places, tourists also demonstrate an interest in art places and entertainment places, particularly those generating trajectories in Cluster 3. As for the \textit{Sense of Place} dimension, both locals and tourists use similar words to describe the places they visit, with a focus on transportation and cityscapes, such as bus and street. Tourists also frequently mention places associated with the Olympics (word clouds of topics are displayed in Figure~\ref{fig:topics_daytime_tourists}). The typical trajectories of each cluster are represented in dark red in Figure~\ref{fig:traj_distribution_daytime_tourists}, for more detailed distributions, please refer to Figure~\ref{fig:sequences_daytime_tourists} in Appendix \ref{appendix}. Cluster 0 and Cluster 1 are transportation-related as their typical trajectories primarily link the transportation hubs in central London, such as Stratford Station, King's Cross, and Waterloo Station. Cluster 1 also exhibits typical trajectories connecting the city center and outer boroughs like Croydon and Merton. Cluster 2 is associated with shopping as it demonstrates a high frequency of shopping places in the \textit{Locale} dimension, and its typical trajectories extend along Oxford Street, a renowned shopping street in London. Trajectories in Cluster 3 feature a substantial number of art places and entertainment places, and the typical trajectories passing through various tourist attractions and museums in Westminster, such as Trafalgar Square, Big Ben, and Victoria and Albert Museum. Thus, this cluster can be interpreted as representing the sightseeing routes for tourists.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=1\textwidth]{figures/traj_distribution_daytime_tourists.png}
-\caption{\label{fig:traj_distribution_daytime_tourists}Distribution of tourists' trajectories during the daytime (typical trajectories are represented by the dark red color).}
-\end{figure}
-
+Figure~\ref{fig:traj_dimension_daytime_tourists} shows the frequency of dimensions in the semantic trajectories of tourists during the daytime. In the \textit{Location} dimension, inner boroughs are popular among tourists, such as Westminster and Camden, and Kensington and Chelsea (Figure~\ref{fig:traj_location_daytime_tourists}). In the \textit{Locale} dimension, tourists show interest in art places and entertainment places, in addition to transportation, professional places, restaurants, and shopping places that attract both locals and tourists. This is particularly true for typical trajectories in Cluster 3 that move between museums and tourist attractions in Westminster (Figure~\ref{fig:traj_locale_daytime_tourists}). It is noteworthy that Cluster 2 has a large number of trajectories visiting shopping places, which also validates the shopping theme of typical trajectories around Oxford Street (Figure~\ref{fig:traj_distribution_daytime_tourists}). The \textit{Sense of Place} dimension in Figure~\ref{fig:traj_sense_daytime_tourists} and the word clouds of topics in Figure~\ref{fig:topics_daytime_tourists} demonstrate how tourists tend to describe the city during daytime hours. Compared with locals, tourists use similar words to describe the places they visit, with a focus on transportation and cityscapes, which is indicated by the high frequency of Topic 4 (e.g., street, bus, city) and Topic 3 (e.g., marathon, city, architecture). The Olympics is another popular topic discussed by tourists along their trajectories during the daytime, which is evidenced by a relatively high frequency of Topic 0 (e.g., olympics, Paralympics, stadium).
 
 \begin{figure}[!h]
 
@@ -1465,17 +1514,12 @@ Trajectories of tourists during the nighttime are clustered into four groups bas
 \label{fig:traj_dimension_daytime_tourists}
 \end{figure}
 
+
+
 \subsubsubsection{Nighttime}
 
 % nighttime locals
-When it comes to nighttime, locals generate a smaller number of trajectories, which are clustered into three groups. Locals have lower activity density in the city center during this period, but they display stronger connections with outskirts boroughs that have large residential districts, such as Merton, and Croydon (Figure~\ref{fig:traj_distribution_nighttime_locals}). In terms of the distribution of semantic dimensions in their trajectories, apart from Westminster, which remains one of the most popular boroughs, Greenwich is also frequently visited by trajectories from all three clusters in the \textit{Location} dimension (Figure~\ref{fig:traj_location_nighttime_locals}). transportation places, shopping places, restaurants, and professional places continue to be the most frequently visited places throughout the day in the \textit{Locale} dimension. Notably, locals also tend to visit green \& blue spaces during the nighttime (Figure~\ref{fig:traj_locale_nighttime_locals}). In the \textit{Sense of Place} dimension, the descriptions provided by locals regarding the city shift from nature and transportation related aspects to leisure and sports activities during the nighttime. This shift is reflected in the higher frequency of Topic 0 (e.g., paralympics, cycling, crowd), Topic 3 (e.g., city, architecture, southbank), and Topic 4 (e.g., music, bbc, concert, gig) (Figure~\ref{fig:traj_sense_nighttime_locals}, Figure~\ref{fig:topics_nighttime_locals}). Similar to the daytime, locals also have their typical trajectories connecting transportation hubs. This is evidenced by the link between Ealing Broadway Station in Ealing and King's Cross in Islington in cluster 0. It is important to highlight that the typical trajectories of all three clusters pass through the southern part of Greenwich during the nighttime. This area is home to the Coldharbour Leisure Center and Mottingham Sports Ground/Foxes Fields, which offer numerous sports facilities (Figure~\ref{fig:sequences_nighttime_locals}). It can be concluded that locals during the nighttime are not concentrated in the city center, instead, they tend to visit Greenwich for fitness exercises. Moreover, locals' perceptions of the city are more focused on nighttime leisure activities, such as gig and live music.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=1\textwidth]{figures/traj_distribution_nighttime_locals.png}
-\caption{\label{fig:traj_distribution_nighttime_locals}Distribution of locals' trajectories during the nighttime (typical trajectories are represented by the dark red color).}
-\end{figure}
-
+When it comes to the nighttime, locals have a different distribution of semantic dimensions in their trajectories compared to the daytime (Figure~\ref{fig:traj_dimension_nighttime_locas}). In the \textit{Location} dimension, Westminster remains the most popular borough. Notably, Greenwich emerges to be a frequently visited borough for tourists, with a high frequency in trajectories from all three clusters (Figure~\ref{fig:traj_location_nighttime_locals}). This finding aligns with the popular region among typical trajectories around Greenwich in Figure~\ref{fig:traj_distribution_nighttime_locals}. In terms of the \textit{Locale} dimension, transportation places, shopping places, restaurants, and professional places continue to be the most frequently visited places throughout the day. An increased interest in green \& blue spaces among locals at night is observed, which is evidenced by a noticeably large visit to this category, particularly in Cluster 0 (Figure~\ref{fig:traj_locale_nighttime_locals}). In the \textit{Sense of Place} dimension, the descriptions of locals regarding the city shift from nature and transportation-related aspects to leisure and sports activities during the nighttime. This shift is reflected in the popularity of Topic 0 (e.g., paralympics, cycling, crowd), Topic 3 (e.g., city, architecture, southbank), and Topic 4 (e.g., music, bbc, concert, gig) (Figure~\ref{fig:traj_sense_nighttime_locals}, Figure~\ref{fig:topics_nighttime_locals}). The nightlife activities drive locals to visit different regions and place categories, which in turn change their perceptions of the city.
 
 \begin{figure}[!h]
 
@@ -1505,14 +1549,7 @@ When it comes to nighttime, locals generate a smaller number of trajectories, wh
 
 
 % nighttime tourists
-Trajectories of tourists during the nighttime are clustered into two groups. In comparison to locals, tourists during the nighttime tend to concentrate their movement within the city center, with fewer trajectories visiting outskirts boroughs (Figure~\ref{fig:traj_distribution_nighttime_tourists}). In addition to Westminster and Camden, tourists also exhibit interest in Tower Hamlets and Hackney in the \textit{Location} dimension (Figure~\ref{fig:traj_location_nighttime_tourists}). While both locals and tourists frequently visit transportation places, shopping places, restaurants, and professional places during the nighttime, tourists display a higher inclination towards art places and entertainment places rather than green \& blue spaces (Figure~\ref{fig:traj_locale_nighttime_tourists}). Regarding the \textit{Sense of Place} dimension, tourists tend to use more general words to describe London during the nighttime, such as city, street, and night. Additionally, words associated with art and transportation, such as museum, station, and railway, are also frequently mentioned. This is reflected in the high frequency of Topic 0 and Topic 4 (Figure~\ref{fig:traj_sense_nighttime_tourists}, Figure~\ref{fig:topics_nighttime_tourists}). The typical trajectories of tourists during the nighttime exhibit distinct patterns compared to those of locals. These trajectories primarily connect shopping and entertainment places in the inner part of London. Specifically, they encompass places such as the Stratford Shopping Center in Newham, Shoreditch in Hackney, and renowned squares and streets in Westminster, including Piccadilly Circus, Leicester Square, and Oxford Street (Figure~\ref{fig:sequences_nighttime_tourists}). In summary, tourists display lower nighttime activity levels with fewer trajectories but maintain a consistent interest in vibrant areas for shopping and entertainment throughout the day.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=1\textwidth]{figures/traj_distribution_nighttime_tourists.png}
-\caption{\label{fig:traj_distribution_nighttime_tourists}Distribution of tourists' trajectories during the nighttime (typical trajectories are represented by the dark red color).}
-\end{figure}
-
+In terms of the distribution of tourists' semantic dimensions during the nighttime, it is illustrated in Figure~\ref{fig:traj_dimension_nighttime_tourists}. In the \textit{Location} dimension, in addition to Westminster and Camden, tourists also exhibit interest in other inner boroughs like Tower Hamlets and Hackney (Figure~\ref{fig:traj_location_nighttime_tourists}). In the \textit{Locale} dimension, while both locals and tourists frequently visit transportation places, shopping places, restaurants, and professional places during the nighttime, tourists display a higher inclination towards art places and entertainment places rather than green \& blue spaces like locals do (Figure~\ref{fig:traj_locale_nighttime_tourists}). Regarding the \textit{Sense of Place} dimension, tourists tend to use more general words to describe London during the nighttime, such as city, street, and night. Additionally, words associated with art and transportation, such as museum, station, and railway, are also frequently mentioned. This is reflected in the high frequency of Topic 0 and Topic 4 (Figure~\ref{fig:traj_sense_nighttime_tourists}, Figure~\ref{fig:topics_nighttime_tourists}). Nightlife activities such as concerts, live performances, gigs, and football games (Topic 1) are also mentioned by tourists, but they tend to attract less attention from them compared to locals.
 
 \begin{figure}[!h]
 
@@ -1544,14 +1581,7 @@ Trajectories of tourists during the nighttime are clustered into two groups. In 
 \subsubsubsection{Weekday}
 
 % weekday locals
-Trajectories of locals on weekdays are divided into five clusters and these clusters cover both the inner and outer parts of London  (Figure~\ref{fig:traj_distribution_weekday_locals}). The frequency of trajectories in the \textit{Location} dimension is illustrated in Figure~\ref{fig:traj_location_weekday_locals}. Cluster 0, Cluster 3, and Cluster 4 have trajectories more concentrated in the city center, encompassing boroughs such as Westminster, Camden, and the City of London. Cluster 1 gravitates towards Southwest London, particularly Hillingdon and Hounslow. Cluster 2 is concentrated in Southeast London, with Greenwich being visited at a high frequency. Regarding the \textit{Locale} dimension, transportation places remain the most frequently visited by locals on weekdays, accompanied by shopping places, restaurants, and professional places across all clusters (Figure~\ref{fig:traj_locale_weekday_locals}). In terms of the \textit{Sense of Place} dimension, locals tend to use general words to describe the city. Topic 1 is assigned to a large number of trajectories in all five clusters, and it is about the cityscape like architecture, buildings, and railways. Notably, Cluster 1 contains trajectories with a higher occurrence of Topic 2 (e.g., lhr, airbus), which aligns with its distribution around Heathrow Airport. Furthermore, Cluster 3 has a high frequency in Topic 1 (e.g., live, gig, southbank) and visits more entertainment places compared to other clusters, suggesting a more leisure-oriented focus (Figure~\ref{fig:traj_sense_weekday_locals}, Figure~\ref{fig:topics_weekday_locals}). The typical trajectories of Cluster 0 and Cluster 4 are likely generated by local commuters as they connect outer boroughs with the main transportation hubs in the city center, which are similar to some movement patterns observed among locals during the daytime. Cluster 1 exhibits typical trajectories concentrated around Heathrow Airport and the nearby borough of Hounslow, reflecting a perception of airport-related areas. Cluster 2 displays typical trajectories covering the southern region of Greenwich, indicating its suitability for sports activities due to the presence of numerous sports facilities (Figure~\ref{fig:sequences_weekday_locals}).
-
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=1\textwidth]{figures/traj_distribution_weekday_locals.png}
-\caption{\label{fig:traj_distribution_weekday_locals}Distribution of locals' trajectories on weekdays (typical trajectories are represented by the dark red color).}
-\end{figure}
+The semantic dimensions of locals on weekdays in Figure~\ref{fig:traj_dimension_weekday_locas} helps to reveal locals' perceptions of the city at this time span. In the \textit{Location} dimension, Cluster 0, Cluster 3, and Cluster 4 have trajectories more concentrated in the city center, encompassing boroughs such as Westminster, Camden, and the City of London. Cluster 1 gravitates towards Southwest London, particularly Hillingdon and Hounslow. Cluster 2 is concentrated in Southeast London, with Greenwich being visited at a high frequency (Figure~\ref{fig:traj_location_weekday_locals}). Regarding the \textit{Locale} dimension, transportation places remain the most frequently visited by locals on weekdays, accompanied by shopping places, restaurants, and professional places across all clusters (Figure~\ref{fig:traj_locale_weekday_locals}). In terms of the \textit{Sense of Place} dimension, locals tend to use general words to describe the city. Topic 1 is assigned to a large number of trajectories in all five clusters, and it is about the cityscapes like architecture, buildings, and railways. Notably, Cluster 1 contains trajectories with a higher occurrence of Topic 2 (e.g., lhr, airbus), which aligns with its distribution around Heathrow Airport. Furthermore, Cluster 3 has a high frequency in Topic 1 (e.g., live, gig, southbank) and visits more entertainment places compared to other clusters, suggesting a more leisure-oriented focus (Figure~\ref{fig:traj_sense_weekday_locals}, Figure~\ref{fig:topics_weekday_locals}).
 
 
 \begin{figure}[!h]
@@ -1582,7 +1612,7 @@ Trajectories of locals on weekdays are divided into five clusters and these clus
 
 
 % weekday tourists
-On weekdays, tourists also explore the outer part of London, but unlike locals who tend to gravitate towards particular boroughs, tourists mainly concentrate their movements in central London. Their trajectories are divided into four clusters (Figure~\ref{fig:traj_distribution_weekday_tourists}). The distribution of the \textit{Location} dimension in Figure~\ref{traj_location_weekday_tourists} confirms this finding. Westminster is the most frequently visited borough, followed by Camden and Kensington and Chelsea, all of which are in the city center. In contrast to locals who often visit outskirts boroughs, tourists rarely visit these areas. Tourists also exhibit different preferences in place categories, as revealed by the \textit{Locale} dimension in Figure~\ref{traj_locale_weekday_tourists}. While transportation remains popular in general, trajectories in certain clusters are not primarily comprised of this category but are also characterized by other categories like professional places, shopping places, and restaurants, particularly in Cluster 0 and Cluster 2. In terms of the \textit{Sense of Place} dimension, tourists, similar to locals, also tend to use general words to describe the city, such as street, architecture, and city. However, tourists display a greater interest in art and the Olympics, as indicated by the frequent mention of words like museum, art, and olympics (Figure~\ref{fig:traj_sense_weekday_tourists}, Figure~\ref{fig:topics_weekday_tourists}). Typical trajectories of tourists on weekdays have many similarities to those observed during other time periods. Sightseeing and shopping remain the primary activities within the city center throughout the day, with tourists visiting various attractions, museums, and shopping streets. This pattern persists on weekdays, with tourists also visiting similar places around Stratford Shopping Center, Shoreditch, and Leicester Square (Figure~\ref{fig:sequences_weekday_tourists}).
+On weekdays, tourists also explore the outer part of London, but unlike locals who tend to gravitate towards particular boroughs, tourists mainly concentrate their movements in central London. Their trajectories are divided into four clusters (Figure~\ref{fig:traj_distribution_weekday_tourists}). The distribution of the \textit{Location} dimension in Figure~\ref{fig:traj_location_weekday_tourists} confirms this finding. Westminster is the most frequently visited borough, followed by Camden and Kensington and Chelsea, all of which are in the city center. In contrast to locals who often visit outskirts boroughs, tourists rarely visit these areas. Tourists also exhibit different preferences in place categories, as revealed by the \textit{Locale} dimension in Figure~\ref{fig:traj_locale_weekday_tourists}. While transportation remains popular in general, trajectories in certain clusters are not primarily comprised of this category but are also characterized by other categories like professional places, shopping places, and restaurants, particularly in Cluster 0 and Cluster 2. In terms of the \textit{Sense of Place} dimension, tourists, similar to locals, also tend to use general words to describe the city, such as street, architecture, and city. However, tourists display a greater interest in art and the Olympics, as indicated by the frequent mention of words like museum, art, and olympics (Figure~\ref{fig:traj_sense_weekday_tourists}, Figure~\ref{fig:topics_weekday_tourists}). Typical trajectories of tourists on weekdays have many similarities to those observed during other time periods. Sightseeing and shopping remain the primary activities within the city center throughout the day, with tourists visiting various attractions, museums, and shopping streets. This pattern persists on weekdays, with tourists also visiting similar places around Stratford Shopping Center, Shoreditch, and Leicester Square (Figure~\ref{fig:sequences_weekday_tourists}).
 
 \begin{figure}[!h]
 \centering
