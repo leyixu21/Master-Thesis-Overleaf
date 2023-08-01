@@ -100,7 +100,7 @@ Social media data has become an increasingly popular source for discovering the 
 
 The city perception is not static, it varies both spatially and temporally, which can even differ among different population groups. To reflect the dynamic nature of city perception, one can investigate people's movements. Spatially and temporally referenced social media data can enhance the study on human mobility \citep{beiro_predicting_2016}, particularly in constructing trajectories that provide semantic information about people's visiting purposes and impressions of the city. This extracted city perception is more akin to a city image that reflects the distinctiveness of the city, making it more attractive to people and resources. In an urban context, this perception can supplement public surveys to understand citizens’ needs and preferences. The abundance of social media data makes it possible to divide users into different population groups, and their city perceptions help to create a more livable city for people of diverse ages and socio-economic backgrounds. Thus, social media data offers a powerful tool for improving the quality of life for urban residents.
 
-\subsection{Research Questions}
+\subsection{Research Questions} \label{rq}
 The city perception is typically collected through surveys involving a large number of participants, which can be labor-intensive and time-consuming. With the emergence of social media data, many studies have turned to \acrshort{ugc} to gain insight into how users perceive a city \citep{cranshaw_livehoods_2021,huang_user_2022}. However, while most studies put focus on specific regions of the city, little research has been conducted on city perception based on trajectories. Identifying meaningful places is a prerequisite for constructing trajectories. A place should not be merely a random point, but rather a space where people interact, with attributes based on human consensus. For instance, an area with grass and trees may not necessarily be considered a place, but if it attracts people and offers functionality for leisure purposes, it becomes a place. Using social media data, places can be identified based on users’ frequently visited locations. The Foursquare check-ins are often used to identify popular landmarks in a city \citep{ferreira_beyond_2015,ferreira_uncovering_2020,santos_uncovering_2018}. Foursquare venue names and categories enrich check-ins with attributes, making them more like places. In addition to these objective attributes, subjective attributes are also worth exploring. Flickr allows users to add tags to their photos, which can be a valuable source of data to enrich place attributes.
 
 The trajectory is the chronological representation of people’s movements. Efforts have been made to extract movement patterns from trajectories to reveal the underlying visiting preferences \citep{vu_discovering_2019}. However, the trajectory should not be limited to geometric movements, the semantic information underlying trajectories is also valuable for exploration. When the semantic information of a trajectory is combined with its spatial and temporal data, it is referred to as a semantic trajectory \citep{yan_semantic_2011}. To understand visitor behaviors, most studies on semantic trajectories annotate the trajectories with attributes such as time, weekday, weather, etc. \citep{cai_mining_2018,petry_towards_2019}. However, in existing studies, the enrichment of semantic information for trajectories through place attributes has not been adequately considered. Semantic trajectories can vary across different groups of people, with locals and tourists organizing their trips differently based on local knowledge and online travel reviews. Moreover, different time spans can also result in different semantic trajectories, as people tend to have different visiting behaviors on weekdays and weekends. While existing studies have primarily focused on the visiting behaviors of locals and tourists \citep{domenech_using_2020,straumann_towards_2014}, the city perception of locals and tourists in different scenes, like different time spans, is still under investigation.
@@ -969,7 +969,7 @@ Time & Population group & No. of users & No. of places \\
 
 
 \subsubsubsection{Weekday vs. Weekend}
-Figure~\ref{fig:places_distribution_week} showcases the distribution of places on weekdays and weekends. On weekdays, both locals and tourists visit a significant number of places in the city center, but locals tend to visit more places in suburban areas compared to tourists. Specifically, locals visit 1,469 places, whereas tourists visit 1,055 places. On weekends, the distributions of places for locals and tourists become sparser compared to weekdays, but the concentration in the city center remains evident. Similar to weekdays, locals continue to visit more places on the outskirts of London than tourists. Overall, both locals and tourists tend to concentrate in the city center but also exhibit distinct distribution patterns of places across time spans.
+Figure~\ref{fig:places_distribution_week} shows the distribution of places on weekdays and weekends. On weekdays, both locals and tourists visit a significant number of places in the city center, but locals tend to visit more places in suburban areas compared to tourists. Specifically, locals visit 1,469 places, whereas tourists visit 1,055 places. On weekends, the distributions of places for locals and tourists become sparser compared to weekdays, but the concentration in the city center remains evident. Similar to weekdays, locals continue to visit more places on the outskirts of London than tourists. Overall, both locals and tourists tend to concentrate in the city center but also exhibit distinct distribution patterns of places across time spans.
 
 
 \begin{figure}[!h]
@@ -1325,7 +1325,7 @@ In addition to the places known for graffiti and street art in Topic 1, which ar
 \end{figure}
 
 % weekend tourist
-Tourists' descriptions of the city on weekends are generalized with six topics (Figure~\ref{fig:places_topics_sense_tourists_weekend}). Tourists continue to visit places characterized by architecture, street art, and transport at this time span, which is similar to their choices on weekdays. Over 250 places visited by tourists are described with Topic 0 (e.g., marathon, city, architecture). And similar to locals' descriptions on weekdays, tourists also tend to visit places featured with graffiti and street art, as indicated by the popularity of Topic 1 (Figure~\ref{fig:places_sense_weekend_tourists}, Figure~\ref{fig:topics_weekend_tourists}). Concerning the distribution of places across various topics, except for places linked to Topic 0 which are distributed throughout London with a concentration in the city center, Topic 1, Topic 3 (e.g., olympics, gbr, park), and Topic 5 (e.g., city, architecture, bridge) are predominantly located in the inner part of London Figure~\ref{fig:places_topics_sense_tourists_weekend}).
+Tourists' descriptions of the city on weekends are generalized with six topics (Figure~\ref{fig:places_topics_sense_tourists_weekend}). Tourists continue to visit places characterized by architecture, street art, and transport at this time span, which is similar to their choices on weekdays. Over 250 places visited by tourists are described with Topic 0 (e.g., marathon, city, architecture). And similar to locals' descriptions on weekdays, tourists also tend to visit places featured with graffiti and street art, as indicated by the popularity of Topic 1 (Figure~\ref{fig:places_sense_weekend_tourists}, Figure~\ref{fig:topics_weekend_tourists}). Concerning the distribution of places across various topics, except for places linked to Topic 0 which are distributed throughout London with a concentration in the city center, Topic 1, Topic 3 (e.g., olympics, gbr, park), and Topic 5 (e.g., city, architecture, bridge) are predominantly located in the inner part of London (Figure~\ref{fig:places_topics_sense_tourists_weekend}).
 
 \begin{figure}[!h]
     \centering
@@ -1703,7 +1703,7 @@ Figure~\ref{fig:traj_dimension_weekend_locals} gives insight into how locals per
 \end{subfigure}
 
 \caption{Trajectory dimensions of locals on weekends.}
-\label{fig:traj_dimension_weekend_locas}
+\label{fig:traj_dimension_weekend_locals}
 \end{figure}
 
 % weekend tourists
@@ -1741,36 +1741,104 @@ The semantic dimensions of tourists' trajectories on weekends are displayed in F
 
 
 \section{Discussion}
-\underline{introduce this chapter}
-1. the data quality, the preprocessing steps
-2. whether the methods applied are successful
-3. further discuss the results
-4. use some literature to support the difficulties in the interpretation of topic modeling results
+\underline{modify this introduction when finishing this section}
+This section discusses the findings of the research questions introduced in Section \ref{rq}. Specifically, Section \label{discussion_rq1} and Section \label{discussion_rq2} interpret how the results answer RQ 1 and RQ 2 respectively. In addition, the general limitations of data and methods are discussed in Section \ref{limitations}.
 
-\subsection{RQ1: Which areas are more popular among locals and tourists at different time spans?}
-the selection of min and max value of difference ratio in the plot (-0.3 - 0.3), also the selection of the difference ratio value that determines whether the raster is popular or not
 
-\subsection{RQ2: How do locals and tourists perceive the city along their semantic trajectories at different time spans?}
 
-\subsection{Limitations}
-limitation: foursquare is not for everyone, most users are young people
+the selection of min and max value of difference ratio in the plot (-0.3 - 0.3): to better compare the relative concentration of locals and tourists, the difference ratios overtime are displayed within the same range (add this sentence to methodology)
 
-silhouette scores in trajectory clustering are bad, most of them were negative values
-intra-cluster distance
+\subsection{RQ1: Which areas are more popular among locals and tourists at different time spans?} \label{discussion_rq1}
 
-three dimensions do not completely correspond to each other. locale dimension has low frequency in green \& blue spaces and sports places, but there are topics related to park, garden, olympics, football, cycling, and sport in the sense of place dimension
+% First, restate your thesis question and hypothesis that were stated in the introduction.
+% Then, use your findings to support the answer to your thesis question.
+There should be some particular areas that attract people to visit in the context of tourism, and it is worthwhile to detect such areas. However, these areas might not be spatially and temporally consistent due to the dynamic functionalities they serve for different population groups at different time spans. The first research question in this study aims to unfold and compare the dynamic popular areas among locals and tourists over time. Based on common sense (use the litareture to support the hypothesis rather than common sense), the city center is more attractive than other areas, and people during the daytime or weekdays are more active compared to nighttime or weekends. The findings of this study align with the common sense. Both locals and tourists are primarily concentrate their activties in central London, particularly in popular boroughs like Westminster, Camden, and the City of London across time spans. Some outskirts boroughs with specific facilities like the airport and shopping center also attract people and form visiting hotspots, such as Hillingdon and Newham (check whether it is Newham). Though both aggreagated in the city center, locals and tourists have their visting hotspots gravitated towards different regions. Locals are more concentrated in the City of London and Canary Wharf, while Westminster and Camden demonstrate a higher relative proportion of tourists, which are west to the hotspot of locals. The difference between the popular areas between locals and tourists could be due to the various visiting purposes of these two groups of people. Locals might visit the eastern part of the city center for work purposes, as the City of London and Canary Wharf serve as the primary business districts of London. In contrast, tourists are more interested in visiting tourists attractions and shopping streets, which are more prevalent in the western part of the city center, including Westminster and Camden.
+
+In terms of the popular areas over time, both locals and tourists exhibit lower activity levels when it comes to the nighttime and weekends. Specifically, the hotspots of locals around the business districts dimish during the nighttime and weekends, and locals tend to move outwards to suburban areas. The change of popular areas can be due to the commute of locals who live in the outer part of London. These locals commute to the city center for work, and return their residential areas after getting off work. Compared to locals, tourists have more consistent interest in the city center overtime, with fewer visits to the outer part of London. Moreover, though less active during the nighttime and weekends, tourists during these time periods show a higher proportion of concentration in the city center than locals do. It can be indicated that the tourist attractions and shopping streets within the city center are more attractive to tourists than to locals during the nighttime and weekends.
+
+% Defend your answers by discussing other studies with correlating results.
+Find some paper that have similar results
+1.	Distribution of hotspots: hotspots around the city center and the airport
+2.	Comparison of locals and tourists: locals are aggreagated around business districts, while tourists are concentrated around tourists attractions
+3.	Comparison of time spans: people are more active during the daytime and weekdays; locals tend to visit more outer part of the city, while tourists prefer to visit within the city center
+
+% Explain how your findings consistently fit in with the current literature and mention how they address knowledge gaps in the field.
+1.	The findings of this study align with the current literature: showing similar distribution
+2.	Novel method: (a) distinguish check-ins of locals and tourists overtime; (b) detect hotspots using kde, and then apply the difference ratio to compare the relative concentration of locals and tourists
+3.	Knowledge gap: (a) discovering the dynamic hotspots of the city among different populations overtime, current literature mainly compare the hotspots of locals and tourists, neglecting the hotspots are also dynamic overtime; (b) compare the relative concentration of locals and tourists in rasters rather than merely the distribution of their hotspots, which helps to understand the preferences of locals and tourists more precisely
+
+% Mention studies that conflict with your findings, and try to explain possible causes of these contradictions (e.g., population size, inclusion and excision criteria, differences in data collection and analysis methods).
+1.	Dependent on the studies I found…
+
+% Address any unexpected findings. Describe what happened and then discuss the potential causes (e.g., a skewed response rate, sampling bias, or changes in the equipment used). Because they could have been caused by a flawed sampling method or an incorrect choice of methodology, carefully check that you have adequately justified your methodological approach. In extreme cases, you may need to restructure your hypothesis or rewrite your introduction.
+1.	
+
+% Research studies are expected to have limitations and weaknesses. Mention all of them and how they may have impacted the interpretation and validity of your findings. Some limitations could highlight areas that require further study.
+1.	Application of kde
+a.	Limitation: the selection of parameters (bandwidth and kernel smoother) should be based on a set of tests, this study only adpots the default setting
+b.	Impact: the detected hotspots might not be precise, there might be some hotspots not detected or some areas are not popular but detected as hotspots
+2.	Difference ratio
+a.	Limitation: also the selection of the difference ratio value that determines whether the raster is popular or not
+b.	Impact: 
+
+% Summarize the practical applications and theoretical implications of your findings.
+1.	We
+
+% Recommend potential areas for future research.
+1.	We
+
+
+
+
+\subsection{RQ2: How do locals and tourists perceive the city along their semantic trajectories at different time spans?} \label{discussion_rq2}
+
+% First, restate your thesis question and hypothesis that were stated in the introduction.
+% Then, use your findings to support the answer to your thesis question.
+
+% Defend your answers by discussing other studies with correlating results.
+
+% Explain how your findings consistently fit in with the current literature and mention how they address knowledge gaps in the field.
+
+% Mention studies that conflict with your findings, and try to explain possible causes of these contradictions (e.g., population size, inclusion and excision criteria, differences in data collection and analysis methods).
+
+% Address any unexpected findings. Describe what happened and then discuss the potential causes (e.g., a skewed response rate, sampling bias, or changes in the equipment used). Because they could have been caused by a flawed sampling method or an incorrect choice of methodology, carefully check that you have adequately justified your methodological approach. In extreme cases, you may need to restructure your hypothesis or rewrite your introduction.
+
+% Research studies are expected to have limitations and weaknesses. Mention all of them and how they may have impacted the interpretation and validity of your findings. Some limitations could highlight areas that require further study.
+
+% Summarize the practical applications and theoretical implications of your findings.
+
+% Recommend potential areas for future research.
+
+
+discuss the selection of semantic dimensions, what kind of information can be delivered through trajectories with these dimensions
+
+use some literature to support the difficulties in the interpretation of topic modeling results
 
 check-ins are clustered as places, and the place dimensions are selected based on the frequency. the definition of places might not be accurate and hide the characteristics of places, particularly for the locale and sense of place dimension. for example, places around the airport hotel/Coldharbour leisure center/... are annotated as restaurants, shopping place, ..., which cannot completely stand for the place. In other words, these two dimensions are not corresponding to each other, also the truth
 
+silhouette scores in trajectory clustering are bad, most of them were negative values
+intra-cluster distance
 
 However, there are also some topics difficult to interpret, such as Topic 5, which contains fewer than 50 places. This topic is characterized by popular tags like people and candid, making it difficult to understand how people describe these particular places (Figure~\ref{fig:places_sense_daytime_locals}, Figure~\ref{fig:topics_daytime_locals}).
 
 Nevertheless, some inconsistencies exist between the topic distribution and content. Topic 0, primarily related to air transport, displays places around Heathrow Airport and in the city center due to its coverage of other city activities (e.g., ship, regentscanal, market) (Figure~\ref{fig:topics_distribution_daytime_locals}).
 
+three dimensions do not completely correspond to each other. locale dimension has low frequency in green \& blue spaces and sports places, but there are topics related to park, garden, olympics, football, cycling, and sport in the sense of place dimension
 
 typical trajectories are not corresponding to the frequency of semantic dimensions
 
+
+
+\subsection{Limitations} \label{limitations}
+1. data-related limitations
+different coverage areas of data: Flickr - the entire London; Foursquare - smaller coverage
+foursquare is not for everyone, most users are young people
+
+2. method-related limitations
 the positions of some places are not accurate for two reasons: (1) the position is represented by the center of the convex hull, thus some places might be in areas that do not make sense; (2) the categorization of places in the preprocessing step is not accurate, some places might be misclassified
+
+
+
 
 \clearpage
 
